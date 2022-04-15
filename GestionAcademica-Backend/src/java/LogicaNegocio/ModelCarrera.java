@@ -1,5 +1,6 @@
-package Logica;
+package LogicaNegocio;
 
+import Logica.Carrera;
 import AccesoDatos.ServicioCarrera;
 import java.util.ArrayList;
 import java.util.Observable;

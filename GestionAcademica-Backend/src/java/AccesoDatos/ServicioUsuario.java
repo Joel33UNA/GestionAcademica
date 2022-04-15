@@ -37,7 +37,7 @@ public class ServicioUsuario {
         pst.setInt(1, usuario.getCedula());
         pst.setString(2, usuario.getClave());
         pst.setString(3, usuario.getRol());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(ConnectionService.instance().executeUpdate(pst) == 1)
             throw new Exception("El usuario ya existe");
     }
 
@@ -63,7 +63,7 @@ public class ServicioUsuario {
         if(rs != null) rs.close();
         if(pst != null) pst.close();
         if(coleccionUsuario == null || coleccionUsuario.size()==0) {
-            throw new NoDataException("No hay datos relacionados con los usuarioes");
+            throw new NoDataException("No hay datos relacionados con los usuarios");
         }
         return coleccionUsuario;
     }

@@ -11,7 +11,7 @@ public class Usuario implements Serializable {
     protected String rol;
 
     public Usuario(int cedula, String clave, String rol){
-        this.cedula = 0;
+        this.cedula = cedula;
         this.rol = rol;
         this.clave = clave;
     }

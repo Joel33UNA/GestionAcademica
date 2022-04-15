@@ -1,5 +1,6 @@
 package Logica;
 
+import Logica.Carrera;
 import java.sql.Date;
 
 public class Estudiante extends Usuario {

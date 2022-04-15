@@ -523,3 +523,8 @@ BEGIN
 END;
 /
 show error
+
+
+insert into usuario values (111, '111', 'administrador');
+insert into administrador values (111);
+commit;
