@@ -527,4 +527,6 @@ show error
 
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
+insert into carrera values (333, 'Info', 'bachi');
+insert into curso values (444, 'progra', 4, 7, 333);
 commit;

@@ -1,7 +1,8 @@
 
 package Presentacion;
-import LogicaNegocio.ModelUsuario;
-import Logica.Usuario;
+
+import LogicaNegocio.ModelMatricula;
+import Logica.Matricula;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -16,14 +17,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/usuarios")
-public class Usuarios {
+@Path("/matriculas")
+public class Matriculas {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Usuario> getUsuariosAll() { 
+    public List<Matricula> getMatriculaAll() { 
         try {
-            return ModelUsuario.instancia().obtenerUsuarios();
+            return ModelMatricula.instancia().obtenerMatriculas();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -31,11 +32,11 @@ public class Usuarios {
     
     @PermitAll
     @GET
-    @Path("{id}")
+    @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Usuario get(@PathParam("id") int id) {
+    public Matricula get(@PathParam("codigo") int codigo) {
         try {
-            return ModelUsuario.instancia().buscarUsuario(id);
+            return ModelMatricula.instancia().buscarMatricula(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -44,9 +45,9 @@ public class Usuarios {
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Usuario u) {  
+    public void add(Matricula m) {  
         try {
-            ModelUsuario.instancia().agregarUsuario(u);
+            ModelMatricula.instancia().agregarMatricula(m);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -55,9 +56,9 @@ public class Usuarios {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Usuario u) {  
+    public void update(Matricula m) {  
         try {
-            ModelUsuario.instancia().modificarUsuario(u);
+            ModelMatricula.instancia().modificarMatricula(m);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -65,10 +66,10 @@ public class Usuarios {
     
     @PermitAll
     @DELETE
-    @Path("{cedula}")
-    public void delete(@PathParam("cedula") int cedula) {
+    @Path("{codigo}")
+    public void delete(@PathParam("codigo") int codigo) {
         try {
-            ModelUsuario.instancia().eliminarUsuario(cedula);
+            ModelMatricula.instancia().eliminarMatricula(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

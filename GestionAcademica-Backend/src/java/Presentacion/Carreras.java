@@ -1,7 +1,7 @@
 
 package Presentacion;
-import LogicaNegocio.ModelUsuario;
-import Logica.Usuario;
+import Logica.Carrera;
+import LogicaNegocio.ModelCarrera;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -16,14 +16,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/usuarios")
-public class Usuarios {
+@Path("/carreras")
+public class Carreras {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Usuario> getUsuariosAll() { 
+    public List<Carrera> getCarrerasAll() { 
         try {
-            return ModelUsuario.instancia().obtenerUsuarios();
+            return ModelCarrera.instancia().obtenerCarreras();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -31,11 +31,11 @@ public class Usuarios {
     
     @PermitAll
     @GET
-    @Path("{id}")
+    @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Usuario get(@PathParam("id") int id) {
+    public Carrera get(@PathParam("codigo") int codigo) {
         try {
-            return ModelUsuario.instancia().buscarUsuario(id);
+            return ModelCarrera.instancia().buscarCarrera(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -44,9 +44,9 @@ public class Usuarios {
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Usuario u) {  
+    public void add(Carrera c) {  
         try {
-            ModelUsuario.instancia().agregarUsuario(u);
+            ModelCarrera.instancia().agregarCarrera(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -55,9 +55,9 @@ public class Usuarios {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Usuario u) {  
+    public void update(Carrera c) {  
         try {
-            ModelUsuario.instancia().modificarUsuario(u);
+            ModelCarrera.instancia().modificarCarrera(c);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -65,10 +65,10 @@ public class Usuarios {
     
     @PermitAll
     @DELETE
-    @Path("{cedula}")
-    public void delete(@PathParam("cedula") int cedula) {
+    @Path("{codigo}")
+    public void delete(@PathParam("codigo") int codigo) {
         try {
-            ModelUsuario.instancia().eliminarUsuario(cedula);
+            ModelCarrera.instancia().eliminarCarrera(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

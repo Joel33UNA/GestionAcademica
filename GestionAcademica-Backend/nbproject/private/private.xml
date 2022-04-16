@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/RegistroApplication.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Profesores.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/AccesoDatos/ServicioUsuario.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelCiclo.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Grupos.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelProfesor.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Carreras.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Usuarios.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelCarrera.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Estudiantes.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Matriculas.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelMatricula.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Logica/Usuario.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelEstudiante.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelUsuario.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Logica/Profesor.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Cursos.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Datos/script.sql</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelGrupo.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/LogicaNegocio/ModelCurso.java</file>
+            <file>file:/C:/Users/Diego%20Jiménez/Desktop/7-%20I_ciclo_2022/Móviles/Laboratorios%20de%20móviles/Laboratorio%201%20de%20móviles/GestionAcademica/GestionAcademica/GestionAcademica-Backend/src/java/Presentacion/Ciclos.java</file>
+        </group>
+    </open-files>
+</project-private>

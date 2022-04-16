@@ -3,60 +3,42 @@ package LogicaNegocio;
 import Logica.Carrera;
 import AccesoDatos.ServicioCarrera;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Collection;
 
-public class ModelCarrera extends Observable {
-    private Carrera carrera;
-    private ServicioCarrera servicioCarrera;
 
-    public ModelCarrera(){
-        carrera = new Carrera();
-        servicioCarrera = new ServicioCarrera();
+public class ModelCarrera {
+    private static ModelCarrera instancia;
+    private ServicioCarrera carrera;
+
+    private ModelCarrera() {
+        this.carrera = new ServicioCarrera();
     }
-
-    public Carrera getCarrera() {
+    
+    public static ModelCarrera instancia(){
+        if (instancia == null){
+            instancia = new ModelCarrera();
+        }
+        return instancia;
+    }
+    
+    public void agregarCarrera(Carrera c) throws Exception{
+        this.carrera.insertarCarrera(c);
+    }
+    
+    public void modificarCarrera(Carrera c) throws Exception{
+        this.carrera.modificarCarrera(c);
+    }
+    
+    public void eliminarCarrera(int codigo) throws Exception{
+        this.carrera.eliminarCarrera(codigo);
+    }
+    
+    public Carrera buscarCarrera(int codigo) throws Exception{
+        Carrera carrera = this.carrera.buscarCarrera(codigo);
         return carrera;
     }
-
-    public void setCarrera(Carrera carrera){
-        this.carrera = carrera;
-    }
-
-    public void addObserver(Observer o){
-        super.addObserver(o);
-        setChanged();
-        notifyObservers(null);
-    }
-
-    public void insertarCarrera(Carrera c) throws Exception{
-        servicioCarrera.insertarCarrera(c);
-        this.setChanged();
-        this.notifyObservers(null);
-    }
-
-    public void modificar(Carrera c) throws Exception{
-        servicioCarrera.modificarCarrera(c);
-        this.setChanged();
-        this.notifyObservers(null);
-    }
-
-    public void eliminar(int codigo) throws Exception{
-        servicioCarrera.eliminarCarrera(codigo);
-        this.setChanged();
-        this.notifyObservers(null);
-    }
-
-    public Carrera buscar(int codigo) throws Exception{
-        this.setChanged();
-        this.notifyObservers(null);
-        return servicioCarrera.buscarCarrera(codigo);
-    }
-
-    public Collection listar() throws Exception{
-        this.setChanged();
-        this.notifyObservers(null);
-        return servicioCarrera.listarCarrera();
+    
+    public ArrayList<Carrera> obtenerCarreras() throws Exception{
+        ArrayList<Carrera> carreras = (ArrayList<Carrera>)this.carrera.listarCarrera();
+        return carreras;
     }
 }

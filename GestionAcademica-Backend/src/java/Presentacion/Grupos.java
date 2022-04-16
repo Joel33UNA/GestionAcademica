@@ -1,7 +1,8 @@
 
 package Presentacion;
-import LogicaNegocio.ModelUsuario;
-import Logica.Usuario;
+
+import LogicaNegocio.ModelGrupo;
+import Logica.Grupo;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -16,14 +17,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/usuarios")
-public class Usuarios {
+@Path("/grupos")
+public class Grupos {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Usuario> getUsuariosAll() { 
+    public List<Grupo> getCursosAll() { 
         try {
-            return ModelUsuario.instancia().obtenerUsuarios();
+            return ModelGrupo.instancia().obtenerGrupos();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -31,11 +32,11 @@ public class Usuarios {
     
     @PermitAll
     @GET
-    @Path("{id}")
+    @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Usuario get(@PathParam("id") int id) {
+    public Grupo get(@PathParam("codigo") int codigo) {
         try {
-            return ModelUsuario.instancia().buscarUsuario(id);
+            return ModelGrupo.instancia().buscarGrupo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -44,9 +45,9 @@ public class Usuarios {
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Usuario u) {  
+    public void add(Grupo g) {  
         try {
-            ModelUsuario.instancia().agregarUsuario(u);
+            ModelGrupo.instancia().agregarGrupo(g);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -55,9 +56,9 @@ public class Usuarios {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Usuario u) {  
+    public void update(Grupo g) {  
         try {
-            ModelUsuario.instancia().modificarUsuario(u);
+            ModelGrupo.instancia().modificarGrupo(g);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -65,10 +66,10 @@ public class Usuarios {
     
     @PermitAll
     @DELETE
-    @Path("{cedula}")
-    public void delete(@PathParam("cedula") int cedula) {
+    @Path("{codigo}")
+    public void delete(@PathParam("codigo") int codigo) {
         try {
-            ModelUsuario.instancia().eliminarUsuario(cedula);
+            ModelGrupo.instancia().eliminarGrupo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

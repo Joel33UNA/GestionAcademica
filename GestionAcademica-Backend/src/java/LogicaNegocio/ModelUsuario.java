@@ -25,8 +25,16 @@ public class ModelUsuario {
         this.usuario.insertarUsuario(u);
     }
     
-    public Usuario buscarUsuario(int id) throws Exception{
-        Usuario usuario = this.usuario.buscarUsuario(id);
+    public void modificarUsuario(Usuario u) throws Exception{
+        this.usuario.ModificarUsuario(u);
+    }
+    
+    public void eliminarUsuario(int cedula) throws Exception{
+        this.usuario.eliminarUsuario(cedula);
+    }
+    
+    public Usuario buscarUsuario(int cedula) throws Exception{
+        Usuario usuario = this.usuario.buscarUsuario(cedula);
         return usuario;
     }
     

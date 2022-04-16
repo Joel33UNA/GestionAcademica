@@ -1,7 +1,8 @@
 
 package Presentacion;
-import LogicaNegocio.ModelUsuario;
-import Logica.Usuario;
+
+import LogicaNegocio.ModelProfesor;
+import Logica.Profesor;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -16,14 +17,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/usuarios")
-public class Usuarios {
+@Path("/profesores")
+public class Profesores {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Usuario> getUsuariosAll() { 
+    public List<Profesor> getProfesoresAll() { 
         try {
-            return ModelUsuario.instancia().obtenerUsuarios();
+            return ModelProfesor.instancia().obtenerProfesores();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -31,11 +32,11 @@ public class Usuarios {
     
     @PermitAll
     @GET
-    @Path("{id}")
+    @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Usuario get(@PathParam("id") int id) {
+    public Profesor get(@PathParam("cedula") int cedula) {
         try {
-            return ModelUsuario.instancia().buscarUsuario(id);
+            return ModelProfesor.instancia().buscarProfesor(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -44,9 +45,9 @@ public class Usuarios {
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Usuario u) {  
+    public void add(Profesor p) {  
         try {
-            ModelUsuario.instancia().agregarUsuario(u);
+            ModelProfesor.instancia().agregarProfesor(p);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -55,9 +56,9 @@ public class Usuarios {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Usuario u) {  
+    public void update(Profesor p) {  
         try {
-            ModelUsuario.instancia().modificarUsuario(u);
+            ModelProfesor.instancia().modificarProfesor(p);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -68,7 +69,7 @@ public class Usuarios {
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {
         try {
-            ModelUsuario.instancia().eliminarUsuario(cedula);
+            ModelProfesor.instancia().eliminarProfesor(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
