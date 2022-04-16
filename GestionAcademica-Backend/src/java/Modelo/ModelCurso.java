@@ -4,10 +4,9 @@ import Logica.Curso;
 import AccesoDatos.ServicioCurso;
 import java.util.ArrayList;
 
-
 public class ModelCurso {
     private static ModelCurso instancia;
-    private ServicioCurso curso;
+    private final ServicioCurso curso;
 
     private ModelCurso() {
         this.curso = new ServicioCurso();

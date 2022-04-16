@@ -1,6 +1,7 @@
 
 package Presentacion;
 
+import Controlador.CicloControlador;
 import Modelo.ModelCiclo;
 import Logica.Ciclo;
 import java.util.List;
@@ -19,12 +20,18 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/ciclos")
 public class Ciclos {
+    CicloControlador control;
+
+    public Ciclos(CicloControlador control) {
+        this.control = control;
+    }
+    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Ciclo> getCiclosAll() { 
         try {
-            return ModelCiclo.instancia().obtenerCiclos();
+            return this.control.obtenerCiclos();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -36,7 +43,7 @@ public class Ciclos {
     @Produces({MediaType.APPLICATION_JSON})
     public Ciclo get(@PathParam("codigo") int codigo) {
         try {
-            return ModelCiclo.instancia().buscarCiclo(codigo);
+            return this.control.buscarCiclo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -47,7 +54,7 @@ public class Ciclos {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Ciclo c) {  
         try {
-            ModelCiclo.instancia().agregarCiclo(c);
+            this.control.agregarCiclo(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -58,7 +65,7 @@ public class Ciclos {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Ciclo c) {  
         try {
-            ModelCiclo.instancia().modificarCiclo(c);
+            this.control.agregarCiclo(c);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -69,7 +76,7 @@ public class Ciclos {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            ModelCiclo.instancia().eliminarCiclo(codigo);
+            this.control.eliminarCiclo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

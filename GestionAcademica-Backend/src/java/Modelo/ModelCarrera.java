@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ModelCarrera {
     private static ModelCarrera instancia;
-    private ServicioCarrera carrera;
+    private final ServicioCarrera carrera;
 
     private ModelCarrera() {
         this.carrera = new ServicioCarrera();

@@ -1,5 +1,6 @@
 
 package Presentacion;
+import Controlador.CarreraControlador;
 import Logica.Carrera;
 import Modelo.ModelCarrera;
 import java.util.List;
@@ -18,12 +19,18 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/carreras")
 public class Carreras {
+    CarreraControlador control;
+
+    public Carreras(CarreraControlador control) {
+        this.control = control;
+    }
+    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Carrera> getCarrerasAll() { 
         try {
-            return ModelCarrera.instancia().obtenerCarreras();
+            return this.control.obtenerCarreras();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -35,7 +42,7 @@ public class Carreras {
     @Produces({MediaType.APPLICATION_JSON})
     public Carrera get(@PathParam("codigo") int codigo) {
         try {
-            return ModelCarrera.instancia().buscarCarrera(codigo);
+            return this.control.buscarCarrera(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -46,7 +53,7 @@ public class Carreras {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Carrera c) {  
         try {
-            ModelCarrera.instancia().agregarCarrera(c);
+            this.control.agregarCarrera(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -57,7 +64,7 @@ public class Carreras {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Carrera c) {  
         try {
-            ModelCarrera.instancia().modificarCarrera(c);
+            this.control.modificarCarrera(c);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -68,7 +75,7 @@ public class Carreras {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            ModelCarrera.instancia().eliminarCarrera(codigo);
+            this.control.eliminarCarrera(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
