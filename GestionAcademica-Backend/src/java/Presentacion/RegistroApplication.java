@@ -15,7 +15,12 @@ public class RegistroApplication extends Application {
         classes.add(MultiPartFeature.class);
         classes.add(Usuarios.class);
         classes.add(Carreras.class);
-        // AGREGAR MAS REFERENCIAS
+		classes.add(Cursos.class);
+		classes.add(Grupos.class);
+		classes.add(Profesores.class);
+		classes.add(Estudiantes.class);
+		classes.add(Ciclos.class);
+		classes.add(Matriculas.class);
         return classes;
     }   
 }
