@@ -37,7 +37,7 @@ public class ServicioUsuario {
         pst.setInt(1, usuario.getCedula());
         pst.setString(2, usuario.getClave());
         pst.setString(3, usuario.getRol());
-        if(ConnectionService.instance().executeUpdate(pst) == 1)
+        if(pst.executeUpdate() == 0)
             throw new Exception("El usuario ya existe");
     }
 
@@ -46,7 +46,7 @@ public class ServicioUsuario {
         pst.setInt(1, usuario.getCedula());
         pst.setString(2, usuario.getClave());
         pst.setString(3, usuario.getRol());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }
 
@@ -88,7 +88,7 @@ public class ServicioUsuario {
     public void eliminarUsuario(int cedula) throws Exception{
         PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarUsuario);
         pst.setInt(1,cedula);
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar el usuario");
     }
 }

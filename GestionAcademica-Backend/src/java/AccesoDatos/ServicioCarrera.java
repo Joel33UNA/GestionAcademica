@@ -30,7 +30,7 @@ public class ServicioCarrera {
         PreparedStatement pst = ConnectionService.instance().prepareStatement(insertarCarrera);
         pst.setString(1, carrera.getNombre());
         pst.setString(2, carrera.getTitulo());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("La carrera ya existe");
     }
     
@@ -39,7 +39,7 @@ public class ServicioCarrera {
         pst.setInt(1, carrera.getCodigo());
         pst.setString(2, carrera.getNombre());
         pst.setString(3, carrera.getTitulo());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }
     
@@ -81,7 +81,7 @@ public class ServicioCarrera {
     public void eliminarCarrera(int codigo) throws Exception{
         PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarCarrera);
         pst.setInt(1,codigo);
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar la carrera");
     }
 }

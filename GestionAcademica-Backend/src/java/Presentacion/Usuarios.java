@@ -1,5 +1,6 @@
 
 package Presentacion;
+import Controlador.UsuarioControlador;
 import Modelo.ModelUsuario;
 import Logica.Usuario;
 import java.util.List;
@@ -18,12 +19,18 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/usuarios")
 public class Usuarios {
+    private UsuarioControlador control;
+    
+    public Usuarios(){
+        control = new UsuarioControlador();
+    }
+    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Usuario> getUsuariosAll() { 
         try {
-            return ModelUsuario.instancia().obtenerUsuarios();
+            return control.obtenerUsuarios();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -35,7 +42,7 @@ public class Usuarios {
     @Produces({MediaType.APPLICATION_JSON})
     public Usuario get(@PathParam("id") int id) {
         try {
-            return ModelUsuario.instancia().buscarUsuario(id);
+            return control.buscarUsuario(id);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -46,7 +53,7 @@ public class Usuarios {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Usuario u) {  
         try {
-            ModelUsuario.instancia().agregarUsuario(u);
+            control.agregarUsuario(u);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -57,7 +64,7 @@ public class Usuarios {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Usuario u) {  
         try {
-            ModelUsuario.instancia().modificarUsuario(u);
+            control.modificarUsuario(u);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -68,7 +75,7 @@ public class Usuarios {
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {
         try {
-            ModelUsuario.instancia().eliminarUsuario(cedula);
+            control.eliminarUsuario(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

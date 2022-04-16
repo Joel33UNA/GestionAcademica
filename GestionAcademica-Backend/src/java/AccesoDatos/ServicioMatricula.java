@@ -51,7 +51,7 @@ public class ServicioMatricula {
         pst.setInt(1, matricula.getEstudiante().getCedula());
         pst.setInt(2, matricula.getGrupo().getCodigo());
         pst.setInt(3, matricula.getNota());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("La matricula ya existe");
     }
 
@@ -61,7 +61,7 @@ public class ServicioMatricula {
         pst.setInt(2, matricula.getEstudiante().getCedula());
         pst.setInt(3, matricula.getGrupo().getCodigo());
         pst.setInt(4, matricula.getNota());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }
 
@@ -107,7 +107,7 @@ public class ServicioMatricula {
     public void eliminarMatricula(int codigo) throws Exception{
         PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarMatricula);
         pst.setInt(1,codigo);
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar la matricula");
     }
 }

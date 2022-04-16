@@ -48,7 +48,7 @@ public class ServicioGrupo {
         pst.setInt(2, grupo.getCiclo().getCodigo());
         pst.setInt(3, grupo.getCurso().getCodigo());
         pst.setInt(4, grupo.getProfesor().getCedula());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("El grupo ya existe");
     }
     
@@ -59,7 +59,7 @@ public class ServicioGrupo {
         pst.setInt(3, grupo.getCiclo().getCodigo());
         pst.setInt(4, grupo.getCurso().getCodigo());
         pst.setInt(5, grupo.getProfesor().getCedula());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }   
     
@@ -106,7 +106,7 @@ public class ServicioGrupo {
     public void eliminarGrupo(int codigo) throws Exception{
         PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarGrupo);
         pst.setInt(1,codigo);
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar el grupo");
     }
 }

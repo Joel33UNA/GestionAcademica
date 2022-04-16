@@ -44,7 +44,7 @@ public class ServicioProfesor {
         pst.setString(2, profesor.getNombre());
         pst.setInt(3, profesor.getTelefono());
         pst.setString(4, profesor.getEmail());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 1)
             throw new Exception("El profesor ya existe");
     }
 
@@ -54,7 +54,7 @@ public class ServicioProfesor {
         pst.setString(2, profesor.getNombre());
         pst.setInt(3, profesor.getTelefono());
         pst.setString(4, profesor.getEmail());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }
 
@@ -98,7 +98,7 @@ public class ServicioProfesor {
     public void eliminarProfesor(int cedula) throws Exception{
         PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarProfesor);
         pst.setInt(1,cedula);
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar el profesor");
     }
 }

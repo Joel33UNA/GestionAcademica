@@ -38,9 +38,28 @@ async function fetchAndAddCarreras(){
     const response = await fetch(request);
 }
 
+async function deleteCarrera(){
+    let request = new Request(url + "api/carreras/333",
+                            { method: 'DELETE'});
+                            
+    const response = await fetch(request);
+    if(response.ok){
+        console.log("Carrera eliminada con exito");
+    }
+}
+
+async function deleteUsuario(){
+    let request = new Request(url + "api/usuarios/111",
+                            { method: 'DELETE'});
+                            
+    const response = await fetch(request);
+    if(response.ok){
+        console.log("Usuario eliminado con exito");
+    }
+}
+
 function loaded(){
-    fetchAndListUsuarios();
-    fetchAndAddCarreras();
+    deleteCarrera();
 }
 
 $(loaded);

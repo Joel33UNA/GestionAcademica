@@ -23,7 +23,7 @@ public class ServicioCiclo {
         pst.setInt(2, ciclo.getNumeroCiclo());
         pst.setDate(3, ciclo.getFechaFin());
         pst.setDate(4, ciclo.getFechaFin());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("El curso ya existe");
     }
 
@@ -34,7 +34,7 @@ public class ServicioCiclo {
         pst.setInt(3, ciclo.getNumeroCiclo());
         pst.setDate(4, ciclo.getFechaInicio());
         pst.setDate(5, ciclo.getFechaFin());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }
 
@@ -76,7 +76,7 @@ public class ServicioCiclo {
     public void eliminarCiclo(int codigo) throws Exception{
         PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarCiclo);
         pst.setInt(1,codigo);
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar el ciclo");
     }
 }

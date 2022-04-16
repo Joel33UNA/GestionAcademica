@@ -34,7 +34,7 @@ public class ServicioCurso {
         pst.setInt(2, curso.getCreditos());
         pst.setInt(3, curso.getHorasSemanales());
         pst.setInt(4, curso.getCarrera().getCodigo());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("El curso ya existe");
     }
 
@@ -45,7 +45,7 @@ public class ServicioCurso {
         pst.setInt(3, curso.getCreditos());
         pst.setInt(4, curso.getHorasSemanales());
         pst.setInt(5, curso.getCarrera().getCodigo());
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }
 
@@ -91,7 +91,7 @@ public class ServicioCurso {
     public void eliminarCurso(int codigo) throws Exception{
         PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarCurso);
         pst.setInt(1,codigo);
-        if(ConnectionService.instance().executeUpdate(pst) == 0)
+        if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar el curso");
     }   
 }
