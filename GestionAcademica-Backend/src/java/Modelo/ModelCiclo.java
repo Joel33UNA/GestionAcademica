@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ModelCiclo {
     private static ModelCiclo instancia;
-    private ServicioCiclo ciclo;
+    private final ServicioCiclo ciclo;
 
     private ModelCiclo() {
         this.ciclo = new ServicioCiclo();

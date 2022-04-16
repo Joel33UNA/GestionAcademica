@@ -1,6 +1,7 @@
 
 package Presentacion;
 
+import Controlador.EstudianteControlador;
 import Modelo.ModelEstudiante;
 import Logica.Estudiante;
 import java.util.List;
@@ -19,12 +20,18 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/estudiantes")
 public class Estudiantes {
+    EstudianteControlador control;
+
+    public Estudiantes(EstudianteControlador control) {
+        this.control = control;
+    }
+    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Estudiante> getEstudiantesAll() { 
         try {
-            return ModelEstudiante.instancia().obtenerEstudiantes();
+            return this.control.obtenerEstudiantes();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -36,7 +43,7 @@ public class Estudiantes {
     @Produces({MediaType.APPLICATION_JSON})
     public Estudiante get(@PathParam("cedula") int cedula) {
         try {
-            return ModelEstudiante.instancia().buscarEstudiante(cedula);
+            return this.control.buscarEstudiante(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -47,7 +54,7 @@ public class Estudiantes {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Estudiante e) {  
         try {
-            ModelEstudiante.instancia().agregarEstudiante(e);
+            this.control.agregarEstudiante(e);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -58,7 +65,7 @@ public class Estudiantes {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Estudiante e) {  
         try {
-            ModelEstudiante.instancia().modificarEstudiante(e);
+            this.control.modificarEstudiante(e);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -69,7 +76,7 @@ public class Estudiantes {
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {
         try {
-            ModelEstudiante.instancia().eliminarEstudiante(cedula);
+            this.control.eliminarEstudiante(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
