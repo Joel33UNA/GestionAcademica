@@ -1,7 +1,7 @@
 
 package Presentacion;
 
-import LogicaNegocio.ModelGrupo;
+import Modelo.ModelGrupo;
 import Logica.Grupo;
 import java.util.List;
 import javax.annotation.security.PermitAll;

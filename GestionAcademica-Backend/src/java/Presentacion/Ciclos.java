@@ -1,7 +1,7 @@
 
 package Presentacion;
 
-import LogicaNegocio.ModelCiclo;
+import Modelo.ModelCiclo;
 import Logica.Ciclo;
 import java.util.List;
 import javax.annotation.security.PermitAll;
