@@ -1,7 +1,7 @@
 
 package Presentacion;
 
-import Modelo.ModelProfesor;
+import Controlador.ProfesorControlador;
 import Logica.Profesor;
 import java.util.List;
 import javax.annotation.security.PermitAll;
@@ -19,12 +19,18 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/profesores")
 public class Profesores {
+    private ProfesorControlador control;
+    
+    public Profesores(){
+        control = new ProfesorControlador();
+    }
+    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Profesor> getProfesoresAll() { 
         try {
-            return ModelProfesor.instancia().obtenerProfesores();
+            return control.obtenerProfesores();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -36,7 +42,7 @@ public class Profesores {
     @Produces({MediaType.APPLICATION_JSON})
     public Profesor get(@PathParam("cedula") int cedula) {
         try {
-            return ModelProfesor.instancia().buscarProfesor(cedula);
+            return control.buscarProfesor(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -47,7 +53,7 @@ public class Profesores {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Profesor p) {  
         try {
-            ModelProfesor.instancia().agregarProfesor(p);
+            control.agregarProfesor(p);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -58,7 +64,7 @@ public class Profesores {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Profesor p) {  
         try {
-            ModelProfesor.instancia().modificarProfesor(p);
+            control.modificarProfesor(p);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -69,7 +75,7 @@ public class Profesores {
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {
         try {
-            ModelProfesor.instancia().eliminarProfesor(cedula);
+            control.eliminarProfesor(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
