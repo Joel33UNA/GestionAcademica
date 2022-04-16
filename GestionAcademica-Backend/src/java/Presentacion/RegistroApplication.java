@@ -14,7 +14,13 @@ public class RegistroApplication extends Application {
         HashSet<Class<?>> classes = new HashSet<>();
         classes.add(MultiPartFeature.class);
         classes.add(Usuarios.class);
-        // AGREGAR MAS REFERENCIAS
+        classes.add(Carreras.class);
+		classes.add(Cursos.class);
+		classes.add(Grupos.class);
+		classes.add(Profesores.class);
+		classes.add(Estudiantes.class);
+		classes.add(Ciclos.class);
+		classes.add(Matriculas.class);
         return classes;
     }   
 }
