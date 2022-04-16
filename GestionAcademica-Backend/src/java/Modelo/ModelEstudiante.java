@@ -1,4 +1,4 @@
-package LogicaNegocio;
+package Modelo;
 
 import Logica.Estudiante;
 import AccesoDatos.ServicioEstudiante;

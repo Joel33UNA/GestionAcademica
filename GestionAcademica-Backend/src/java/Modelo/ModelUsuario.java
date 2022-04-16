@@ -1,5 +1,5 @@
 
-package LogicaNegocio;
+package Modelo;
 
 import Logica.Usuario;
 import AccesoDatos.ServicioUsuario;

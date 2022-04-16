@@ -1,6 +1,6 @@
 
 package Presentacion;
-import LogicaNegocio.ModelUsuario;
+import Modelo.ModelUsuario;
 import Logica.Usuario;
 import java.util.List;
 import javax.annotation.security.PermitAll;

@@ -1,7 +1,7 @@
 
 package Presentacion;
 import Logica.Carrera;
-import LogicaNegocio.ModelCarrera;
+import Modelo.ModelCarrera;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
