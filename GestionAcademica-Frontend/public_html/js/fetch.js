@@ -13,6 +13,12 @@ const carrera = {
     titulo : "bachillerato"
 };
 
+async function addCurso(){
+    let request = new Request("http://localhost:8088/GestionAcademica-Backend/",
+        { method:'POST', heders:{'Content-Type':'application/json'},
+        body:JSON.stringify(curso) });
+    await fetch();
+}
 
 async function fetchAndListUsuarios(){
     let request = new Request(url+'api/usuarios/', {method: 'GET', headers: { }});
@@ -30,7 +36,7 @@ async function fetchAndAddUsuarios(){
     if (!response.ok){ console.log("error"); }
 }
 
-async function fetchAndAddCarreras(){
+async function addCarreras(){
     let request = new Request(url + "api/carreras/",
                             { method: 'POST',
                             headers: { 'Content-Type' : 'application/json' },
@@ -59,8 +65,7 @@ async function deleteUsuario(){
 }
 
 function loaded(){
-    fetchAndListUsuarios();
-    console.log(usuarios);
+    
 }
 
 $(loaded);
