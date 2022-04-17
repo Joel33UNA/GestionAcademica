@@ -19,7 +19,7 @@ public class PageFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST, DELETE");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "*");
         HttpSession session = httpRequest.getSession(true);
         HttpServletResponse resp = (HttpServletResponse) response;
