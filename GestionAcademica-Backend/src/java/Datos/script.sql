@@ -145,6 +145,19 @@ end;
 /
 show error
 
+
+create or replace function buscarCarreraNom(nom IN carrera.nombre%TYPE)
+return Types.ref_cursor
+as
+        carrera_cursor types.ref_cursor;
+begin
+open carrera_cursor for
+select codigo, nombre, titulo from carrera where nombre=nom;
+return carrera_cursor;
+end;
+/
+show error
+
 create or replace function listarCarrera
 return Types.ref_cursor
 as
@@ -190,6 +203,18 @@ as
 begin
 open curso_cursor for
 select codigo, nombre, creditos, horas_semanales, codigo_carrera from curso where codigo=cod;
+return curso_cursor;
+end;
+/
+show error
+
+create or replace function buscarCursoNom(nom IN curso.nombre%TYPE)
+return Types.ref_cursor
+as
+        curso_cursor types.ref_cursor;
+begin
+open curso_cursor for
+select codigo, nombre, creditos, horas_semanales, codigo_carrera from curso where nombre=nom;
 return curso_cursor;
 end;
 /
@@ -243,6 +268,18 @@ END;
 /
 show error
 
+CREATE OR REPLACE FUNCTION buscarProfesorNom(nom IN profesor.nom%TYPE)
+RETURN Types.ref_cursor
+AS
+        profesor_cursor types.ref_cursor;
+BEGIN
+OPEN profesor_cursor FOR
+SELECT cedula, nombre, telefono, email FROM profesor WHERE nombre=nom;
+RETURN profesor_cursor;
+END;
+/
+show error
+
 CREATE OR REPLACE FUNCTION listarProfesor
 RETURN Types.ref_cursor
 AS
@@ -291,6 +328,18 @@ END;
 /
 show error
 
+CREATE OR REPLACE FUNCTION buscarEstudianteNom(nom IN estudiante.nombre%TYPE)
+RETURN Types.ref_cursor
+AS
+        estudiante_cursor types.ref_cursor;
+BEGIN
+OPEN estudiante_cursor FOR
+SELECT cedula, nombre, telefono, email, fecha_de_nacimiento, codigo_carrera FROM estudiante WHERE nombre=nom;
+RETURN estudiante_cursor;
+END;
+/
+show error
+
 CREATE OR REPLACE FUNCTION listarEstudiante
 RETURN Types.ref_cursor
 AS
@@ -327,13 +376,13 @@ END;
 /
 show error
 
-CREATE OR REPLACE FUNCTION buscarCiclo(idbuscar IN ciclo.codigo%TYPE)
+CREATE OR REPLACE FUNCTION buscarCiclo(a IN ciclo.anio%TYPE)
 RETURN Types.ref_cursor
 AS
     ciclo_cursor types.ref_cursor;
 BEGIN
 OPEN ciclo_cursor FOR
-SELECT codigo, anio, numero_ciclo, fecha_inicio, fecha_fin FROM ciclo WHERE codigo=idbuscar;
+SELECT codigo, anio, numero_ciclo, fecha_inicio, fecha_fin FROM ciclo WHERE anio=a;
 RETURN ciclo_cursor;
 END;
 /

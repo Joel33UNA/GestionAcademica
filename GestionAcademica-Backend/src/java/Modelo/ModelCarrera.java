@@ -37,6 +37,11 @@ public class ModelCarrera {
         return carrera;
     }
     
+    public Carrera buscarCarreraNom(String nombre) throws Exception{
+        Carrera carrera = this.carrera.buscarCarreraNom(nombre);
+        return carrera;
+    }
+    
     public ArrayList<Carrera> obtenerCarreras() throws Exception{
         ArrayList<Carrera> carreras = (ArrayList<Carrera>)this.carrera.listarCarrera();
         return carreras;

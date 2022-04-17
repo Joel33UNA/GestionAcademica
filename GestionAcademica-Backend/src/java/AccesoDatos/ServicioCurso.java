@@ -25,6 +25,7 @@ public class ServicioCurso {
     private static final String modificarCurso ="{call modificaCurso(?,?,?,?,?)}";
     private static final String eliminarCurso  = "{call eliminarCurso(?)}";
     private static final String buscarCurso  = "{?=call buscarCurso(?)}";
+    private static final String buscarCursoNom  = "{?=call buscarCursoNom(?)}";
 
     public ServicioCurso(){ this.servicioCarrera = new ServicioCarrera(); }
 
@@ -74,6 +75,25 @@ public class ServicioCurso {
         CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCurso);
         pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.setInt(2, codigo);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        while (rs.next()) {
+            int codigoCarrera = rs.getInt("codigo_carrera");
+            Carrera carrera = this.servicioCarrera.buscarCarrera(codigoCarrera);
+            curso = new Curso(rs.getInt("codigo"), rs.getString("nombre"), rs.getInt("creditos"), rs.getInt("horas_semanales"), carrera);
+        }
+        if(rs != null) rs.close();
+        if(pst != null) pst.close();
+        if(curso == null)
+            throw new Exception("Curso no encontrada");
+        return curso;
+    }
+    
+    public Curso buscarCursoNom(String nombre) throws Exception{
+        Curso curso = null;
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCursoNom);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setString(2, nombre);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         while (rs.next()) {

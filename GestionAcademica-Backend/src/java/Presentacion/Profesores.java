@@ -49,6 +49,18 @@ public class Profesores {
     }
     
     @PermitAll
+    @GET
+    @Path("{nombre}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Profesor getByNom(@PathParam("nombre") String nombre) {
+        try {
+            return control.buscarProfesorNom(nombre);
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }
+    
+    @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Profesor p) {  

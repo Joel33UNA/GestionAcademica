@@ -33,6 +33,7 @@ public class ServicioProfesor {
     private static final String modificarProfesor ="{call modificaProfesor(?,?,?,?)}";
     private static final String eliminarProfesor  = "{call eliminarProfesor(?)}";
     private static final String buscarProfesor  = "{?=call buscarProfesor(?)}";
+    private static final String buscarProfesorNom  = "{?=call buscarProfesorNom(?)}";
 
     public ServicioProfesor(){
         servicioUsuario = new ServicioUsuario();
@@ -82,6 +83,24 @@ public class ServicioProfesor {
         CallableStatement pst = ConnectionService.instance().prepareCallable(buscarProfesor);
         pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.setInt(2, cedula);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
+        while (rs.next()) {
+            profesor = new Profesor(rs.getString("nombre"), rs.getInt("telefono"), rs.getString("email"), usuario.getCedula(), usuario.getClave(), usuario.getRol());
+        }
+        if(rs != null) rs.close();
+        if(pst != null) pst.close();
+        if(profesor == null)
+            throw new Exception("Profesor no encontrado");
+        return profesor;
+    }
+    
+    public Profesor buscarProfesorNom(String nombre) throws Exception{
+        Profesor profesor = null;
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarProfesorNom);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setString(2, nombre);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));

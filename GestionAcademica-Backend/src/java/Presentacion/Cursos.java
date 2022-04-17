@@ -50,6 +50,18 @@ public class Cursos {
     }
     
     @PermitAll
+    @GET
+    @Path("{nombre}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Curso getByNom(@PathParam("nombre") String nombre) {
+        try {
+            return this.control.buscarCursoNom(nombre);
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }
+    
+    @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Curso c) {  

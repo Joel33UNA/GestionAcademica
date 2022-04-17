@@ -27,6 +27,7 @@ public class ServicioEstudiante {
     private static final String modificarEstudiante ="{call modificaEstudiante(?,?,?,?,?,?)}";
     private static final String eliminarEstudiante  = "{call eliminarEstudiante(?)}";
     private static final String buscarEstudiante  = "{?=call buscarEstudiante(?)}";
+    private static final String buscarEstudianteNom  = "{?=call buscarEstudianteNom(?)}";
 
     public ServicioEstudiante(){
         this.servicioCarrera = new ServicioCarrera();
@@ -81,6 +82,25 @@ public class ServicioEstudiante {
         CallableStatement pst = ConnectionService.instance().prepareCallable(buscarEstudiante);
         pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.setInt(2, codigo);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        while (rs.next()) {
+            Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
+            Carrera carrera = this.servicioCarrera.buscarCarrera(rs.getInt("codigo_carrera"));
+            estudiante = new Estudiante(rs.getInt("cedula"),usuario.getClave(),usuario.getRol(),rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),rs.getDate("fecha_de_nacimiento"),carrera);
+        }
+        if(rs != null) rs.close();
+        if(pst != null) pst.close();
+        if(estudiante == null)
+            throw new Exception("Estudiante no encontrada");
+        return estudiante;
+    }
+    
+    public Estudiante buscarEstudianteNom(String nombre) throws Exception {
+        Estudiante estudiante = null;
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarEstudianteNom);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setString(2, nombre);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         while (rs.next()) {

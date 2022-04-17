@@ -39,11 +39,11 @@ public class Ciclos {
     
     @PermitAll
     @GET
-    @Path("{codigo}")
+    @Path("{anio}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Ciclo get(@PathParam("codigo") int codigo) {
+    public Ciclo get(@PathParam("anio") int anio) {
         try {
-            return this.control.buscarCiclo(codigo);
+            return this.control.buscarCiclo(anio);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

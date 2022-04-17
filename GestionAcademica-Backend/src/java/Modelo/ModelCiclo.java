@@ -32,8 +32,8 @@ public class ModelCiclo {
         this.ciclo.eliminarCiclo(codigo);
     }
     
-    public Ciclo buscarCiclo(int codigo) throws Exception{
-        Ciclo ciclo = this.ciclo.buscarCiclo(codigo);
+    public Ciclo buscarCiclo(int anio) throws Exception{
+        Ciclo ciclo = this.ciclo.buscarCiclo(anio);
         return ciclo;
     }
     

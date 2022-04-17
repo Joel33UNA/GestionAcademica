@@ -14,6 +14,10 @@ public class CursoControlador {
         return ModelCurso.instancia().buscarCurso(codigo);
     }
     
+    public Curso buscarCursoNom(String nombre) throws Exception{
+        return ModelCurso.instancia().buscarCursoNom(nombre);
+    }
+    
     public void agregarCurso(Curso c) throws Exception{
         ModelCurso.instancia().agregarCurso(c);
     }

@@ -14,6 +14,10 @@ public class EstudianteControlador {
         return ModelEstudiante.instancia().buscarEstudiante(cedula);
     }
     
+    public Estudiante buscarEstudianteNom(String nombre) throws Exception{
+        return ModelEstudiante.instancia().buscarEstudianteNom(nombre);
+    }
+    
     public void agregarEstudiante(Estudiante u) throws Exception{
         ModelEstudiante.instancia().agregarEstudiante(u);
     }
