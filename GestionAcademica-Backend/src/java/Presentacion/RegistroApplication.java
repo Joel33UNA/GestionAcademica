@@ -1,6 +1,7 @@
 
 package Presentacion;
 
+import Filter.RestfulFilter;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
@@ -15,12 +16,13 @@ public class RegistroApplication extends Application {
         classes.add(MultiPartFeature.class);
         classes.add(Usuarios.class);
         classes.add(Carreras.class);
-		classes.add(Cursos.class);
-		classes.add(Grupos.class);
-		classes.add(Profesores.class);
-		classes.add(Estudiantes.class);
-		classes.add(Ciclos.class);
-		classes.add(Matriculas.class);
+	classes.add(Cursos.class);
+	classes.add(Grupos.class);
+	classes.add(Profesores.class);
+	classes.add(Estudiantes.class);
+	classes.add(Ciclos.class);
+	classes.add(Matriculas.class);
+        classes.add(RestfulFilter.class);
         return classes;
     }   
 }

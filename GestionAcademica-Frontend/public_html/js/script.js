@@ -15,7 +15,7 @@ const carrera = {
 
 
 async function fetchAndListUsuarios(){
-    let request = new Request(url+'api/usuarios/111', {method: 'GET', headers: { }});
+    let request = new Request(url+'api/usuarios/', {method: 'GET', headers: { }});
     const response = await fetch(request);
     if (!response.ok){ return; }
     usuarios = await response.json();
@@ -59,7 +59,8 @@ async function deleteUsuario(){
 }
 
 function loaded(){
-    deleteCarrera();
+    fetchAndListUsuarios();
+    console.log(usuarios);
 }
 
 $(loaded);
