@@ -36,6 +36,11 @@ public class ModelCurso {
         return curso;
     }
     
+    public Curso buscarCursoNom(String nombre) throws Exception{
+        Curso curso = this.curso.buscarCursoNom(nombre);
+        return curso;
+    }
+    
     public ArrayList<Curso> obtenerCursos() throws Exception{
         ArrayList<Curso> cursos = (ArrayList<Curso>)this.curso.listarCurso();
         return cursos;

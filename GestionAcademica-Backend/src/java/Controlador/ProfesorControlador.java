@@ -15,6 +15,10 @@ public class ProfesorControlador {
         return ModelProfesor.instancia().buscarProfesor(cedula);
     }
     
+    public Profesor buscarProfesorNom(String nombre) throws Exception{
+        return ModelProfesor.instancia().buscarProfesorNom(nombre);
+    }
+    
     public void agregarProfesor(Profesor u) throws Exception{
         ModelProfesor.instancia().agregarProfesor(u);
     }

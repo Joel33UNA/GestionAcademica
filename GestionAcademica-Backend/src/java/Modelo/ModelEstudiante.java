@@ -37,6 +37,11 @@ public class ModelEstudiante {
         return estudiante;
     }
     
+    public Estudiante buscarEstudianteNom(String nombre) throws Exception{
+        Estudiante estudiante = this.estudiante.buscarEstudianteNom(nombre);
+        return estudiante;
+    }
+    
     public ArrayList<Estudiante> obtenerEstudiantes() throws Exception{
         ArrayList<Estudiante> estudiantes = (ArrayList<Estudiante>)this.estudiante.listarEstudiante();
         return estudiantes;

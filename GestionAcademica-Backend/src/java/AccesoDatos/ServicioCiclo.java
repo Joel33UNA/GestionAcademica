@@ -56,11 +56,11 @@ public class ServicioCiclo {
         return coleccionCiclo;
     }
 
-    public Ciclo buscarCiclo(int codigo) throws Exception{
+    public Ciclo buscarCiclo(int anio) throws Exception{
         Ciclo ciclo = null;
         CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCiclo);
         pst.registerOutParameter(1, OracleTypes.CURSOR);
-        pst.setInt(2, codigo);
+        pst.setInt(2, anio);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         while (rs.next()) {

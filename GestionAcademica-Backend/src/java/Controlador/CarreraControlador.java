@@ -14,6 +14,10 @@ public class CarreraControlador {
         return ModelCarrera.instancia().buscarCarrera(codigo);
     }
     
+    public Carrera buscarCarreraNom(String nombre) throws Exception{
+        return ModelCarrera.instancia().buscarCarreraNom(nombre);
+    }
+    
     public void agregarCarrera(Carrera c) throws Exception{
         ModelCarrera.instancia().agregarCarrera(c);
     }

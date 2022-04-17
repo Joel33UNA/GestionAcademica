@@ -24,6 +24,7 @@ public class ServicioCarrera {
      private static final String modificarCarrera ="{call modificaCarrera(?,?,?)}";
      private static final String eliminarCarrera  = "{call eliminarCarrera(?)}";
      private static final String buscarCarrera  = "{?=call buscarCarrera(?)}";
+     private static final String buscarCarreraNom  = "{?=call buscarCarreraNom(?)}";
 
 
     public void insertarCarrera(Carrera carrera) throws Exception {
@@ -66,6 +67,23 @@ public class ServicioCarrera {
         CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCarrera);
         pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.setInt(2, codigo);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        while (rs.next()) {
+            carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"));
+        }
+        if(rs != null) rs.close();
+        if(pst != null) pst.close();
+        if(carrera == null)
+            throw new Exception("Carrera no encontrada");
+        return carrera;
+    }
+    
+    public Carrera buscarCarreraNom(String nombre) throws Exception{
+        Carrera carrera = null;
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCarreraNom);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setString(2, nombre);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         while (rs.next()) {

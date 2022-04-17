@@ -10,8 +10,8 @@ public class CicloControlador {
         return ModelCiclo.instancia().obtenerCiclos();
     }
     
-    public Ciclo buscarCiclo(int codigo) throws Exception{
-        return ModelCiclo.instancia().buscarCiclo(codigo);
+    public Ciclo buscarCiclo(int anio) throws Exception{
+        return ModelCiclo.instancia().buscarCiclo(anio);
     }
     
     public void agregarCiclo(Ciclo c) throws Exception{
