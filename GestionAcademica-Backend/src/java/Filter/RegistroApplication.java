@@ -1,6 +1,14 @@
 
-package Presentacion;
+package Filter;
 
+import Presentacion.Usuarios;
+import Presentacion.Profesores;
+import Presentacion.Matriculas;
+import Presentacion.Grupos;
+import Presentacion.Cursos;
+import Presentacion.Ciclos;
+import Presentacion.Carreras;
+import Presentacion.Estudiantes;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;

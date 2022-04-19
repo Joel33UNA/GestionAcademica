@@ -1,8 +1,6 @@
 
 package Logica;
 
-import java.util.Objects;
-
 public class Carrera {
     private int codigo;
     private String nombre;

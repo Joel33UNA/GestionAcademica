@@ -1,6 +1,6 @@
 
 package Presentacion;
-import Controlador.CarreraControlador;
+
 import Logica.Carrera;
 import Modelo.ModelCarrera;
 import java.util.List;
@@ -19,18 +19,12 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/carreras")
 public class Carreras {
-    CarreraControlador control;
-
-    public Carreras(CarreraControlador control) {
-        this.control = control;
-    }
-    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Carrera> getCarrerasAll() { 
         try {
-            return this.control.obtenerCarreras();
+            return ModelCarrera.instancia().obtenerCarreras();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -42,19 +36,7 @@ public class Carreras {
     @Produces({MediaType.APPLICATION_JSON})
     public Carrera get(@PathParam("codigo") int codigo) {
         try {
-            return this.control.buscarCarrera(codigo);
-        } catch (Exception ex) {
-            throw new NotFoundException(); 
-        }
-    }
-    
-    @PermitAll
-    @GET
-    @Path("{nombre}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Carrera getByNom(@PathParam("nombre") String nombre) {
-        try {
-            return this.control.buscarCarreraNom(nombre);
+            return ModelCarrera.instancia().buscarCarrera(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -65,7 +47,7 @@ public class Carreras {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Carrera c) {  
         try {
-            this.control.agregarCarrera(c);
+            ModelCarrera.instancia().agregarCarrera(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -76,7 +58,7 @@ public class Carreras {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Carrera c) {  
         try {
-            this.control.modificarCarrera(c);
+            ModelCarrera.instancia().modificarCarrera(c);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -87,7 +69,7 @@ public class Carreras {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            this.control.eliminarCarrera(codigo);
+            ModelCarrera.instancia().eliminarCarrera(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

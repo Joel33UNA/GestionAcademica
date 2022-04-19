@@ -1,8 +1,6 @@
 
 package Logica;
 
-import Logica.Grupo;
-import Logica.Estudiante;
 import java.util.Objects;
 
 

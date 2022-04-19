@@ -1,7 +1,7 @@
 
 package Presentacion;
 
-import Controlador.GrupoControlador;
+import Modelo.ModelGrupo;
 import Logica.Grupo;
 import java.util.List;
 import javax.annotation.security.PermitAll;
@@ -19,19 +19,12 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/grupos")
 public class Grupos {
-    
-    private GrupoControlador control;
-    
-    public Grupos(){
-        control = new GrupoControlador();
-    }
-    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Grupo> getCursosAll() { 
         try {
-            return control.obtenerGrupos();
+            return ModelGrupo.instancia().obtenerGrupos();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -43,7 +36,7 @@ public class Grupos {
     @Produces({MediaType.APPLICATION_JSON})
     public Grupo get(@PathParam("codigo") int codigo) {
         try {
-            return control.buscarGrupo(codigo);
+            return ModelGrupo.instancia().buscarGrupo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -54,7 +47,7 @@ public class Grupos {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Grupo g) {  
         try {
-            control.agregarGrupo(g);
+            ModelGrupo.instancia().agregarGrupo(g);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -65,7 +58,7 @@ public class Grupos {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Grupo g) {  
         try {
-            control.modificarGrupo(g);
+            ModelGrupo.instancia().modificarGrupo(g);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -76,7 +69,7 @@ public class Grupos {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            control.eliminarGrupo(codigo);
+            ModelGrupo.instancia().eliminarGrupo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

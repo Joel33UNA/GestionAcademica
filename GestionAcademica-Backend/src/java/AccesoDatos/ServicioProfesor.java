@@ -1,11 +1,3 @@
-/*
- * servicioProfesor.java
- *
- * Created on 21 de septiembre de 2007, 10:23 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package AccesoDatos;
 
@@ -18,15 +10,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- *
- * @author Administrador
- */
-
-
 public class ServicioProfesor {
-
-    /** Creates a new instance of servicioProfesor */
     private ServicioUsuario servicioUsuario;
     private static final String insertarProfesor = "{call insertarProfesor(?,?,?,?)}";
     private static final String listarProfesor = "{?=call listarProfesor()}";

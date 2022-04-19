@@ -1,11 +1,3 @@
-/*
- * servicioMatricula.java
- *
- * Created on 21 de septiembre de 2007, 10:23 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package AccesoDatos;
 
@@ -13,18 +5,11 @@ import Logica.Estudiante;
 import Logica.Grupo;
 import Logica.Matricula;
 import oracle.jdbc.internal.OracleTypes;
-
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
-
-/**
- *
- * @author Administrador
- */
-
 
 public class ServicioMatricula {
 

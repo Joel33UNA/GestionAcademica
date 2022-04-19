@@ -9,16 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- *
- * @author Administrador
- */
-
-
-public class ServicioCarrera {
-    
-    /** Creates a new instance of servicioCarrera */
-    
+public class ServicioCarrera {    
      private static final String insertarCarrera = "{call insertarCarrera(?,?)}";
      private static final String listarCarrera = "{?=call listarCarrera()}";
      private static final String modificarCarrera ="{call modificaCarrera(?,?,?)}";

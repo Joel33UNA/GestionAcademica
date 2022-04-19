@@ -1,11 +1,3 @@
-/*
- * servicioLogin.java
- *
- * Created on 8 de junio de 2007, 22:53
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package AccesoDatos;
 
@@ -14,10 +6,6 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author Administrador
- */
 public class ServicioLogin {
     private static final String login = "{?=call login(?,?)}";
 

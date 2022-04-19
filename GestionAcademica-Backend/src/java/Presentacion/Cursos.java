@@ -1,7 +1,6 @@
 
 package Presentacion;
 
-import Controlador.CursoControlador;
 import Modelo.ModelCurso;
 import Logica.Curso;
 import java.util.List;
@@ -20,18 +19,12 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/cursos")
 public class Cursos {
-    CursoControlador control;
-
-    public Cursos(CursoControlador control) {
-        this.control = control;
-    }
-    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Curso> getCursosAll() { 
         try {
-            return this.control.obtenerCursos();
+            return ModelCurso.instancia().obtenerCursos();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -43,19 +36,7 @@ public class Cursos {
     @Produces({MediaType.APPLICATION_JSON})
     public Curso get(@PathParam("codigo") int codigo) {
         try {
-            return this.control.buscarCurso(codigo);
-        } catch (Exception ex) {
-            throw new NotFoundException(); 
-        }
-    }
-    
-    @PermitAll
-    @GET
-    @Path("{nombre}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Curso getByNom(@PathParam("nombre") String nombre) {
-        try {
-            return this.control.buscarCursoNom(nombre);
+            return ModelCurso.instancia().buscarCurso(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -66,7 +47,7 @@ public class Cursos {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Curso c) {  
         try {
-            this.control.agregarCurso(c);
+            ModelCurso.instancia().agregarCurso(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -77,7 +58,7 @@ public class Cursos {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Curso c) {  
         try {
-            this.control.modificarCurso(c);
+            ModelCurso.instancia().modificarCurso(c);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -88,7 +69,7 @@ public class Cursos {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            this.control.eliminarCurso(codigo);
+            ModelCurso.instancia().eliminarCurso(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

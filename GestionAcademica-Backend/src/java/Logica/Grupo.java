@@ -1,8 +1,6 @@
 
 package Logica;
 
-import Logica.Curso;
-import Logica.Ciclo;
 import java.util.Objects;
 
 

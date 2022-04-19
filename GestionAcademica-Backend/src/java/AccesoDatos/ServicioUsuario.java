@@ -1,11 +1,3 @@
-/*
- * servicioUsuario.java
- *
- * Created on 8 de septiembre de 2007, 10:12
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package AccesoDatos;
 
@@ -18,19 +10,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
-/**
- *
- * @author Estudiante
- */
 public class ServicioUsuario {
-
     private static final String insertarUsuario = "{call insertarUsuario(?,?,?)}";
     private static final String listarUsuario = "{?=call listarUsuario()}";
     private static final String modificarUsuario ="{call modificarUsuario(?,?,?)}";
     private static final String eliminarUsuario  = "{call eliminarUsuario(?)}";
     private static final String buscarUsuario  = "{?=call buscarUsuario(?)}";
-
 
     public void insertarUsuario(Usuario usuario) throws Exception {
         PreparedStatement pst = ConnectionService.instance().prepareStatement(insertarUsuario);

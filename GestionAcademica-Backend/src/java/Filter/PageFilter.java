@@ -2,8 +2,6 @@
 package Filter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(filterName = "PageFilter", urlPatterns = {"/*"})
 public class PageFilter implements Filter {
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");

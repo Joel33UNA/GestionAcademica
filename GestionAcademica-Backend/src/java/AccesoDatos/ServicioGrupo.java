@@ -1,11 +1,3 @@
-/*
- * servicioGrupo.java
- *
- * Created on 21 de septiembre de 2007, 10:23 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package AccesoDatos;
 
@@ -19,12 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
-
-/**
- *
- * @author Administrador
- */
-
 
 public class ServicioGrupo {
      private ServicioCiclo servicioCiclo;

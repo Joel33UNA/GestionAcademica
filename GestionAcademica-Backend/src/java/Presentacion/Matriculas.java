@@ -1,7 +1,7 @@
 
 package Presentacion;
 
-import Controlador.MatriculaControlador;
+import Modelo.ModelMatricula;
 import Logica.Matricula;
 import java.util.List;
 import javax.annotation.security.PermitAll;
@@ -19,19 +19,12 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/matriculas")
 public class Matriculas {
-    
-    private MatriculaControlador control;
-    
-    public Matriculas(){
-        control = new MatriculaControlador();
-    }
-    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Matricula> getMatriculaAll() { 
         try {
-            return control.obtenerMatriculas();
+            return ModelMatricula.instancia().obtenerMatriculas();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -43,7 +36,7 @@ public class Matriculas {
     @Produces({MediaType.APPLICATION_JSON})
     public Matricula get(@PathParam("codigo") int codigo) {
         try {
-            return control.buscarMatricula(codigo);
+            return ModelMatricula.instancia().buscarMatricula(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -54,7 +47,7 @@ public class Matriculas {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Matricula m) {  
         try {
-            control.agregarMatricula(m);
+            ModelMatricula.instancia().agregarMatricula(m);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -65,7 +58,7 @@ public class Matriculas {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Matricula m) {  
         try {
-            control.modificarMatricula(m);
+            ModelMatricula.instancia().modificarMatricula(m);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -76,7 +69,7 @@ public class Matriculas {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            control.eliminarMatricula(codigo);
+            ModelMatricula.instancia().eliminarMatricula(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

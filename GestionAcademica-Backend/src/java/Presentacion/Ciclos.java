@@ -1,7 +1,6 @@
 
 package Presentacion;
 
-import Controlador.CicloControlador;
 import Modelo.ModelCiclo;
 import Logica.Ciclo;
 import java.util.List;
@@ -20,18 +19,12 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/ciclos")
 public class Ciclos {
-    CicloControlador control;
-
-    public Ciclos(CicloControlador control) {
-        this.control = control;
-    }
-    
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Ciclo> getCiclosAll() { 
         try {
-            return this.control.obtenerCiclos();
+            return ModelCiclo.instancia().obtenerCiclos();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -39,11 +32,11 @@ public class Ciclos {
     
     @PermitAll
     @GET
-    @Path("{anio}")
+    @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Ciclo get(@PathParam("anio") int anio) {
+    public Ciclo get(@PathParam("codigo") int codigo) {
         try {
-            return this.control.buscarCiclo(anio);
+            return ModelCiclo.instancia().buscarCiclo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -54,7 +47,7 @@ public class Ciclos {
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Ciclo c) {  
         try {
-            this.control.agregarCiclo(c);
+            ModelCiclo.instancia().agregarCiclo(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -65,7 +58,7 @@ public class Ciclos {
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Ciclo c) {  
         try {
-            this.control.agregarCiclo(c);
+            ModelCiclo.instancia().modificarCiclo(c);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -76,7 +69,7 @@ public class Ciclos {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            this.control.eliminarCiclo(codigo);
+            ModelCiclo.instancia().eliminarCiclo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
