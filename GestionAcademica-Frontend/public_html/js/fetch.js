@@ -65,7 +65,7 @@ async function deleteUsuario(){
 }
 
 function loaded(){
-    
+    fetchAndListUsuarios();
 }
 
 $(loaded);
