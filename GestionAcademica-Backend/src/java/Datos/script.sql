@@ -561,13 +561,13 @@ show error
 
 -- Login
 
-CREATE OR REPLACE FUNCTION login(idin IN int, pass IN varchar)
+CREATE OR REPLACE FUNCTION login(idin IN usuario.cedula%type, pass IN usuario.clave%type)
 RETURN Types.ref_cursor 
 AS 
         n_cursor types.ref_cursor; 
 BEGIN 
   OPEN n_cursor FOR 
-	  SELECT COUNT(cedula) AS esta FROM usuario WHERE cedula=idin AND clave=pass;
+	  SELECT cedula, clave, rol from usuario WHERE cedula=idin AND clave=pass;
 	 RETURN n_cursor; 
 END;
 /

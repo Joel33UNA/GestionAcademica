@@ -17,12 +17,14 @@ public class ServicioLogin {
         pst.setString(3, password);
         pst.execute();
         ResultSet rs = (ResultSet) pst.getObject(1);
-        Usuario u = new Usuario();
+        Usuario u = null;
         while (rs.next()) {
+            u = new Usuario();
             u.setCedula(rs.getInt("cedula"));
             u.setClave(rs.getString("clave"));
             u.setRol(rs.getString("rol"));
         }
+        if(u == null) throw new Exception("Usuario no encontrado");
         return u;
     }
 }

@@ -4,8 +4,8 @@ let usuarios = [];
 
 
 const carrera = {
-    nombre : "informatica",
-    titulo : "bachillerato"
+    nombre : "asd",
+    titulo : "asd"
 };
 
 async function addCurso(){
@@ -31,7 +31,7 @@ async function fetchAndAddUsuarios(){
     if (!response.ok){ console.log("error"); }
 }
 
-async function addCarreras(){
+async function addCarrera(){
     let request = new Request(url + "api/carreras/",
                             { method: 'POST',
                             headers: { 'Content-Type' : 'application/json' },
@@ -60,7 +60,7 @@ async function deleteUsuario(){
 }
 
 function loaded(){
-    fetchAndListUsuarios();
+    addCarrera();
 }
 
 $(loaded);

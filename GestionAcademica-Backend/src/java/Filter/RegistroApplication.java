@@ -9,6 +9,7 @@ import Presentacion.Cursos;
 import Presentacion.Ciclos;
 import Presentacion.Carreras;
 import Presentacion.Estudiantes;
+import Presentacion.Sesiones;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
@@ -29,6 +30,7 @@ public class RegistroApplication extends Application {
 	classes.add(Estudiantes.class);
 	classes.add(Ciclos.class);
 	classes.add(Matriculas.class);
+        classes.add(Sesiones.class);
         classes.add(RestfulFilter.class);
         return classes;
     }   

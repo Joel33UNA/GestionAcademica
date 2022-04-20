@@ -30,7 +30,7 @@ function loadLogin(){
                         "</form>" +
                         "<div class='modal-footer d-flex justify-content-center'>" +
                             "<div>" +
-                                "<input type='button' id='login' class='btn btn-primary btn-lg btn-block' value='Iniciar Sesión'>" +
+                                "<input type='button' id='loginFetch' class='btn btn-primary btn-lg btn-block' value='Iniciar Sesión'>" +
                             "</div>" +
                         "</div>" +
                         "<div id='errorDiv1' style='width:70%; margin: auto;'></div>" +
@@ -43,7 +43,7 @@ function renderLogin(){
     usuario = {};
     $("#id1").val(usuario.cedula);
     $("#pass1").val(usuario.clave);
-    $('#login').click(login);   
+    $('#loginFetch').click(login);   
     $("#add-modal-login #errorDiv1").html("");     
     $('#add-modal-login').modal('show');        
 }
@@ -51,7 +51,7 @@ function renderLogin(){
 function login(){
     usuario = Object.fromEntries( (new FormData($("#form1").get(0))).entries());       
     if(!validarLogin()) return;
-    let request = new Request(url + "api/sesiones/login",
+    let request = new Request(url + "api/sesiones/comprobar",
                             {method:'POST',
                             headers: { 'Content-Type': 'application/json'},
                             body: JSON.stringify(usuario)});
@@ -80,7 +80,7 @@ function login(){
 
 function validarLogin(){
     var error = false;
-    $("#form input").removeClass("invalid");
+    $("#form1 input").removeClass("invalid");
     error |= $("#form1 input[type='text']").filter( (i,e)=>{ return e.value==='';}).length > 0;        
     $("#form1 input[type='text']").filter( (i,e)=>{ return e.value==='';}).addClass("invalid");
     error |= $("#form1 input[type='password']").filter((i,e)=>{ return e.value==='';}).length > 0;
