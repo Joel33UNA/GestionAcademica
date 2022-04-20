@@ -38,20 +38,20 @@ function nav(){
 function loaded(){
     if(JSON.parse(sessionStorage.getItem('user'))){
         if(JSON.parse(sessionStorage.getItem('user')).rol === 'estudiante'){
-            $(navEstudiante);
+            navEstudiante();
         }
         else if(JSON.parse(sessionStorage.getItem('user') === 'profesor')){
-            $(navProfesor);
+            navProfesor();
         }
         else if(JSON.parse(sessionStorage.getItem('user')).rol === 'administrador'){
-            $(navAdmin);
+            navAdmin();
         }
         else if(JSON.parse(sessionStorage.getItem('user')).rol === 'matriculador'){
-            $(navMatriculador);
+            navMatriculador();
         }
     }
     else{
-        $(nav);
+        nav();
     }
 }
 

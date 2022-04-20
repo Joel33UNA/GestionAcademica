@@ -1,12 +1,7 @@
-const url = 'http://localhost:8088/GestionAcademica-Backend/';
+var url = 'http://localhost:8088/GestionAcademica-Backend/';
 
 let usuarios = [];
 
-const usuario = {
-    cedula : 222,
-    clave : '222',
-    rol : 'administrador'
-};
 
 const carrera = {
     nombre : "informatica",
