@@ -20,7 +20,7 @@ function loadLogin(){
                                 "<br>" +
                                 "<div class='form-group'>" +
                                     "<label for='cedula'>Cédula</label>" +
-                                    "<input type='text' class='form-control' name='id' id='id1' placeholder='Cédula'>" +
+                                    "<input type='text' class='form-control' name='cedula' id='id1' placeholder='Cédula'>" +
                                 "</div>" +
                                 "<div class='form-group'>" +
                                     "<label for='contra'>Contraseña</label>" +
@@ -53,7 +53,8 @@ function login(){
     if(!validarLogin()) return;
     let request = new Request(url + "api/sesiones/comprobar",
                             {method:'POST',
-                            headers: { 'Content-Type': 'application/json'},
+                            headers: { 'Content-Type': 'application/json',
+                                        'Access-Control-Allow-Origin': '*'},
                             body: JSON.stringify(usuario)});
     (async ()=>{
         const response = await fetch(request);

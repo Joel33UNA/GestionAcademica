@@ -268,7 +268,7 @@ END;
 /
 show error
 
-CREATE OR REPLACE FUNCTION buscarProfesorNom(nom IN profesor.nom%TYPE)
+CREATE OR REPLACE FUNCTION buscarProfesorNom(nom IN profesor.nombre%TYPE)
 RETURN Types.ref_cursor
 AS
         profesor_cursor types.ref_cursor;
@@ -506,7 +506,40 @@ show error
 create or replace procedure eliminarUsuario(idU IN usuario.cedula%TYPE)
 as
 begin
-delete from usuario where idU=cedula;
+    
+    delete from usuario where idU=cedula;
+end;
+/
+show error
+
+create or replace procedure eliminarAdministrador(idU IN administrador.cedula%TYPE)
+as
+begin
+    delete from administrador where idU=cedula;
+end;
+/
+show error
+
+create or replace procedure eliminarEstudiante(idU IN estudiante.cedula%TYPE)
+as
+begin
+    delete from estudiante where idU=cedula;
+end;
+/
+show error
+
+create or replace procedure eliminarProfesor(idU IN profesor.cedula%TYPE)
+as
+begin
+    delete from profesor where idU=cedula;
+end;
+/
+show error
+
+create or replace procedure eliminarMatriculador(idU IN matriculador.cedula%TYPE)
+as
+begin
+    delete from matriculador where idU=cedula;
 end;
 /
 show error

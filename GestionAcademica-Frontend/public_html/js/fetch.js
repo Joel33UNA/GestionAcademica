@@ -60,7 +60,7 @@ async function deleteUsuario(){
 }
 
 function loaded(){
-    addCarrera();
+    deleteUsuario();
 }
 
 $(loaded);

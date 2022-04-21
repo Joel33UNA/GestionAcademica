@@ -15,6 +15,10 @@ public class ServicioUsuario {
     private static final String listarUsuario = "{?=call listarUsuario()}";
     private static final String modificarUsuario ="{call modificarUsuario(?,?,?)}";
     private static final String eliminarUsuario  = "{call eliminarUsuario(?)}";
+    private static final String eliminarAdministrador = "{call eliminarAdministrador(?)}";
+    private static final String eliminarProfesor = "{call eliminarProfesor(?)}";
+    private static final String eliminarMatriculador = "{call eliminarMatriculador(?)}";
+    private static final String eliminarEstudiante = "{call eliminarEstudiante(?)}";
     private static final String buscarUsuario  = "{?=call buscarUsuario(?)}";
 
     public void insertarUsuario(Usuario usuario) throws Exception {
@@ -71,7 +75,41 @@ public class ServicioUsuario {
     }
 
     public void eliminarUsuario(int cedula) throws Exception{
-        PreparedStatement pst = ConnectionService.instance().prepareStatement(eliminarUsuario);
+        Usuario usuario = buscarUsuario(cedula);
+        PreparedStatement pst;
+        if(null == usuario.getRol()){
+            pst = ConnectionService.instance().prepareStatement(eliminarMatriculador);
+            pst.setInt(1,cedula);
+            if(pst.executeUpdate() == 0)
+                throw new Exception("No se pudo eliminar el usuario");
+        }
+        else switch (usuario.getRol()) {
+            case "administrador":
+                pst = ConnectionService.instance().prepareStatement(eliminarAdministrador);
+                pst.setInt(1,cedula);
+                if(pst.executeUpdate() == 0)
+                    throw new Exception("No se pudo eliminar el usuario");
+                break;
+            case "estudiante":
+                pst = ConnectionService.instance().prepareStatement(eliminarEstudiante);
+                pst.setInt(1,cedula);
+                if(pst.executeUpdate() == 0)
+                    throw new Exception("No se pudo eliminar el usuario");
+                break;
+            case "profesor":
+                pst = ConnectionService.instance().prepareStatement(eliminarProfesor);
+                pst.setInt(1,cedula);
+                if(pst.executeUpdate() == 0)
+                    throw new Exception("No se pudo eliminar el usuario");
+                break;
+            default:
+                pst = ConnectionService.instance().prepareStatement(eliminarMatriculador);
+                pst.setInt(1,cedula);
+                if(pst.executeUpdate() == 0)
+                        throw new Exception("No se pudo eliminar el usuario");
+                break;
+        }
+        pst = ConnectionService.instance().prepareStatement(eliminarUsuario);
         pst.setInt(1,cedula);
         if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar el usuario");
