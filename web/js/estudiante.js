@@ -1,12 +1,12 @@
 
-var url = 'http://localhost:8088/GestionAcademica';
+var url = 'http://localhost:8088/GestionAcademica/';
 
 let matriculas = {};
-const estudiante = {};
+let estudiante = {};
 
 
 async function loadEstudiante(){
-	estudiante = JSON.parse(sessionStorage.getItem('user'));
+    estudiante = JSON.parse(sessionStorage.getItem('user'));
     let request = new Request(url+'api/estudiantes/'+estudiante.cedula, {method: 'GET', headers: { }});
     const response = await fetch(request);
     if (!response.ok){

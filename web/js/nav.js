@@ -2,7 +2,7 @@
 function navEstudiante(){
     var div = $("#navEstudiante");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/estudiante.html' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -25,7 +25,7 @@ function navEstudiante(){
 function navProfesor(){
     var div = $("#navProfesor");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/profesor.html' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -80,7 +80,7 @@ function navAdmin(){
 function navMatriculador(){
     var div = $("#navMatriculador");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/matriculador.html' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
