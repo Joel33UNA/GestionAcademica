@@ -2,7 +2,7 @@
 function navEstudiante(){
     var div = $("#navEstudiante");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica-Frontend/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -22,7 +22,7 @@ function navEstudiante(){
 function navProfesor(){
     var div = $("#navProfesor");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica-Frontend/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -42,7 +42,7 @@ function navProfesor(){
 function navAdmin(){
     var div = $("#navAdministrador");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica-Backend/administrador.html' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/administrador.html' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -77,7 +77,7 @@ function navAdmin(){
 function navMatriculador(){
     var div = $("#navMatriculador");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica-Frontend/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -97,7 +97,7 @@ function navMatriculador(){
 function nav(){
     var div = $("#nav");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica-Backend/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica/' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -131,7 +131,7 @@ function loaded(){
     }
     $("#checkout").click(() => {
         sessionStorage.removeItem("user");
-        location.href = "/GestionAcademica-Backend";
+        location.href = "/GestionAcademica";
     });
 }
 

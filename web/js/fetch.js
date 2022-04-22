@@ -1,4 +1,4 @@
-var url = 'http://localhost:8088/GestionAcademica-Backend/';
+var url = 'http://localhost:8088/GestionAcademica/';
 
 let usuarios = [];
 
