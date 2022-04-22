@@ -11,6 +11,9 @@ function navEstudiante(){
                         "<li class='nav-item'>" +
                             "<a class='nav-link' href='#' id='infoEstudiante' style='color:white;'>Información</a>" +
                         "</li>" +
+						"<li class='nav-item'>" +
+                            "<a class='nav-link' href='#' id='infoHistorial' style='color:white;'>Historial académico</a>" +
+                        "</li>" +
                         "<li class='nav-item'>" +
                             "<a class='nav-link' href='#' id='checkout' style='color:white;'>Cerrar sesión</a>" +
                         "</li>" +
