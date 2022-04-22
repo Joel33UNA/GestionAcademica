@@ -225,9 +225,21 @@ return Types.ref_cursor
 as
     curso_cursor types.ref_cursor;
 begin
-open curso_cursor FOR
-select codigo, nombre, creditos, horas_semanales, codigo_carrera from curso;
-return curso_cursor;
+    open curso_cursor FOR
+    select codigo, nombre, creditos, horas_semanales, codigo_carrera from curso;
+    return curso_cursor;
+end;
+/
+show error
+
+create or replace function buscarCursoCar(cod in carrera.codigo%type)
+return Types.ref_cursor
+as
+    curso_cursor types.ref_cursor;
+begin
+    open curso_cursor FOR
+    select codigo, nombre, creditos, horas_semanales, codigo_carrera from curso where codigo_carrera = cod;
+    return curso_cursor;
 end;
 /
 show error

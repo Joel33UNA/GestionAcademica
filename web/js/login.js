@@ -58,7 +58,11 @@ function login(){
     (async ()=>{
         const response = await fetch(request);
         if (!response.ok) {
-            errorMessage(response.status, $("#add-modal-login #errorDiv1"));
+            let alert = $(
+                    '<div class="alert alert-danger" role="alert">' +
+                        'Error ' + response.status +
+                    '</div>');
+            $("#add-modal-login #errorDiv1").append(alert);
             return;
         }
         usuario = await response.json();

@@ -1,5 +1,5 @@
 
-var url = 'http://localhost:8088/GestionAcademica-Backend/';
+var url = 'http://localhost:8088/GestionAcademica/';
 
 let ciclos = {};
 let carreras = {};
@@ -12,6 +12,7 @@ async function loadCiclos(){
     const response = await fetch(request);
     if (!response.ok){
         let div = $("#body");
+        div.html("");
         div.html(
                 '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
                     '¡No se encontraron ciclos!' +
@@ -239,7 +240,7 @@ async function loadProfesores(){
 function loader(){
     $("#infoCiclos").click(loadCiclos);
     $("#infoCarreras").click(loadCarreras);
-    $("#infoCursos").click(loadCursos)
+    $("#infoCursos").click(loadCursos);
     $("#infoEstudiantes").click(loadEstudiantes);
     $("#infoProfesores").click(loadProfesores);
 }

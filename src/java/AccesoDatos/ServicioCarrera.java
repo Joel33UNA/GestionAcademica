@@ -2,6 +2,7 @@
 package AccesoDatos;
 
 import Logica.Carrera;
+import Logica.Curso;
 import oracle.jdbc.internal.OracleTypes;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -9,15 +10,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ServicioCarrera {    
-     private static final String insertarCarrera = "{call insertarCarrera(?,?)}";
-     private static final String listarCarrera = "{?=call listarCarrera()}";
-     private static final String modificarCarrera ="{call modificaCarrera(?,?,?)}";
-     private static final String eliminarCarrera  = "{call eliminarCarrera(?)}";
-     private static final String buscarCarrera  = "{?=call buscarCarrera(?)}";
-     private static final String buscarCarreraNom  = "{?=call buscarCarreraNom(?)}";
-
-
+public class ServicioCarrera {
+    private static final String insertarCarrera = "{call insertarCarrera(?,?)}";
+    private static final String listarCarrera = "{?=call listarCarrera()}";
+    private static final String modificarCarrera ="{call modificaCarrera(?,?,?)}";
+    private static final String eliminarCarrera  = "{call eliminarCarrera(?)}";
+    private static final String buscarCarrera  = "{?=call buscarCarrera(?)}";
+    private static final String buscarCarreraNom  = "{?=call buscarCarreraNom(?)}";
+    private static final String buscarCursoCar = "{?=call buscarCursoCar(?)}";
+     
     public void insertarCarrera(Carrera carrera) throws Exception {
         PreparedStatement pst = ConnectionService.instance().prepareStatement(insertarCarrera);
         pst.setString(1, carrera.getNombre());
@@ -41,8 +42,10 @@ public class ServicioCarrera {
         pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
+        ArrayList<Curso> cursos = new ArrayList<>();
         while (rs.next()) {
-            Carrera carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"));
+            cursos = (ArrayList<Curso>)this.buscarCursoPorCarrera(rs.getInt("codigo"));
+            Carrera carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"), cursos);
             coleccionCarreras.add(carrera);
         }
         if(rs != null) rs.close();
@@ -60,8 +63,10 @@ public class ServicioCarrera {
         pst.setInt(2, codigo);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
+        ArrayList<Curso> cursos = new ArrayList<>();
         while (rs.next()) {
-            carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"));
+            cursos = (ArrayList<Curso>)this.buscarCursoPorCarrera(rs.getInt("codigo"));
+            carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"), cursos);
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();
@@ -77,8 +82,10 @@ public class ServicioCarrera {
         pst.setString(2, nombre);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
+        ArrayList<Curso> cursos = new ArrayList<>();
         while (rs.next()) {
-            carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"));
+            cursos = (ArrayList<Curso>)this.buscarCursoPorCarrera(rs.getInt("codigo"));
+            carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"), cursos);
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();
@@ -92,5 +99,23 @@ public class ServicioCarrera {
         pst.setInt(1,codigo);
         if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar la carrera");
+    }
+    
+    public Collection buscarCursoPorCarrera(int codigo) throws Exception{
+        ArrayList coleccionCurso = new ArrayList();
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCursoCar);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setInt(2, codigo);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        while (rs.next()) {
+            Carrera carrera = new Carrera(codigo, "", "", null);
+            Curso curso = new Curso(rs.getInt("codigo"), rs.getString("nombre"), rs.getInt("creditos"), rs.getInt("horas_semanales"), carrera);
+            coleccionCurso.add(curso);
+        }
+        if(coleccionCurso.isEmpty()) {
+            throw new NoDataException("No hay datos relacionados los cursos");
+        }
+        return coleccionCurso;
     }
 }
