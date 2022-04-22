@@ -11,17 +11,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ServicioCarrera {
-    private ServicioCurso servicioCurso;
     private static final String insertarCarrera = "{call insertarCarrera(?,?)}";
     private static final String listarCarrera = "{?=call listarCarrera()}";
     private static final String modificarCarrera ="{call modificaCarrera(?,?,?)}";
     private static final String eliminarCarrera  = "{call eliminarCarrera(?)}";
     private static final String buscarCarrera  = "{?=call buscarCarrera(?)}";
     private static final String buscarCarreraNom  = "{?=call buscarCarreraNom(?)}";
-
-    public ServicioCarrera(){
-        this.servicioCurso = new ServicioCurso();
-    }
+    private static final String buscarCursoCar = "{?=call buscarCursoCar(?)}";
      
     public void insertarCarrera(Carrera carrera) throws Exception {
         PreparedStatement pst = ConnectionService.instance().prepareStatement(insertarCarrera);
@@ -48,7 +44,7 @@ public class ServicioCarrera {
         ResultSet rs = (ResultSet)pst.getObject(1);
         ArrayList<Curso> cursos = new ArrayList<>();
         while (rs.next()) {
-            cursos = (ArrayList<Curso>)this.servicioCurso.buscarCursoPorCarrera(rs.getInt("codigo"));
+            cursos = (ArrayList<Curso>)this.buscarCursoPorCarrera(rs.getInt("codigo"));
             Carrera carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"), cursos);
             coleccionCarreras.add(carrera);
         }
@@ -69,7 +65,7 @@ public class ServicioCarrera {
         ResultSet rs = (ResultSet)pst.getObject(1);
         ArrayList<Curso> cursos = new ArrayList<>();
         while (rs.next()) {
-            cursos = (ArrayList<Curso>)this.servicioCurso.buscarCursoPorCarrera(rs.getInt("codigo"));
+            cursos = (ArrayList<Curso>)this.buscarCursoPorCarrera(rs.getInt("codigo"));
             carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"), cursos);
         }
         if(rs != null) rs.close();
@@ -88,7 +84,7 @@ public class ServicioCarrera {
         ResultSet rs = (ResultSet)pst.getObject(1);
         ArrayList<Curso> cursos = new ArrayList<>();
         while (rs.next()) {
-            cursos = (ArrayList<Curso>)this.servicioCurso.buscarCursoPorCarrera(rs.getInt("codigo"));
+            cursos = (ArrayList<Curso>)this.buscarCursoPorCarrera(rs.getInt("codigo"));
             carrera = new Carrera(rs.getInt("codigo"),rs.getString("nombre"),rs.getString("titulo"), cursos);
         }
         if(rs != null) rs.close();
@@ -103,5 +99,23 @@ public class ServicioCarrera {
         pst.setInt(1,codigo);
         if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar la carrera");
+    }
+    
+    public Collection buscarCursoPorCarrera(int codigo) throws Exception{
+        ArrayList coleccionCurso = new ArrayList();
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCursoCar);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setInt(2, codigo);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        while (rs.next()) {
+            Carrera carrera = new Carrera(codigo, "", "", null);
+            Curso curso = new Curso(rs.getInt("codigo"), rs.getString("nombre"), rs.getInt("creditos"), rs.getInt("horas_semanales"), carrera);
+            coleccionCurso.add(curso);
+        }
+        if(coleccionCurso.isEmpty()) {
+            throw new NoDataException("No hay datos relacionados los cursos");
+        }
+        return coleccionCurso;
     }
 }

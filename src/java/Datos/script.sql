@@ -241,6 +241,8 @@ begin
     select codigo, nombre, creditos, horas_semanales, codigo_carrera from curso where codigo_carrera = cod;
     return curso_cursor;
 end;
+/
+show error
 
 create or replace procedure eliminarCurso(cod IN curso.codigo%TYPE)
 as

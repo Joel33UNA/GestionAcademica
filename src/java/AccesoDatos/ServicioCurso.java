@@ -18,7 +18,6 @@ public class ServicioCurso {
     private static final String eliminarCurso  = "{call eliminarCurso(?)}";
     private static final String buscarCurso  = "{?=call buscarCurso(?)}";
     private static final String buscarCursoNom  = "{?=call buscarCursoNom(?)}";
-    private static final String buscarCursoCar = "{?=call buscarCursoCar(?)}";
 
     public ServicioCurso(){ this.servicioCarrera = new ServicioCarrera(); }
 
@@ -99,23 +98,6 @@ public class ServicioCurso {
         if(curso == null)
             throw new Exception("Curso no encontrada");
         return curso;
-    }
-    
-    public Collection buscarCursoPorCarrera(int codigo) throws Exception{
-        ArrayList coleccionCurso = new ArrayList();
-        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCursoCar);
-        pst.registerOutParameter(1, OracleTypes.CURSOR);
-        pst.execute();
-        ResultSet rs = (ResultSet)pst.getObject(1);
-        while (rs.next()) {
-            Carrera carrera = new Carrera(codigo, "", "", null);
-            Curso curso = new Curso(rs.getInt("codigo"), rs.getString("nombre"), rs.getInt("creditos"), rs.getInt("horas_semanales"), carrera);
-            coleccionCurso.add(curso);
-        }
-        if(coleccionCurso.isEmpty()) {
-            throw new NoDataException("No hay datos relacionados los cursos");
-        }
-        return coleccionCurso;
     }
 
     public void eliminarCurso(int codigo) throws Exception{
