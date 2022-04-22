@@ -607,8 +607,14 @@ END;
 show error
 
 
+insert into carrera values (555, 'Info', 'bachi');
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
+insert into usuario values (444, '444', 'matriculador');
+insert into matriculador values (444);
+insert into usuario values (333, '333', 'estudiante');
+insert into estudiante values (333,'Pablito',8888888,'pablito@gmail.com',to_date('12/12/1999', 'dd/mm/yyyy'),555);
+insert into curso values (666, 'progra', 4, 7, 555);
 insert into usuario values (222, '222', 'profesor');
 insert into profesor values (222, 'Juan', 222, 'juan@dios.com');
 insert into carrera values (333, 'Info', 'bachi');
