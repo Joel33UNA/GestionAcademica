@@ -32,7 +32,7 @@ async function loadEstudiante(){
                     '<th scope="col">Teléfono</th>' +
                     '<th scope="col">Email</th>' +
                     '<th scope="col">Fecha de nacimiento</th>' +
-                    '<th scope="col">Código carrera</th>' +
+                    '<th scope="col">Carrera</th>' +
                 '</tr>' +
             '</thead>' +
             '<tbody/>' +
@@ -46,7 +46,7 @@ async function loadEstudiante(){
         "<td>" + estudiante.telefono + "</td>" +
         "<td>" + estudiante.email + "</td>" +
         "<td>" + estudiante.fechaNacimiento + "</td>" +
-        "<td>" + estudiante.carrera + "</td>"
+        "<td>" + estudiante.carrera.nombre + "</td>"
     );
     tbody.append(tr);
 }
