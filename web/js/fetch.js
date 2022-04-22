@@ -60,7 +60,6 @@ async function deleteUsuario(){
 }
 
 function loaded(){
-    deleteUsuario();
 }
 
 $(loaded);

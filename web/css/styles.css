@@ -1,0 +1,23 @@
+
+body{
+    background-color: #51585e;
+}
+
+#bienvenida{
+    justify-content: center;
+    text-align: center;
+    color: #bacbe6;
+    font-family:fantasy;
+    padding-top: 100px;
+}
+
+.divBotones{
+    padding: 30px;
+    justify-content: center;
+    display: flex;
+}
+
+.divBotones button{
+    margin-left: 10px;
+    margin-right: 10px;
+}

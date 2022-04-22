@@ -38,7 +38,7 @@ public class ServicioCarrera {
     public Collection listarCarrera() throws Exception{
         ArrayList coleccionCarreras = new ArrayList();
         CallableStatement pst = ConnectionService.instance().prepareCallable(listarCarrera);
-        pst.registerOutParameter(1, OracleTypes.CURSOR); // ACA HAY UN PROBLEMA CON EL ORACLETYPES
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         while (rs.next()) {

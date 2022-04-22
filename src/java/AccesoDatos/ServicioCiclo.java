@@ -50,7 +50,7 @@ public class ServicioCiclo {
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();
-        if(coleccionCiclo == null || coleccionCiclo.size()==0) {
+        if(coleccionCiclo.size()==0) {
             throw new NoDataException("No hay datos relacionados con los ciclos");
         }
         return coleccionCiclo;

@@ -42,7 +42,7 @@ function navProfesor(){
 function navAdmin(){
     var div = $("#navAdministrador");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica-Frontend/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica-Backend/administrador.html' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -97,7 +97,7 @@ function navMatriculador(){
 function nav(){
     var div = $("#nav");
     div.html("<nav class='navbar navbar-expand-lg navbar-light' style='background-color: #343a40;'>" +
-                "<a class='navbar-brand' href='/GestionAcademica-Frontend/' style='color:white;'><b>Gestión Académica</b></a>" +
+                "<a class='navbar-brand' href='/GestionAcademica-Backend/' style='color:white;'><b>Gestión Académica</b></a>" +
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>" +
                     "<span class='navbar-toggler-icon'></span>" +
                 "</button>" +
@@ -105,9 +105,6 @@ function nav(){
                     "<ul class='navbar-nav mr-auto' style='padding: 15px; justify-content:center;'>" +
                         "<li class='nav-item'>" +
                             "<a class='nav-link' href='#' id='login' style='color:white;'>Iniciar sesión</a>" +
-                        "</li>" +
-                        "<li class='nav-item'>" +
-                            "<a class='nav-link' href='#' id='checkin' style='color:white;'>Registrarse</a>" +
                         "</li>" +
                     "</ul>" +
                 "</div>" +
@@ -132,6 +129,10 @@ function loaded(){
     else{
         nav();
     }
+    $("#checkout").click(() => {
+        sessionStorage.removeItem("user");
+        location.href = "/GestionAcademica-Backend";
+    });
 }
 
 $(loaded);  

@@ -609,6 +609,9 @@ show error
 
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
+insert into usuario values (222, '222', 'profesor');
+insert into profesor values (222, 'Juan', 222, 'juan@dios.com');
 insert into carrera values (333, 'Info', 'bachi');
 insert into curso values (444, 'progra', 4, 7, 333);
+insert into ciclo values (sec_pk_ciclo.nextval, 2022, 1, to_date('12/02/2022', 'dd/mm/yyyy'), to_date('25/06/2022', 'dd/mm/yyyy'));
 commit;
