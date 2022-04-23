@@ -50,17 +50,19 @@ public class ServicioMatricula {
             throw new Exception("Ha ocurrido un error");
     }
 
-    public Collection listarMatricula() throws Exception{
+    public Collection listarMatricula(int cedula) throws Exception{
         ArrayList coleccionMatriculas = new ArrayList();
         CallableStatement pst = ConnectionService.instance().prepareCallable(listarMatricula);
         pst.registerOutParameter(1, OracleTypes.CURSOR); // ACA HAY UN PROBLEMA CON EL ORACLETYPES
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
-        Estudiante estudiante = this.servicioEstudiante.buscarEstudiante(rs.getInt("cedula_estudiante"));
-        Grupo grupo = this.servicioGrupo.buscarGrupo(rs.getInt("codigo_grupo"));
         while (rs.next()) {
-            Matricula matricula = new Matricula(rs.getInt("codigo"),estudiante,grupo,rs.getInt("nota"));
-            coleccionMatriculas.add(matricula);
+            Estudiante estudiante = this.servicioEstudiante.buscarEstudiante(rs.getInt("cedula_estudiante"));
+            Grupo grupo = this.servicioGrupo.buscarGrupo(rs.getInt("codigo_grupo"));
+            Matricula matricula = new Matricula(rs.getInt("codigo_matricula"),estudiante,grupo,rs.getInt("nota"));
+            if(matricula.getEstudiante().getCedula() == cedula || cedula == -1){
+                coleccionMatriculas.add(matricula);
+            }
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();

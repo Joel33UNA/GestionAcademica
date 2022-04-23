@@ -38,8 +38,8 @@ public class ModelMatricula {
         return matricula;
     }
     
-    public ArrayList<Matricula> obtenerMatriculas() throws Exception{
-        ArrayList<Matricula> matriculas = (ArrayList<Matricula>)this.matricula.listarMatricula();
+    public ArrayList<Matricula> obtenerMatriculas(int cedula) throws Exception{
+        ArrayList<Matricula> matriculas = (ArrayList<Matricula>)this.matricula.listarMatricula(cedula);
         return matriculas;
     }
 }

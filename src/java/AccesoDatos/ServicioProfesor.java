@@ -69,7 +69,7 @@ public class ServicioProfesor {
         pst.setInt(2, cedula);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
-        Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
+        Usuario usuario = this.servicioUsuario.buscarUsuario(cedula);
         while (rs.next()) {
             profesor = new Profesor(rs.getString("nombre"), rs.getInt("telefono"), rs.getString("email"), usuario.getCedula(), usuario.getClave(), usuario.getRol());
         }

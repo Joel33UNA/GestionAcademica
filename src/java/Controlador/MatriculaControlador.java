@@ -6,8 +6,8 @@ import Modelo.ModelMatricula;
 import java.util.ArrayList;
 
 public class MatriculaControlador {
-    public ArrayList<Matricula> obtenerMatriculas() throws Exception{
-        return ModelMatricula.instancia().obtenerMatriculas();
+    public ArrayList<Matricula> obtenerMatriculas(int cedula) throws Exception{
+        return ModelMatricula.instancia().obtenerMatriculas(cedula);
     }
     
     public Matricula buscarMatricula(int codigo) throws Exception{
