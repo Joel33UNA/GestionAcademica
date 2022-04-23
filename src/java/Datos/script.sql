@@ -630,7 +630,6 @@ END;
 /
 show error
 
-
 insert into carrera values (sec_pk_carrera.nextval, 'Economia', 'Bachillerato');
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
@@ -644,16 +643,3 @@ insert into carrera values (sec_pk_carrera.nextval, 'Ingenieria en Sistemas', 'B
 insert into curso values (sec_pk_curso.nextval, 'Programacion I', 4, 7, 2);
 insert into curso values (sec_pk_curso.nextval, 'Programacion II', 4, 7, 2);
 insert into ciclo values (sec_pk_ciclo.nextval, 2022, 1, to_date('12/02/2022', 'dd/mm/yyyy'), to_date('25/06/2022', 'dd/mm/yyyy'));
-insert into profesor values (222, 'Juan', 88877789, 'juan@dios.com');
-insert into ciclo values (9999, 2022, 1, to_date('12/02/2022', 'dd/mm/yyyy'), to_date('25/06/2022', 'dd/mm/yyyy'));
-insert into ciclo values (8888, 2020, 2, to_date('07/08/2020', 'dd/mm/yyyy'), to_date('25/11/2020', 'dd/mm/yyyy'));
-insert into ciclo values (7777, 2019, 1, to_date('07/03/2019', 'dd/mm/yyyy'), to_date('25/06/2019', 'dd/mm/yyyy'));
-insert into grupo values (123,'L-J 8am', 9999,999,222);
-insert into grupo values (456,'L-J 3pm', 8888,888,222);
-insert into grupo values (789,'M-V 10am', 8888,777,222);
-insert into grupo values (321,'M-V 1pm', 9999,666,222);
-insert into matricula values (1111,333,456,90);
-insert into matricula values (2222,333,123,95);
-insert into matricula values (3333,333,789,87);
-insert into matricula values (4444,5555,321,96);
-commit;
