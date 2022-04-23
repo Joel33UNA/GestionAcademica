@@ -11,6 +11,11 @@ body{
     padding-top: 100px;
 }
 
+#infoCarrera p{
+    text-align: center;
+    justify-content: center;
+}
+
 .divBotones{
     padding: 30px;
     justify-content: center;
@@ -20,4 +25,12 @@ body{
 .divBotones button{
     margin-left: 10px;
     margin-right: 10px;
+}
+
+select.invalid{
+    border: 1px solid #e74c3c;
+}
+
+input.invalid {
+    box-shadow: 0 0 1px 1px red;
 }
