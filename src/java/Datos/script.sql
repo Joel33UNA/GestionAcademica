@@ -630,7 +630,6 @@ END;
 /
 show error
 
-
 insert into carrera values (sec_pk_carrera.nextval, 'Economia', 'Bachillerato');
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
