@@ -16,6 +16,7 @@ public class ServicioCiclo {
      private static final String modificarCiclo ="{call modificaCiclo(?,?,?,?,?)}";
      private static final String eliminarCiclo  = "{call eliminarCiclo(?)}";
      private static final String buscarCiclo  = "{?=call buscarCiclo(?)}";
+     private static final String buscarCicloCod  = "{?=call buscarCicloCod(?)}";
 
     public void insertarCiclo(Ciclo ciclo) throws Exception {
         PreparedStatement pst = ConnectionService.instance().prepareStatement(insertarCiclo);
@@ -61,6 +62,23 @@ public class ServicioCiclo {
         CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCiclo);
         pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.setInt(2, anio);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        while (rs.next()) {
+            ciclo = new Ciclo(rs.getInt("codigo"), rs.getInt("anio"), rs.getInt("numero_ciclo"), rs.getDate("fecha_inicio"), rs.getDate("fecha_fin"));
+        }
+        if(rs != null) rs.close();
+        if(pst != null) pst.close();
+        if(ciclo == null)
+            throw new Exception("Ciclo no encontrado");
+        return ciclo;
+    }
+    
+    public Ciclo buscarCicloCod(int codigo) throws Exception{
+        Ciclo ciclo = null;
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCicloCod);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setInt(2, codigo);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         while (rs.next()) {

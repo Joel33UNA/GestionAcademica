@@ -3,6 +3,7 @@ package Presentacion;
 
 import Modelo.ModelMatricula;
 import Logica.Matricula;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -24,7 +25,7 @@ public class Matriculas {
     @Produces({MediaType.APPLICATION_JSON})
     public List<Matricula> getMatriculaAll() { 
         try {
-            return ModelMatricula.instancia().obtenerMatriculas();
+            return ModelMatricula.instancia().obtenerMatriculas(-1); // MacGyver para usar el mismo método en el get
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -32,11 +33,11 @@ public class Matriculas {
     
     @PermitAll
     @GET
-    @Path("{codigo}")
+    @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Matricula get(@PathParam("codigo") int codigo) {
+    public List<Matricula> get(@PathParam("cedula") int cedula) {
         try {
-            return ModelMatricula.instancia().buscarMatricula(codigo);
+            return ModelMatricula.instancia().obtenerMatriculas(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

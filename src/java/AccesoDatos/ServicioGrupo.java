@@ -20,7 +20,7 @@ public class ServicioGrupo {
      private static final String listarGrupo = "{?=call listarGrupo()}";
      private static final String modificarGrupo ="{call modificaGrupo(?,?,?,?,?)}";
      private static final String eliminarGrupo  = "{call eliminarGrupo(?)}";
-     private static final String buscarCiclo  = "{?=call buscarCiclo(?)}";
+     private static final String buscarGrupo  = "{?=call buscarGrupo(?)}";
      
     public ServicioGrupo() {
         this.servicioCurso = new ServicioCurso();
@@ -72,15 +72,15 @@ public class ServicioGrupo {
     
     public Grupo buscarGrupo(int codigo) throws Exception {
         Grupo grupo = null;
-        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarCiclo);
+        CallableStatement pst = ConnectionService.instance().prepareCallable(buscarGrupo);
         pst.registerOutParameter(1, OracleTypes.CURSOR);
         pst.setInt(2, codigo);
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
         while (rs.next()) {
-            Ciclo ciclo = this.servicioCiclo.buscarCiclo(rs.getInt("codigo_ciclo"));
+            Ciclo ciclo = this.servicioCiclo.buscarCicloCod(rs.getInt("codigo_ciclo"));
             Curso curso = this.servicioCurso.buscarCurso(rs.getInt("codigo_curso"));
-            Profesor profesor = this.servicioProfesor.buscarProfesor(rs.getInt("codigo_profesor"));
+            Profesor profesor = this.servicioProfesor.buscarProfesor(rs.getInt("cedula_profesor"));
             grupo = new Grupo(rs.getInt("codigo"), rs.getString("horario"), curso, ciclo, profesor);
         }
         if(rs != null) rs.close();
