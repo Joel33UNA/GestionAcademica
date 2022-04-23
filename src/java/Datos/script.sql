@@ -28,13 +28,13 @@ create sequence sec_pk_matricula start with 1;
 -- Tablas
 create table carrera(
                         codigo int,
-                        nombre varchar(20),
+                        nombre varchar(40),
                         titulo varchar(20),
                         constraints carrera_pk primary key (codigo)
 );
 create table curso(
                       codigo int,
-                      nombre varchar(20),
+                      nombre varchar(40),
                       creditos int,
                       horas_semanales int,
                       codigo_carrera int,
@@ -43,14 +43,14 @@ create table curso(
 );
 create table profesor(
                          cedula int,
-                         nombre varchar(20),
+                         nombre varchar(40),
                          telefono number,
                          email varchar(20),
                          constraints profesor_pk primary key (cedula)
 );
 create table estudiante(
                            cedula int,
-                           nombre varchar(20),
+                           nombre varchar(40),
                            telefono number,
                            email varchar(20),
                            fecha_de_nacimiento date,
@@ -68,7 +68,7 @@ CREATE TABLE ciclo(
 );
 CREATE TABLE grupo(
                       codigo int,
-                      horario varchar(20),
+                      horario varchar(40),
                       codigo_ciclo int,
                       codigo_curso int,
                       cedula_profesor int,
@@ -79,7 +79,7 @@ CREATE TABLE grupo(
 );
 create table usuario(
                         cedula int,
-                        clave varchar(20),
+                        clave varchar(40),
                         rol varchar(20),
                         CONSTRAINTS usuario_pk PRIMARY KEY (cedula)
 );
@@ -619,17 +619,17 @@ END;
 show error
 
 
-insert into carrera values (555, 'Info', 'bachi');
+insert into carrera values (sec_pk_carrera.nextval, 'Economia', 'Bachillerato');
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
 insert into usuario values (444, '444', 'matriculador');
 insert into matriculador values (444);
 insert into usuario values (333, '333', 'estudiante');
-insert into estudiante values (333,'Pablito',8888888,'pablito@gmail.com',to_date('12/12/1999', 'dd/mm/yyyy'),555);
-insert into curso values (666, 'progra', 4, 7, 555);
+insert into estudiante values (333,'Pablito',8888888,'pablito@gmail.com',to_date('12/12/1999', 'dd/mm/yyyy'),1);
 insert into usuario values (222, '222', 'profesor');
 insert into profesor values (222, 'Juan', 222, 'juan@dios.com');
-insert into carrera values (333, 'Info', 'bachi');
-insert into curso values (444, 'progra', 4, 7, 333);
+insert into carrera values (sec_pk_carrera.nextval, 'Ingenieria en Sistemas', 'Bachillerato');
+insert into curso values (sec_pk_curso.nextval, 'Programacion I', 4, 7, 2);
+insert into curso values (sec_pk_curso.nextval, 'Programacion II', 4, 7, 2);
 insert into ciclo values (sec_pk_ciclo.nextval, 2022, 1, to_date('12/02/2022', 'dd/mm/yyyy'), to_date('25/06/2022', 'dd/mm/yyyy'));
 commit;
