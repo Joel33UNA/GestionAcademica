@@ -648,4 +648,4 @@ insert into grupo values (sec_pk_grupo.nextval, 'Lunes y jueves 3-4:40pm', 1, 1,
 insert into matricula values (sec_pk_matricula.nextval, 333, 1, 100);
 commit;
 
-PROMPT :)
+PROMPT :)e

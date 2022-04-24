@@ -233,7 +233,11 @@ async function crearCurso(carrera){
     if(!response.ok){
         $('#add-modal-carreras').modal('hide');
 <<<<<<< HEAD
+<<<<<<< HEAD
         $('.#body').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+=======
+        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+>>>>>>> c2ffe79086c9217023801a621d8f2dc39579f6fe
 =======
         $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
 >>>>>>> c2ffe79086c9217023801a621d8f2dc39579f6fe
@@ -352,6 +356,7 @@ async function loadEstudiantes(){
             "<td>" + estudiante.fechaNacimiento + "</td>" +
             "<td>" + estudiante.carrera.nombre + "</td>"
 <<<<<<< HEAD
+<<<<<<< HEAD
         );
         tr.click(() => loadPopupEstudiantes(estudiante));
         tbody.append(tr);
@@ -408,6 +413,7 @@ async function loadPopupEstudiantes(estudiante){
             "<td>" + matricula.grupo.curso.nombre + "</td>" +
             "<td>" + matricula.grupo.curso.creditos + "</td>" +
             "<td>" + matricula.nota + "</td>"
+
         );
         tbody.append(tr);
     });
