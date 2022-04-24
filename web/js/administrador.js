@@ -7,6 +7,7 @@ let cursos = [];
 let curso = {};
 let estudiantes = {};
 let profesores = {};
+let matriculas = [];
 
 async function loadCiclos(){
     let request = new Request(url+'api/ciclos/', {method: 'GET', headers: { }});
@@ -24,6 +25,7 @@ async function loadCiclos(){
     ciclos = await response.json();
     let div = $("#body");
     div.html(
+        '<div class="alertas"/>' +
         '<div class="divBotones">' +
             '<button type="button" class="btn btn-secondary">Ordenar por código</button>' +
             '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
@@ -230,7 +232,7 @@ async function crearCurso(carrera){
     const response = await fetch(request);
     if(!response.ok){
         $('#add-modal-carreras').modal('hide');
-        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+        $('.#body').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
                             '¡No se ha podido crear el curso! Error ' + response.status +
                        '</div>');
         return;
@@ -266,6 +268,7 @@ async function loadCursos(){
     cursos = await response.json();
     let div = $("#body");
     div.html(
+        '<div class="alertas"/>' +
         '<div class="divBotones">' +
             '<button type="button" class="btn btn-secondary">Ordenar por código</button>' +
             '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
@@ -313,12 +316,13 @@ async function loadEstudiantes(){
     estudiantes = await response.json();
     let div = $("#body");
     div.html(
+        '<div class="alertas"/>' +
         '<div class="divBotones">' +
             '<button type="button" class="btn btn-secondary">Ordenar por cédula</button>' +
             '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
 //          '<button type="button" class="btn btn-info">Agregar Estudiante</button>' +
         '</div>' +
-        '<table class="table table-dark" id="tablaEstudiantes">' +
+        '<table class="table table-hover table-dark" id="tablaEstudiantes" style="cursor:pointer;">' +
             '<thead>' +
                 '<tr>' +
                     '<th scope="col">Cédula</th>' +
@@ -330,7 +334,8 @@ async function loadEstudiantes(){
                 '</tr>' +
             '</thead>' +
             '<tbody/>' +
-        '</table>'
+        '</table>' +
+        '<div id="popupEstudiantes" />'
     );
     let tbody = $("#tablaEstudiantes tbody");
     estudiantes.forEach((estudiante) => {
@@ -343,15 +348,72 @@ async function loadEstudiantes(){
             "<td>" + estudiante.fechaNacimiento + "</td>" +
             "<td>" + estudiante.carrera.nombre + "</td>"
         );
+        tr.click(() => loadPopupEstudiantes(estudiante));
         tbody.append(tr);
     });
+}
+
+async function loadPopupEstudiantes(estudiante){
+    let div = $("#popupEstudiantes");
+    div.html("");
+    div.html("<div class='modal fade' id='add-modal-estudiantes' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
+                "<div class='modal-dialog modal-lg'>" +
+                    "<div class='modal-content' id='infoEstudiante'>" +
+                        "<div class='modal-header'>" +
+                            "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
+                        "</div>" +
+                            "<p><b>Nombre: </b>" + estudiante.nombre + "</p>" +
+                            "<p><b>Cédula: </b>" + estudiante.cedula + "</p>" +
+                            "<p><b>Teléfono: </b>" + estudiante.telefono + "</p>" +
+                            "<p><b>Email: </b>" + estudiante.email + "</p>" +
+                            "<p><b>Fecha de nacimiento: </b>" + estudiante.fechaDeNacimiento + "</p>" +
+                            "<p><b>Carrera: </b>" + estudiante.carrera.nombre + "</p>" +
+                            "<p><b>Historial académico: </b></p>" +
+                            '<table class="table table-borderless" id="tablaHistorialPopup">' +
+                            '<thead>' +
+                                '<tr>' +
+                                    '<th scope="col">Ciclo</th>' +
+                                    '<th scope="col">Curso</th>' +
+                                    '<th scope="col">Créditos</th>' +
+                                    '<th scope="col">Nota</th>' +
+                                '</tr>' +
+                            '</thead>' +
+                            '<tbody/>' +
+                        '</table>'+
+                    "</div>" +
+                "</div>" +
+            "</div>");
+    
+    let request = new Request(url+'api/matriculas/'+estudiante.cedula, {method: 'GET', headers: { }});
+    const response = await fetch(request);
+    if (!response.ok){
+        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                            '¡El estudiante no posee historial académico! Error ' + response.status +
+                       '</div>');
+        return;
+    }
+    matriculas = await response.json();
+    
+    let tbody = $("#tablaHistorialPopup tbody");
+    tbody.html("");
+    matriculas.forEach((matricula) => {
+        let tr = $("<tr/>");
+        tr.html(
+            "<td>" + matricula.grupo.ciclo.numeroCiclo+ " " + matricula.grupo.ciclo.anio + "</td>" +
+            "<td>" + matricula.grupo.curso.nombre + "</td>" +
+            "<td>" + matricula.grupo.curso.creditos + "</td>" +
+            "<td>" + matricula.nota + "</td>"
+        );
+        tbody.append(tr);
+    });
+    $('#add-modal-estudiantes').modal('show');
 }
 
 async function loadProfesores(){
     let request = new Request(url+'api/profesores/', {method: 'GET', headers: { }});
     const response = await fetch(request);
     if (!response.ok){
-        let div = $("#body");
+        let div = $("#.alertas");
         div.html(
                 '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
                     '¡No se encontraron profesores!' +
@@ -362,6 +424,7 @@ async function loadProfesores(){
     profesores = await response.json();
     let div = $("#body");
     div.html(
+        '<div class="alertas"/>' +
         '<div class="divBotones">' +
             '<button type="button" class="btn btn-secondary">Ordenar por cédula</button>' +
             '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
@@ -379,7 +442,7 @@ async function loadProfesores(){
             '<tbody/>' +
         '</table>'
     );
-    let tbody = $("#tablaEstudiantes tbody");
+    let tbody = $("#tablaProfesores tbody");
     profesores.forEach((profesor) => {
         let tr = $("<tr/>");
         tr.html(

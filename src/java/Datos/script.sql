@@ -643,6 +643,8 @@ insert into carrera values (sec_pk_carrera.nextval, 'Ingenieria en Sistemas', 'B
 insert into curso values (sec_pk_curso.nextval, 'Programacion I', 4, 7, 2);
 insert into curso values (sec_pk_curso.nextval, 'Programacion II', 4, 7, 2);
 insert into ciclo values (sec_pk_ciclo.nextval, 2022, 1, to_date('12/02/2022', 'dd/mm/yyyy'), to_date('25/06/2022', 'dd/mm/yyyy'));
+insert into grupo values (sec_pk_grupo.nextval, 'Lunes y jueves 3-4:40pm', 1, 1, 222);
+insert into matricula values (sec_pk_matricula.nextval, 333, 1, 100);
 commit;
 
 PROMPT :)
