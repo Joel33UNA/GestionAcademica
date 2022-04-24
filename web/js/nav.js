@@ -35,6 +35,9 @@ function navProfesor(){
                             "<a class='nav-link' href='#' id='infoProfesor' style='color:white;'>Información</a>" +
                         "</li>" +
                         "<li class='nav-item'>" +
+                            "<a class='nav-link' href='#' id='infoGrupos' style='color:white;'>Grupos a cargo</a>" +
+                        "</li>" +
+                        "<li class='nav-item'>" +
                             "<a class='nav-link' href='#' id='checkout' style='color:white;'>Cerrar sesión</a>" +
                         "</li>" +
                     "</ul>" +
@@ -119,7 +122,7 @@ function loaded(){
         if(JSON.parse(sessionStorage.getItem('user')).rol === 'estudiante'){
             navEstudiante();
         }
-        else if(JSON.parse(sessionStorage.getItem('user') === 'profesor')){
+        else if(JSON.parse(sessionStorage.getItem('user')).rol === 'profesor'){
             navProfesor();
         }
         else if(JSON.parse(sessionStorage.getItem('user')).rol === 'administrador'){

@@ -62,6 +62,10 @@ public class ServicioMatricula {
             Matricula matricula = new Matricula(rs.getInt("codigo_matricula"),estudiante,grupo,rs.getInt("nota"));
             if(matricula.getEstudiante().getCedula() == cedula || cedula == -1){
                 coleccionMatriculas.add(matricula);
+            }else{
+                if(matricula.getGrupo().getProfesor().getCedula() == cedula || cedula == -1){
+                    coleccionMatriculas.add(matricula);
+                }
             }
         }
         if(rs != null) rs.close();
