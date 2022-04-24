@@ -49,8 +49,8 @@ public class ServicioProfesor {
         pst.registerOutParameter(1, OracleTypes.CURSOR); // ACA HAY UN PROBLEMA CON EL ORACLETYPES
         pst.execute();
         ResultSet rs = (ResultSet)pst.getObject(1);
-        Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
         while (rs.next()) {
+            Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
             Profesor profesor = new Profesor(rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),usuario.getCedula(),usuario.getClave(),usuario.getRol());
             coleccionProfesores.add(profesor);
         }

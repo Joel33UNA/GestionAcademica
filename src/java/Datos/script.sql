@@ -28,13 +28,13 @@ create sequence sec_pk_matricula start with 1;
 -- Tablas
 create table carrera(
                         codigo int,
-                        nombre varchar(20),
+                        nombre varchar(40),
                         titulo varchar(20),
                         constraints carrera_pk primary key (codigo)
 );
 create table curso(
                       codigo int,
-                      nombre varchar(20),
+                      nombre varchar(40),
                       creditos int,
                       horas_semanales int,
                       codigo_carrera int,
@@ -43,11 +43,25 @@ create table curso(
 );
 create table profesor(
                          cedula int,
-                         nombre varchar(20),
+                         nombre varchar(40),
                          telefono number,
                          email varchar(20),
                          constraints profesor_pk primary key (cedula)
 );
+
+create table estudiante(
+                           cedula int,
+                           nombre varchar(20),
+                           telefono number,
+                           email varchar(20),
+                           fecha_de_nacimiento date,
+                           codigo_carrera int,
+                           codigo_grupo int,
+                           constraints estudiante_pk primary key (cedula),
+                           constraints estudiante_fk_carrera foreign key (codigo_carrera) references carrera,
+                           constraints estudiante_fk_grupo foreign key (codigo_grupo) references grupo
+);
+
 CREATE TABLE ciclo(
                       codigo int,
                       anio int,
@@ -58,7 +72,7 @@ CREATE TABLE ciclo(
 );
 CREATE TABLE grupo(
                       codigo int,
-                      horario varchar(20),
+                      horario varchar(40),
                       codigo_ciclo int,
                       codigo_curso int,
                       cedula_profesor int,
@@ -81,7 +95,7 @@ create table estudiante(
 );
 create table usuario(
                         cedula int,
-                        clave varchar(20),
+                        clave varchar(40),
                         rol varchar(20),
                         CONSTRAINTS usuario_pk PRIMARY KEY (cedula)
 );
@@ -632,7 +646,7 @@ END;
 /
 show error
 
-insert into carrera values (555, 'Info', 'bachi');
+insert into carrera values (sec_pk_carrera.nextval, 'Economia', 'Bachillerato');
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
 insert into usuario values (444, '444', 'matriculador');
@@ -659,4 +673,11 @@ insert into matricula values (2222,333,123,95);
 insert into matricula values (3333,333,789,87);
 insert into matricula values (4444,5555,321,96);
 
+insert into carrera values (sec_pk_carrera.nextval, 'Ingenieria en Sistemas', 'Bachillerato');
+insert into curso values (sec_pk_curso.nextval, 'Programacion I', 4, 7, 2);
+insert into curso values (sec_pk_curso.nextval, 'Programacion II', 4, 7, 2);
+
+insert into grupo values (sec_pk_grupo.nextval, 'Lunes y jueves 3-4:40pm', 1, 1, 222);
 commit;
+
+PROMPT :)

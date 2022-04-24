@@ -113,9 +113,6 @@ public class ServicioCarrera {
             Curso curso = new Curso(rs.getInt("codigo"), rs.getString("nombre"), rs.getInt("creditos"), rs.getInt("horas_semanales"), carrera);
             coleccionCurso.add(curso);
         }
-        if(coleccionCurso.isEmpty()) {
-            throw new NoDataException("No hay datos relacionados los cursos");
-        }
         return coleccionCurso;
     }
 }
