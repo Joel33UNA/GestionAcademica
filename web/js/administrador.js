@@ -232,7 +232,11 @@ async function crearCurso(carrera){
     const response = await fetch(request);
     if(!response.ok){
         $('#add-modal-carreras').modal('hide');
+<<<<<<< HEAD
         $('.#body').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+=======
+        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+>>>>>>> c2ffe79086c9217023801a621d8f2dc39579f6fe
                             '¡No se ha podido crear el curso! Error ' + response.status +
                        '</div>');
         return;
@@ -347,6 +351,7 @@ async function loadEstudiantes(){
             "<td>" + estudiante.email + "</td>" +
             "<td>" + estudiante.fechaNacimiento + "</td>" +
             "<td>" + estudiante.carrera.nombre + "</td>"
+<<<<<<< HEAD
         );
         tr.click(() => loadPopupEstudiantes(estudiante));
         tbody.append(tr);
