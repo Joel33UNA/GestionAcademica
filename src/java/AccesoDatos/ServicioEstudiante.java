@@ -38,19 +38,18 @@ public class ServicioEstudiante {
         pst.setString(4, estudiante.getEmail());
         pst.setDate(5, estudiante.getFechaNacimiento());
         pst.setInt(6, estudiante.getCarrera().getCodigo());
-        pst.setInt(7, estudiante.getGrupo().getCodigo());
         if(pst.executeUpdate() == 0)
             throw new Exception("El estudiante ya existe");
     }
 
     public void modificarEstudiante(Estudiante estudiante) throws Exception  {
         PreparedStatement pst = ConnectionService.instance().prepareStatement(modificarEstudiante);
-        pst.setString(1, estudiante.getNombre());
-        pst.setInt(2, estudiante.getTelefono());
-        pst.setString(3, estudiante.getEmail());
-        pst.setDate(4, estudiante.getFechaNacimiento());
-        pst.setInt(5, estudiante.getCarrera().getCodigo());
-        pst.setInt(6, estudiante.getGrupo().getCodigo());
+        pst.setInt(1, estudiante.getCedula());
+        pst.setString(2, estudiante.getNombre());
+        pst.setInt(3, estudiante.getTelefono());
+        pst.setString(4, estudiante.getEmail());
+        pst.setDate(5, estudiante.getFechaNacimiento());
+        pst.setInt(6, estudiante.getCarrera().getCodigo());
         if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }
@@ -64,8 +63,7 @@ public class ServicioEstudiante {
         while (rs.next()) {
             Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
             Carrera carrera = this.servicioCarrera.buscarCarrera(rs.getInt("codigo_carrera"));
-            Grupo grupo = this.servicioGrupo.buscarGrupo(rs.getInt("codigo_grupo"));
-            Estudiante estudiante = new Estudiante(rs.getInt("cedula"),usuario.getClave(),usuario.getRol(),rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),rs.getDate("fecha_de_nacimiento"),carrera,grupo);
+            Estudiante estudiante = new Estudiante(rs.getInt("cedula"),usuario.getClave(),usuario.getRol(),rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),rs.getDate("fecha_de_nacimiento"),carrera);
             coleccionEstudiantes.add(estudiante);
         }
         if(rs != null) rs.close();
@@ -86,8 +84,7 @@ public class ServicioEstudiante {
         while (rs.next()) {
             Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
             Carrera carrera = this.servicioCarrera.buscarCarrera(rs.getInt("codigo_carrera"));
-            Grupo grupo = this.servicioGrupo.buscarGrupo(rs.getInt("codigo_grupo"));
-            estudiante = new Estudiante(rs.getInt("cedula"),usuario.getClave(),usuario.getRol(),rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),rs.getDate("fecha_de_nacimiento"),carrera,grupo);
+            estudiante = new Estudiante(rs.getInt("cedula"),usuario.getClave(),usuario.getRol(),rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),rs.getDate("fecha_de_nacimiento"),carrera);
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();
@@ -106,8 +103,7 @@ public class ServicioEstudiante {
         while (rs.next()) {
             Usuario usuario = this.servicioUsuario.buscarUsuario(rs.getInt("cedula"));
             Carrera carrera = this.servicioCarrera.buscarCarrera(rs.getInt("codigo_carrera"));
-            Grupo grupo = this.servicioGrupo.buscarGrupo(rs.getInt("codigo_grupo"));
-            estudiante = new Estudiante(rs.getInt("cedula"),usuario.getClave(),usuario.getRol(),rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),rs.getDate("fecha_de_nacimiento"),carrera,grupo);
+            estudiante = new Estudiante(rs.getInt("cedula"),usuario.getClave(),usuario.getRol(),rs.getString("nombre"),rs.getInt("telefono"),rs.getString("email"),rs.getDate("fecha_de_nacimiento"),carrera);
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();

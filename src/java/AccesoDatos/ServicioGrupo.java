@@ -22,6 +22,7 @@ public class ServicioGrupo {
      private static final String modificarGrupo ="{call modificaGrupo(?,?,?,?,?)}";
      private static final String eliminarGrupo  = "{call eliminarGrupo(?)}";
      private static final String buscarGrupo  = "{?=call buscarGrupo(?)}";
+     private static final String listarGrupoCiclo = "{?=call listarGrupoCiclo(?, ?)}";
      
     public ServicioGrupo() {
         this.servicioCurso = new ServicioCurso();
@@ -95,5 +96,28 @@ public class ServicioGrupo {
         pst.setInt(1,codigo);
         if(pst.executeUpdate() == 0)
             throw new Exception("No se pudo eliminar el grupo");
+    }
+
+    public Collection buscarGrupoCiclo(int codCarrera, int codCiclo) throws Exception{
+        ArrayList coleccionGrupos = new ArrayList();
+        CallableStatement pst = ConnectionService.instance().prepareCallable(listarGrupoCiclo);
+        pst.registerOutParameter(1, OracleTypes.CURSOR);
+        pst.setInt(2, codCarrera);
+        pst.setInt(3, codCiclo);
+        pst.execute();
+        ResultSet rs = (ResultSet)pst.getObject(1);
+        while (rs.next()) {
+            Ciclo ciclo = this.servicioCiclo.buscarCiclo(rs.getInt("codigo_ciclo"));
+            Curso curso = this.servicioCurso.buscarCurso(rs.getInt("codigo_curso"));
+            Profesor profesor = this.servicioProfesor.buscarProfesor(rs.getInt("cedula_profesor"));
+            Grupo grupo = new Grupo(rs.getInt("codigo"), rs.getString("horario"), curso, ciclo, profesor);
+            coleccionGrupos.add(grupo);
+        }
+        if(rs != null) rs.close();
+        if(pst != null) pst.close();
+        if(coleccionGrupos == null || coleccionGrupos.size()==0) {
+            throw new NoDataException("No hay datos relacionados los grupos");
+        }
+        return coleccionGrupos;
     }
 }
