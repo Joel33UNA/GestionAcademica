@@ -3,6 +3,7 @@ package AccesoDatos;
 
 import Logica.Ciclo;
 import Logica.Curso;
+import Logica.Estudiante;
 import Logica.Grupo;
 import Logica.Profesor;
 import oracle.jdbc.internal.OracleTypes;

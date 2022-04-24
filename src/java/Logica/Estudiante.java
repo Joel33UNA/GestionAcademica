@@ -8,14 +8,16 @@ public class Estudiante extends Usuario {
     private String email;
     private Date fechaNacimiento;
     private Carrera carrera;
+    private Grupo grupo;
 
-    public Estudiante(int cedula, String clave, String rol, String nombre, int telefono, String email, Date fechaNacimiento, Carrera carrera) {
+    public Estudiante(int cedula, String clave, String rol, String nombre, int telefono, String email, Date fechaNacimiento, Carrera carrera, Grupo grupo) {
         super(cedula,clave,rol);
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
         this.carrera = carrera;
+        this.grupo = grupo;
     }
 
     public Estudiante() {
@@ -25,6 +27,7 @@ public class Estudiante extends Usuario {
         this.email = "";
         this.fechaNacimiento = new Date(0,0,0);
         this.carrera = new Carrera();
+        this.grupo = new Grupo();
     }
 
     public int getCedula() {
@@ -90,5 +93,15 @@ public class Estudiante extends Usuario {
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;
     }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+    
+    
 }
 

@@ -10,10 +10,10 @@ drop sequence sec_pk_matricula;
 drop table administrador;
 drop table matriculador;
 drop table matricula;
+drop table estudiante;
 drop table grupo;
 drop table curso;
 drop table profesor;
-drop table estudiante;
 drop table carrera;
 drop table usuario;
 drop table ciclo;
@@ -48,16 +48,6 @@ create table profesor(
                          email varchar(20),
                          constraints profesor_pk primary key (cedula)
 );
-create table estudiante(
-                           cedula int,
-                           nombre varchar(20),
-                           telefono number,
-                           email varchar(20),
-                           fecha_de_nacimiento date,
-                           codigo_carrera int,
-                           constraints estudiante_pk primary key (cedula),
-                           constraints estudiante_fk_carrera foreign key (codigo_carrera) references carrera
-);
 CREATE TABLE ciclo(
                       codigo int,
                       anio int,
@@ -76,6 +66,18 @@ CREATE TABLE grupo(
                       CONSTRAINTS grupo_fk_ciclo FOREIGN KEY (codigo_ciclo) references ciclo,
                       constraints grupo_fk_curso foreign key (codigo_curso) references curso,
                       CONSTRAINTS grupo_fk_profesor FOREIGN KEY (cedula_profesor) references profesor
+);
+create table estudiante(
+                           cedula int,
+                           nombre varchar(20),
+                           telefono number,
+                           email varchar(20),
+                           fecha_de_nacimiento date,
+                           codigo_carrera int,
+                           codigo_grupo int,
+                           constraints estudiante_pk primary key (cedula),
+                           constraints estudiante_fk_carrera foreign key (codigo_carrera) references carrera,
+                           constraints estudiante_fk_grupo foreign key (codigo_grupo) references grupo
 );
 create table usuario(
                         cedula int,
@@ -312,18 +314,18 @@ end;
 /
 show error
 
-CREATE OR REPLACE PROCEDURE insertarEstudiante(id IN estudiante.cedula%TYPE, nom IN estudiante.nombre%TYPE, tel IN estudiante.telefono%TYPE, em IN estudiante.email%TYPE, fecha_nac in estudiante.fecha_de_nacimiento%TYPE, cod_car in estudiante.codigo_carrera%TYPE)
+CREATE OR REPLACE PROCEDURE insertarEstudiante(id IN estudiante.cedula%TYPE, nom IN estudiante.nombre%TYPE, tel IN estudiante.telefono%TYPE, em IN estudiante.email%TYPE, fecha_nac in estudiante.fecha_de_nacimiento%TYPE, cod_car in estudiante.codigo_carrera%TYPE, cod_gru in estudiante.codigo_grupo%TYPE)
 AS
 BEGIN
-INSERT INTO estudiante VALUES(id,nom,tel,em,fecha_nac,cod_car);
+INSERT INTO estudiante VALUES(id,nom,tel,em,fecha_nac,cod_car,cod_gru);
 END;
 /
 show error
 
-CREATE OR REPLACE PROCEDURE modificarEstudiante(i IN estudiante.cedula%TYPE, nom IN estudiante.nombre%TYPE, tel IN estudiante.telefono%TYPE, em IN estudiante.email%TYPE, fecha_nac in estudiante.fecha_de_nacimiento%TYPE, cod_car in estudiante.codigo_carrera%TYPE)
+CREATE OR REPLACE PROCEDURE modificarEstudiante(i IN estudiante.cedula%TYPE, nom IN estudiante.nombre%TYPE, tel IN estudiante.telefono%TYPE, em IN estudiante.email%TYPE, fecha_nac in estudiante.fecha_de_nacimiento%TYPE, cod_car in estudiante.codigo_carrera%TYPE, cod_gru in estudiante.codigo_grupo%TYPE)
 AS
 BEGIN
-UPDATE estudiante SET nombre = nom, telefono = tel, email = em, fecha_de_nacimiento = fecha_nac, codigo_carrera = cod_car WHERE i=cedula;
+UPDATE estudiante SET nombre = nom, telefono = tel, email = em, fecha_de_nacimiento = fecha_nac, codigo_carrera = cod_car, codigo_grupo = cod_gru WHERE i=cedula;
 END;
 /
 show error
@@ -334,7 +336,7 @@ AS
         estudiante_cursor types.ref_cursor;
 BEGIN
 OPEN estudiante_cursor FOR
-SELECT cedula, nombre, telefono, email, fecha_de_nacimiento, codigo_carrera FROM estudiante WHERE cedula=idbuscar;
+SELECT cedula, nombre, telefono, email, fecha_de_nacimiento, codigo_carrera, codigo_grupo FROM estudiante WHERE cedula=idbuscar;
 RETURN estudiante_cursor;
 END;
 /
@@ -346,7 +348,7 @@ AS
         estudiante_cursor types.ref_cursor;
 BEGIN
 OPEN estudiante_cursor FOR
-SELECT cedula, nombre, telefono, email, fecha_de_nacimiento, codigo_carrera FROM estudiante WHERE nombre=nom;
+SELECT cedula, nombre, telefono, email, fecha_de_nacimiento, codigo_carrera, codigo_grupo FROM estudiante WHERE nombre=nom;
 RETURN estudiante_cursor;
 END;
 /
@@ -358,7 +360,7 @@ AS
         estudiante_cursor types.ref_cursor;
 BEGIN
 OPEN estudiante_cursor FOR
-SELECT cedula, nombre, telefono, email, fecha_de_nacimiento, codigo_carrera FROM estudiante;
+SELECT cedula, nombre, telefono, email, fecha_de_nacimiento, codigo_carrera, codigo_grupo FROM estudiante;
 RETURN estudiante_cursor;
 END;
 /
@@ -635,10 +637,6 @@ insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
 insert into usuario values (444, '444', 'matriculador');
 insert into matriculador values (444);
-insert into usuario values (333, '333', 'estudiante');
-insert into estudiante values (333,'Pablito',8888888,'pablito@gmail.com',to_date('12/12/1999', 'dd/mm/yyyy'),555);
-insert into usuario values (5555, '5555', 'estudiante');
-insert into estudiante values (5555,'ElLorrcito',99988877,'elLordcito@gmail.com',to_date('01/08/2002', 'dd/mm/yyyy'),555);
 insert into curso values (666, 'progra 1', 4, 5, 555);
 insert into curso values (777, 'progra 2', 4, 5, 555);
 insert into curso values (888, 'progra 3', 4, 6, 555);
@@ -652,8 +650,13 @@ insert into grupo values (123,'L-J 8am', 9999,999,222);
 insert into grupo values (456,'L-J 3pm', 8888,888,222);
 insert into grupo values (789,'M-V 10am', 8888,777,222);
 insert into grupo values (321,'M-V 1pm', 9999,666,222);
+insert into usuario values (333, '333', 'estudiante');
+insert into estudiante values (333,'Pablito',8888888,'pablito@gmail.com',to_date('12/12/1999', 'dd/mm/yyyy'),555,123);
+insert into usuario values (5555, '5555', 'estudiante');
+insert into estudiante values (5555,'ElLorrcito',99988877,'elLordcito@gmail.com',to_date('01/08/2002', 'dd/mm/yyyy'),555,123);
 insert into matricula values (1111,333,456,90);
 insert into matricula values (2222,333,123,95);
 insert into matricula values (3333,333,789,87);
 insert into matricula values (4444,5555,321,96);
+
 commit;

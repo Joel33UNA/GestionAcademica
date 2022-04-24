@@ -23,20 +23,27 @@ async function loadEstudiante(){
         "<div class = 'col-auto p-5 text-center'>"+
             "<div class = bg-secondary>"+
                 "<dl class = 'text-white'>" +
-                    '<dt>Cédula</dt>'+
+                    '<dt>Cédula'+
                         '<dd>' + estudiante.cedula + '</dd>'+
-                    '<dt>Nombre</dt>'+
+                    '</dt>'+
+                    '<dt>Nombre'+
                         '<dd>' + estudiante.nombre + '</dd>'+
-                    '<dt>Teléfono</dt>'+
+                    '</dt>'+
+                    '<dt>Teléfono'+
                         '<dd>' + estudiante.telefono + '</dd>'+
-                    '<dt>Correo electrónico</dt>'+
+                    '</dt>'+
+                    '<dt>Correo electrónico'+
                         '<dd>' + estudiante.email + '</dd>'+
-                    '<dt>Fecha de nacimiento</dt>'+
+                    '</dt>'+
+                    '<dt>Fecha de nacimiento'+
                         '<dd>' + estudiante.fechaNacimiento + '</dd>'+
-                    '<dt>Carrera</dt>'+
+                    '</dt>'+
+                    '<dt>Carrera'+ 
                         '<dd>' + estudiante.carrera.nombre + '</dd>'+
-                    '<dt>Título de carrera</dt>'+
+                    '</dt>'+
+                    '<dt>Título de carrera'+
                         '<dd>' + estudiante.carrera.titulo + '</dd>'+
+                    '</dt>'+
                 '</dl>'+
             "</div>"+
         "</div>"
