@@ -49,6 +49,7 @@ create table profesor(
                          constraints profesor_pk primary key (cedula)
 );
 
+<<<<<<< HEAD
 create table estudiante(
                            cedula int,
                            nombre varchar(20),
@@ -60,6 +61,8 @@ create table estudiante(
                            constraints estudiante_fk_carrera foreign key (codigo_carrera) references carrera
 );
 
+=======
+>>>>>>> 583f02babe16923726625823588272ec30db26a3
 CREATE TABLE ciclo(
                       codigo int,
                       anio int,
@@ -78,6 +81,16 @@ CREATE TABLE grupo(
                       CONSTRAINTS grupo_fk_ciclo FOREIGN KEY (codigo_ciclo) references ciclo,
                       constraints grupo_fk_curso foreign key (codigo_curso) references curso,
                       CONSTRAINTS grupo_fk_profesor FOREIGN KEY (cedula_profesor) references profesor
+);
+create table estudiante(
+                           cedula int,
+                           nombre varchar(20),
+                           telefono number,
+                           email varchar(20),
+                           fecha_de_nacimiento date,
+                           codigo_carrera int,
+                           constraints estudiante_pk primary key (cedula),
+                           constraints estudiante_fk_carrera foreign key (codigo_carrera) references carrera
 );
 create table usuario(
                         cedula int,
@@ -390,13 +403,13 @@ END;
 /
 show error
 
-CREATE OR REPLACE FUNCTION buscarCiclo(a IN ciclo.anio%TYPE)
+CREATE OR REPLACE FUNCTION buscarCiclo(c IN ciclo.codigo%TYPE)
 RETURN Types.ref_cursor
 AS
     ciclo_cursor types.ref_cursor;
 BEGIN
 OPEN ciclo_cursor FOR
-SELECT codigo, anio, numero_ciclo, fecha_inicio, fecha_fin FROM ciclo WHERE anio=a;
+SELECT codigo, anio, numero_ciclo, fecha_inicio, fecha_fin FROM ciclo WHERE c=codigo;
 RETURN ciclo_cursor;
 END;
 /
@@ -478,6 +491,20 @@ OPEN grupo_cursor FOR
 SELECT codigo, horario, codigo_ciclo, codigo_curso, cedula_profesor FROM grupo;
 RETURN grupo_cursor;
 END;
+/
+show error
+
+create or replace function listarGrupoCiclo(codCarrera in carrera.codigo%type, codCiclo in ciclo.codigo%type)
+return Types.ref_cursor
+as
+    grupo_cursor types.ref_cursor;
+begin
+    open grupo_cursor for
+    select g.codigo, g.horario, g.codigo_ciclo, g.codigo_curso, g.cedula_profesor 
+    from grupo g, curso cu, carrera ca 
+    where g.codigo_ciclo=codCiclo and cu.codigo_carrera=codCarrera and cu.codigo=g.codigo_curso;
+    return grupo_cursor;
+end;
 /
 show error
 
@@ -632,11 +659,16 @@ END;
 /
 show error
 
+<<<<<<< HEAD
 insert into carrera values (555, 'Economia', 'Bachillerato');
+=======
+insert into carrera values (sec_pk_carrera.nextval, 'Economia', 'Bachillerato');
+>>>>>>> 583f02babe16923726625823588272ec30db26a3
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
 insert into usuario values (444, '444', 'matriculador');
 insert into matriculador values (444);
+<<<<<<< HEAD
 insert into curso values (666, 'progra 1', 4, 5, 555);
 insert into curso values (777, 'progra 2', 4, 5, 555);
 insert into curso values (888, 'progra 3', 4, 6, 555);
@@ -667,3 +699,23 @@ insert into grupo values (sec_pk_grupo.nextval, 'Lunes y jueves 3-4:40pm', 9999,
 commit;
 
 PROMPT :)
+=======
+insert into usuario values (333, '333', 'estudiante');
+insert into estudiante values (333,'Pablito',8888888,'pablito@gmail.com',to_date('12/12/1999', 'dd/mm/yyyy'),1);
+insert into curso values (666, 'progra 1', 4, 5, 1);
+insert into curso values (777, 'progra 2', 4, 5, 1);
+insert into curso values (888, 'progra 3', 4, 6, 1);
+insert into curso values (999, 'progra 4', 4, 7, 1);
+insert into usuario values (222, '222', 'profesor');
+insert into profesor values (222, 'Juan', 222, 'juan@dios.com');
+insert into carrera values (sec_pk_carrera.nextval, 'Ingenieria en Sistemas', 'Bachillerato');
+insert into curso values (sec_pk_curso.nextval, 'Programacion I', 4, 7, 2);
+insert into curso values (sec_pk_curso.nextval, 'Programacion II', 4, 7, 2);
+insert into ciclo values (sec_pk_ciclo.nextval, 2022, 1, to_date('12/02/2022', 'dd/mm/yyyy'), to_date('25/06/2022', 'dd/mm/yyyy'));
+
+insert into grupo values (sec_pk_grupo.nextval, 'Lunes y jueves 3-4:40pm', 1, 1, 222);
+insert into matricula values (sec_pk_matricula.nextval, 333, 1, 100);
+commit;
+
+PROMPT :)
+>>>>>>> 583f02babe16923726625823588272ec30db26a3

@@ -42,4 +42,9 @@ public class ModelGrupo {
         ArrayList<Grupo> grupos = (ArrayList<Grupo>)this.grupo.listarGrupo();
         return grupos;
     }
+    
+    public ArrayList<Grupo> buscarGrupoCiclo(int codCarrera, int codCiclo) throws Exception{
+        ArrayList<Grupo> grupos = (ArrayList<Grupo>)this.grupo.buscarGrupoCiclo(codCarrera, codCiclo);
+        return grupos;
+    }
 }

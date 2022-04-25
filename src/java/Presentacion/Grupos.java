@@ -3,6 +3,7 @@ package Presentacion;
 
 import Modelo.ModelGrupo;
 import Logica.Grupo;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -39,6 +40,18 @@ public class Grupos {
             return ModelGrupo.instancia().buscarGrupo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
+        }
+    }
+    
+    @PermitAll
+    @GET
+    @Path("{codigoCarrera}/{codigoCiclo}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public ArrayList<Grupo> getGruposCiclos(@PathParam("codigoCarrera") int codCarrera, @PathParam("codigoCiclo") int codCiclo){
+        try{
+            return ModelGrupo.instancia().buscarGrupoCiclo(codCarrera, codCiclo);
+        } catch(Exception ex){
+            throw new NotFoundException();
         }
     }
     

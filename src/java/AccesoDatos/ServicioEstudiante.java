@@ -15,16 +15,19 @@ import java.util.Collection;
 public class ServicioEstudiante {
     private ServicioCarrera servicioCarrera;
     private ServicioUsuario servicioUsuario;
+    private ServicioGrupo servicioGrupo;
     private static final String insertarEstudiante = "{call insertarEstudiante(?,?,?,?,?,?)}";
     private static final String listarEstudiante = "{?=call listarEstudiante()}";
     private static final String modificarEstudiante ="{call modificaEstudiante(?,?,?,?,?,?)}";
     private static final String eliminarEstudiante  = "{call eliminarEstudiante(?)}";
     private static final String buscarEstudiante  = "{?=call buscarEstudiante(?)}";
     private static final String buscarEstudianteNom  = "{?=call buscarEstudianteNom(?)}";
+    private static final String buscarGrupo  = "{?=call buscarGrupo(?)}";
 
     public ServicioEstudiante(){
         this.servicioCarrera = new ServicioCarrera();
         this.servicioUsuario = new ServicioUsuario();
+        this.servicioGrupo = new ServicioGrupo();
     }
 
     public void insertarEstudiante(Estudiante estudiante) throws Exception {
@@ -41,11 +44,12 @@ public class ServicioEstudiante {
 
     public void modificarEstudiante(Estudiante estudiante) throws Exception  {
         PreparedStatement pst = ConnectionService.instance().prepareStatement(modificarEstudiante);
-        pst.setString(1, estudiante.getNombre());
-        pst.setInt(2, estudiante.getTelefono());
-        pst.setString(3, estudiante.getEmail());
-        pst.setDate(4, estudiante.getFechaNacimiento());
-        pst.setInt(5, estudiante.getCarrera().getCodigo());
+        pst.setInt(1, estudiante.getCedula());
+        pst.setString(2, estudiante.getNombre());
+        pst.setInt(3, estudiante.getTelefono());
+        pst.setString(4, estudiante.getEmail());
+        pst.setDate(5, estudiante.getFechaNacimiento());
+        pst.setInt(6, estudiante.getCarrera().getCodigo());
         if(pst.executeUpdate() == 0)
             throw new Exception("Ha ocurrido un error");
     }

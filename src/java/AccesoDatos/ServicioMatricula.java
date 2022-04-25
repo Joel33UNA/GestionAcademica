@@ -66,6 +66,7 @@ public class ServicioMatricula {
                 if(matricula.getGrupo().getProfesor().getCedula() == cedula || cedula == -1){
                     coleccionMatriculas.add(matricula);
                 }
+<<<<<<< HEAD
             }
         }
         ArrayList<Estudiante> ests = null;
@@ -75,6 +76,8 @@ public class ServicioMatricula {
                 if(m.getEstudiante().getCedula() == e.getCedula()){
                     m.getGrupo().getEstudiantes().add(e);
                 }
+=======
+>>>>>>> 583f02babe16923726625823588272ec30db26a3
             }
         }
         if(rs != null) rs.close();
