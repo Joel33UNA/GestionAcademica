@@ -1,6 +1,7 @@
 
 package Logica;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -10,13 +11,15 @@ public class Grupo {
     private Curso curso;
     private Ciclo ciclo;
     private Profesor profesor;
+    private ArrayList<Estudiante> estudiantes;
 
-    public Grupo(int codigo, String horario, Curso curso, Ciclo ciclo, Profesor profesor){
+    public Grupo(int codigo, String horario, Curso curso, Ciclo ciclo, Profesor profesor, ArrayList<Estudiante> estudiantes){
         this.codigo = codigo;
         this.horario = horario;
         this.curso = curso;
         this.ciclo = ciclo;
         this.profesor = profesor;
+        this.estudiantes = estudiantes;
     }
 
     public Grupo(){
@@ -25,6 +28,7 @@ public class Grupo {
         this.curso = new Curso();
         this.ciclo = new Ciclo();
         this.profesor = new Profesor();
+        this.estudiantes = new ArrayList();
     }
 
     public int getCodigo() {
@@ -65,6 +69,14 @@ public class Grupo {
 
     public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
+    }
+
+    public ArrayList<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setGrupos(ArrayList<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
     }
 
     @Override

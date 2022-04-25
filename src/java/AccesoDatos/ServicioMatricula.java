@@ -51,7 +51,7 @@ public class ServicioMatricula {
     }
 
     public Collection listarMatricula(int cedula) throws Exception{
-        ArrayList coleccionMatriculas = new ArrayList();
+        ArrayList<Matricula> coleccionMatriculas = new ArrayList<Matricula>();
         CallableStatement pst = ConnectionService.instance().prepareCallable(listarMatricula);
         pst.registerOutParameter(1, OracleTypes.CURSOR); // ACA HAY UN PROBLEMA CON EL ORACLETYPES
         pst.execute();
@@ -65,6 +65,15 @@ public class ServicioMatricula {
             }else{
                 if(matricula.getGrupo().getProfesor().getCedula() == cedula || cedula == -1){
                     coleccionMatriculas.add(matricula);
+                }
+            }
+        }
+        ArrayList<Estudiante> ests = null;
+        ests = (ArrayList<Estudiante>) this.servicioEstudiante.listarEstudiante();
+        for(Matricula m : coleccionMatriculas){
+            for(Estudiante e : ests){
+                if(m.getEstudiante().getCedula() == e.getCedula()){
+                    m.getGrupo().getEstudiantes().add(e);
                 }
             }
         }
