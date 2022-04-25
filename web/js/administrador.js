@@ -119,9 +119,7 @@ async function loadCiclos(){
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
-            '<button type="button" class="btn btn-secondary">Ordenar por código</button>' +
-            '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
-//          '<button type="button" class="btn btn-info">Agregar Ciclo</button>' +
+            '<input type="text" id="search" placeholder="Buscar ciclos" onkeyup="buscador_interno()">' +
         '</div>' +
         '<table class="table table-dark" id="tablaCiclos">' +
             '<thead>' +
@@ -140,7 +138,7 @@ async function loadCiclos(){
     ciclos.forEach((ciclo) => {
         let tr = $("<tr/>");
         tr.html(
-            "<th>" + ciclo.codigo + "</th>" +
+            "<td>" + ciclo.codigo + "</td>" +
             "<td>" + ciclo.anio + "</td>" +
             "<td>" + ciclo.numeroCiclo + "</td>" +
             "<td>" + ciclo.fechaInicio + "</td>" +
@@ -156,9 +154,7 @@ async function loadCarreras(){
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
-            '<button type="button" class="btn btn-secondary">Ordenar por código</button>' +
-            '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
-//          '<button type="button" class="btn btn-info">Agregar Ciclo</button>' +
+            '<input type="text" id="search" placeholder="Buscar carreras" onkeyup="buscador_interno()">' +
         '</div>' +
         '<table class="table table-dark" id="tablaCarreras">' +
             '<thead>' +
@@ -178,7 +174,7 @@ async function loadCarreras(){
     carreras.forEach((carrera) => {
         let tr = $("<tr/>");
         tr.html(
-            "<th>" + carrera.codigo + "</th>" +
+            "<td>" + carrera.codigo + "</td>" +
             "<td>" + carrera.nombre + "</td>" +
             "<td>" + carrera.titulo + "</td>" +
             "<td id='botonesCarreras'>" +
@@ -225,7 +221,7 @@ function loadPopupCursos(carrera){
     carrera.cursos.forEach((curso) => {
         let tr = $("<tr/>");
         tr.html(
-            "<th>" + curso.codigo + "</th>" +
+            "<td>" + curso.codigo + "</td>" +
             "<td>" + curso.nombre + "</td>" +
             "<td>" + curso.horasSemanales + "</td>" +
             "<td>" + curso.creditos + "</td>" +
@@ -340,8 +336,7 @@ async function loadCursos(){
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
-            '<button type="button" class="btn btn-secondary">Ordenar por código</button>' +
-            '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
+            '<input type="text" id="search" placeholder="Buscar cursos" onkeyup="buscador_interno()">' +
         '</div>' +
         '<table class="table table-dark" id="tablaCursos">' +
             '<thead>' +
@@ -362,7 +357,7 @@ async function loadCursos(){
     cursos.forEach((curso) => {
         let tr = $("<tr/>");
         tr.html(
-            "<th>" + curso.codigo + "</th>" +
+            "<td>" + curso.codigo + "</td>" +
             "<td>" + curso.nombre + "</td>" +
             "<td>" + curso.horasSemanales + "</td>" +
             "<td>" + curso.creditos + "</td>" +
@@ -473,9 +468,7 @@ async function loadEstudiantes(){
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
-            '<button type="button" class="btn btn-secondary">Ordenar por cédula</button>' +
-            '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
-//          '<button type="button" class="btn btn-info">Agregar Estudiante</button>' +
+            '<input type="text" id="search" placeholder="Buscar estudiantes" onkeyup="buscador_interno()">' +
         '</div>' +
         '<table class="table table-hover table-dark" id="tablaEstudiantes" style="cursor:pointer;">' +
             '<thead>' +
@@ -496,7 +489,7 @@ async function loadEstudiantes(){
     estudiantes.forEach((estudiante) => {
         let tr = $("<tr/>");
         tr.html(
-            "<th>" + estudiante.cedula + "</th>" +
+            "<td>" + estudiante.cedula + "</td>" +
             "<td>" + estudiante.nombre + "</td>" +
             "<td>" + estudiante.telefono + "</td>" +
             "<td>" + estudiante.email + "</td>" +
@@ -570,9 +563,7 @@ async function loadProfesores(){
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
-            '<button type="button" class="btn btn-secondary">Ordenar por cédula</button>' +
-            '<button type="button" class="btn btn-secondary">Ordenar por nombre</button>' +
-//          '<button type="button" class="btn btn-info">Agregar Profesor</button>' +
+            '<input type="text" id="search" placeholder="Buscar profesores" onkeyup="buscador_interno()">' +
         '</div>' +
         '<table class="table table-dark" id="tablaProfesores">' +
             '<thead>' +
@@ -590,7 +581,7 @@ async function loadProfesores(){
     profesores.forEach((profesor) => {
         let tr = $("<tr/>");
         tr.html(
-            "<th>" + profesor.cedula + "</th>" +
+            "<td>" + profesor.cedula + "</td>" +
             "<td>" + profesor.nombre + "</td>" +
             "<td>" + profesor.telefono + "</td>" +
             "<td>" + profesor.email + "</td>"
@@ -629,7 +620,7 @@ async function loadOfertaAcademica(){
         select.append(option);
     });
     div.append($('<div class="divBotones">' +
-                    '<button id="btnDisplayCursos" type="button" class="btn btn-light">Buscar grupos</button>' +
+                    '<input type="text" id="search" placeholder="Buscar curso" onkeyup="buscador_interno()">' +
                 '</div>'));
     $("#btnDisplayCursos").click(async() => {
         $("#divInfo").remove();
@@ -653,7 +644,7 @@ async function loadOfertaAcademica(){
         grupos.forEach((grupo) => {
             let tr = $("<tr/>");
             tr.html(
-                "<th>" + grupo.codigo + "</th>" +
+                "<td>" + grupo.codigo + "</td>" +
                 "<td>" + grupo.horario + "</td>" +
                 "<td>" + grupo.ciclo.anio + "</td>" +
                 "<td>" + grupo.curso.nombre + "</td>" +
@@ -664,6 +655,30 @@ async function loadOfertaAcademica(){
     });
 }
 
+function buscador_interno() {
+    var filter = document.getElementById("search");
+    var li = document.getElementsByTagName("td");
+    encontrado = false;
+    id_encontrado = 0;
+    //Recorriendo elementos a filtrar mediante la lista
+    for (i = 0; i < li.length; i++) {
+        var a = li[i].textContent;
+        if (a.toUpperCase().includes(filter.value.toUpperCase())) {
+            encontrado = true;
+            id_encontrado = li[i].parentElement;
+            li[i].parentElement.style.display = "";
+        } else {
+            if (li[i].parentElement != id_encontrado) {
+                li[i].parentElement.style.display = "none";
+            }
+        }
+    }
+    if (encontrado != true) {
+        for (i = 0; i < li.length; i++) {
+            li[i].style.display = "table-cell";
+        }
+    }
+}
 
 function loader(){
     $("#infoCiclos").click(loadCiclos);

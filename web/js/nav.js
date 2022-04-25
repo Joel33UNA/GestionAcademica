@@ -90,7 +90,7 @@ function navMatriculador(){
                 "<div class='collapse navbar-collapse' id='navbarSupportedContent'>" +
                     "<ul class='navbar-nav mr-auto' style='padding: 15px; justify-content:center;'>" +
                         "<li class='nav-item'>" +
-                            "<a class='nav-link' href='#' id='infoMatriculador' style='color:white;'>Información</a>" +
+                            "<a class='nav-link' href='#' id='infoEstudiantes' style='color:white;'>Estudiantes</a>" +
                         "</li>" +
                         "<li class='nav-item'>" +
                             "<a class='nav-link' href='#' id='checkout' style='color:white;'>Cerrar sesión</a>" +
