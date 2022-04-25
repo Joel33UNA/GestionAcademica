@@ -89,6 +89,7 @@ public class Estudiante extends Usuario {
 
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;
-    } 
+
+    }  
 }
 

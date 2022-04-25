@@ -690,5 +690,3 @@ function loader(){
 }
 
 $(loader);
-
-
