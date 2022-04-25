@@ -110,7 +110,7 @@ public class ServicioGrupo {
             Ciclo ciclo = this.servicioCiclo.buscarCiclo(rs.getInt("codigo_ciclo"));
             Curso curso = this.servicioCurso.buscarCurso(rs.getInt("codigo_curso"));
             Profesor profesor = this.servicioProfesor.buscarProfesor(rs.getInt("cedula_profesor"));
-            Grupo grupo = new Grupo(rs.getInt("codigo"), rs.getString("horario"), curso, ciclo, profesor);
+            Grupo grupo = new Grupo(rs.getInt("codigo"), rs.getString("horario"), curso, ciclo, profesor,new ArrayList<Estudiante>());
             coleccionGrupos.add(grupo);
         }
         if(rs != null) rs.close();

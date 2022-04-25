@@ -22,7 +22,7 @@ public class ServicioMatricula {
     private ServicioCarrera servicioCarrera;
     private static final String insertarMatricula = "{call insertarMatricula(?,?,?)}";
     private static final String listarMatricula = "{?=call listarMatricula()}";
-    private static final String modificarMatricula ="{call modificaMatricula(?,?,?,?)}";
+    private static final String modificarMatricula ="{call modificarMatricula(?,?,?,?)}";
     private static final String eliminarMatricula  = "{call eliminarMatricula(?)}";
     private static final String buscarMatricula  = "{?=call buscarMatricula(?)}";
 
@@ -66,7 +66,6 @@ public class ServicioMatricula {
                 if(matricula.getGrupo().getProfesor().getCedula() == cedula || cedula == -1){
                     coleccionMatriculas.add(matricula);
                 }
-<<<<<<< HEAD
             }
         }
         ArrayList<Estudiante> ests = null;
@@ -76,8 +75,6 @@ public class ServicioMatricula {
                 if(m.getEstudiante().getCedula() == e.getCedula()){
                     m.getGrupo().getEstudiantes().add(e);
                 }
-=======
->>>>>>> 583f02babe16923726625823588272ec30db26a3
             }
         }
         if(rs != null) rs.close();

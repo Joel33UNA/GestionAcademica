@@ -8,8 +8,6 @@ let curso = {};
 let estudiantes = {};
 let profesores = {};
 let matriculas = [];
-<<<<<<< HEAD
-=======
 
 async function fetchEstudiantes(){
     let request = new Request(url+'api/estudiantes/', {method: 'GET', headers: { }});
@@ -102,7 +100,6 @@ async function fetchGruposPorCarreraYCiclo(idCarrera, idCiclo){
     }
     grupos = await response.json();
 }
->>>>>>> 583f02babe16923726625823588272ec30db26a3
 
 async function loadCiclos(){
     let request = new Request(url+'api/ciclos/', {method: 'GET', headers: { }});
@@ -154,22 +151,7 @@ async function loadCiclos(){
 }
 
 async function loadCarreras(){
-<<<<<<< HEAD
-    let request = new Request(url+'api/carreras/', {method: 'GET', headers: { }});
-    const response = await fetch(request);
-    if (!response.ok){
-        let div = $("#body");
-        div.html(
-                '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                    '¡No se encontraron carreras! Error ' + response.status +
-                '</div>'
-        );
-        return;
-    }
-    carreras = await response.json();
-=======
     await fetchCarreras();
->>>>>>> 583f02babe16923726625823588272ec30db26a3
     let div = $("#body");
     div.html(
         '<div class="alertas"/>' +
@@ -203,161 +185,11 @@ async function loadCarreras(){
                 "<button type='button' class='btn btn-secondary' style='margin:2px;' id='verCursos"+carrera.codigo+"'>Ver cursos</button>" +
                 "<button type='button' class='btn btn-info' style='margin:2px;' id='agregarCurso"+carrera.codigo+"'>Agregar curso</button>" +
             "</td>"
-<<<<<<< HEAD
         );
         tbody.append(tr);
         $("#verCursos"+carrera.codigo).click(() => loadPopupCursos(carrera));
         $("#agregarCurso"+carrera.codigo).click(() => loadPopupAgregarCurso(carrera));
     });
-}
-
-function loadPopupCursos(carrera){
-    let div = $('#popupCarreras');
-    div.html("");
-    div.html("<div class='modal fade' id='add-modal-carreras' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
-                "<div class='modal-dialog modal-lg'>" +
-                    "<div class='modal-content' id='infoCarrera'>" +
-                        "<div class='modal-header'>" +
-                            "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
-                        "</div>" +
-                            "<p><b>Carrera: </b>" + carrera.nombre + "</p>" +
-                            "<p><b>Código: </b>" + carrera.codigo + "</p>" +
-                            "<p><b>Cursos de la carrera: </b></p>" +
-                            "<table class='table table-borderless' id='tablaCursosCarrera'>" +
-                                "<thead>" +
-                                  "<tr>" +
-                                    '<th scope="col">Código</th>' +
-                                    '<th scope="col">Nombre</th>' +
-                                    '<th scope="col">Horas semanales</th>' +
-                                    '<th scope="col">Créditos</th>' +
-                                    '<th scope="col">Eliminar curso</th>' +
-                                  "</tr>" +
-                                "</thead>" +
-                                "<tbody />" +
-                            "</table>" +
-                        "<div id='errorDiv1' style='width:70%; margin: auto;'></div>" +
-                    "</div>" +
-                "</div>" +
-            "</div>");
-    let tbody = $("#tablaCursosCarrera tbody");
-    tbody.html("");
-    carrera.cursos.forEach((curso) => {
-        let tr = $("<tr/>");
-        tr.html(
-            "<th>" + curso.codigo + "</th>" +
-            "<td>" + curso.nombre + "</td>" +
-            "<td>" + curso.horasSemanales + "</td>" +
-            "<td>" + curso.creditos + "</td>" +
-            "<td><i class='fa fa-trash' aria-hidden='true' id='eliminarCurso"+curso.codigo+"' style='cursor:pointer;'></i></td>"
-        );
-        tbody.append(tr);
-        $("#eliminarCurso"+curso.codigo).click(() => eliminarCurso(curso));
-=======
-        );
-        tbody.append(tr);
-        $("#verCursos"+carrera.codigo).click(() => loadPopupCursos(carrera));
-        $("#agregarCurso"+carrera.codigo).click(() => loadPopupAgregarCurso(carrera));
->>>>>>> 583f02babe16923726625823588272ec30db26a3
-    });
-    $('#add-modal-carreras').modal('show'); 
-}
-
-async function eliminarCurso(curso){
-    let request = new Request(url+'api/cursos/'+curso.codigo, {method: 'DELETE', headers: { }});
-    const response = await fetch(request);
-    if (!response.ok){
-        $('#add-modal-carreras').modal('hide');
-        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                            '¡Ha ocurrido un error al eliminar! ' + response.status +
-                       '</div>');
-        return;
-    }
-    $('#add-modal-carreras').modal('hide');
-    $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
-                            '¡Se ha eliminado el curso correctamente!' +
-                       '</div>');
-}
-
-function loadPopupAgregarCurso(carrera){
-    let div = $('#popupAgregarCurso');
-    div.html("");
-    div.html("<div class='modal fade' id='add-modal-agregar-curso' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
-                "<div class='modal-dialog'>" +
-                    "<div class='modal-content' id='infoCarrera'>" +
-                        "<div class='modal-header'>" +
-                            "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
-                        "</div>" +
-                        "<form id='formAgregarCurso'>" +
-                            "<div class='modal-body'>" +
-                                "<div id='div-login-msg'>" +
-                                    "<div id='icon-login-msg'></div>" +
-                                    "<span id='text-agregar-curso-msg'>Agregar curso a " + carrera.nombre + "</span>" +
-                                "</div>" +
-                                "<br>" +
-                                "<div class='form-group'>" +
-                                    "<label for='nombre'>Nombre del curso</label>" +
-                                    "<input type='text' class='form-control' name='nombre' id='nombreCurso' placeholder='Nombre'>" +
-                                "</div>" +
-                                "<div class='form-group'>" +
-                                    "<label for='creditos'>Créditos</label>" +
-                                    '<select class="form-select" aria-label="Default select example" name="creditos" id="creditosCurso" style="margin-left:10px;">' +
-                                        '<option selected value="1">1</option>' +
-                                        '<option value="2">2</option>' +
-                                        '<option value="3">3</option>' +
-                                        '<option value="4">4</option>' +
-                                        '<option value="5">5</option>' +
-                                    '</select>' +
-                                "</div>" +
-                                "<div class='form-group'>" +
-                                    "<label for='horas'>Horas semanales</label>" +
-                                    "<input type='number' class='form-control' name='horasSemanales' id='horasCurso' min='1' max='10'>" +
-                                "</div>" +
-                            "</div>" +
-                        "</form>" +
-                        "<div class='modal-footer d-flex justify-content-center'>" +
-                            "<div>" +
-                                "<input type='button' id='crearCurso' class='btn btn-primary btn-lg btn-block' value='Crear curso'>" +
-                            "</div>" +
-                        "</div>" +
-                        "<div id='errorDiv1' style='width:70%; margin: auto;'></div>" +
-                    "</div>" +
-                "</div>" +
-            "</div>");
-    $('#add-modal-agregar-curso').modal('show');
-    $('#crearCurso').click(() => crearCurso(carrera));
-}
-
-async function crearCurso(carrera){
-    curso = Object.fromEntries( (new FormData($("#formAgregarCurso").get(0))).entries());
-    curso.carrera = carrera;
-    if(!validarLogin()) return;
-    let request = new Request(url + "api/cursos",
-                            {method:'POST',
-                            headers: { 'Content-Type': 'application/json'},
-                            body: JSON.stringify(curso)});
-    const response = await fetch(request);
-    if(!response.ok){
-        $('#add-modal-carreras').modal('hide');
-        
-        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                            '¡No se ha podido crear el curso! Error ' + response.status +
-                       '</div>');
-        return;
-    }
-    $('#add-modal-agregar-curso').modal('hide');
-    $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
-                            '¡Se ha creado el curso correctamente!' +
-                       '</div>');
-}
-
-function validarLogin(){
-    var error = false;
-    $("#formAgregarCurso input").removeClass("invalid");
-    error |= $("#formAgregarCurso input[type='text']").filter( (i,e)=>{ return e.value==='';}).length > 0;        
-    $("#formAgregarCurso input[type='text']").filter( (i,e)=>{ return e.value==='';}).addClass("invalid");
-    error |= $("#formAgregarCurso input[type='number']").filter((i,e)=>{ return e.value==='';}).length > 0;
-    $("#formAgregarCurso input[type='number']").filter( (i,e)=>{ return e.value==='';}).addClass("invalid");
-    return !error;
 }
 
 function loadPopupCursos(carrera){
@@ -519,10 +351,7 @@ async function loadCursos(){
                     '<th scope="col">Horas semanales</th>' +
                     '<th scope="col">Créditos</th>' +
                     '<th scope="col">Carrera</th>' +
-<<<<<<< HEAD
-=======
                     '<th scope="col">Funcionalidades</th>' +
->>>>>>> 583f02babe16923726625823588272ec30db26a3
                 '</tr>' +
             '</thead>' +
             '<tbody/>' +
@@ -537,12 +366,8 @@ async function loadCursos(){
             "<td>" + curso.nombre + "</td>" +
             "<td>" + curso.horasSemanales + "</td>" +
             "<td>" + curso.creditos + "</td>" +
-<<<<<<< HEAD
-            "<td>" + curso.carrera.nombre + "</td>"
-=======
             "<td>" + curso.carrera.nombre + "</td>" +
             "<td><button type='button' class='btn btn-info' id='agregarGrupo"+curso.codigo+"'>Agregar Grupo</button></td>"
->>>>>>> 583f02babe16923726625823588272ec30db26a3
         );
         tbody.append(tr);
         $("#agregarGrupo"+curso.codigo).click(() => loadPopupAgregarGrupo(curso));
@@ -677,7 +502,6 @@ async function loadEstudiantes(){
             "<td>" + estudiante.email + "</td>" +
             "<td>" + estudiante.fechaNacimiento + "</td>" +
             "<td>" + estudiante.carrera.nombre + "</td>"
-<<<<<<< HEAD
         );
         tr.click(() => loadPopupEstudiantes(estudiante));
         tbody.append(tr);
@@ -721,75 +545,6 @@ async function loadPopupEstudiantes(estudiante){
         $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
                             '¡El estudiante no posee historial académico! Error ' + response.status +
                        '</div>');
-        return;
-    }
-    matriculas = await response.json();
-    
-    let tbody = $("#tablaHistorialPopup tbody");
-    tbody.html("");
-    matriculas.forEach((matricula) => {
-        let tr = $("<tr/>");
-        tr.html(
-            "<td>" + matricula.grupo.ciclo.numeroCiclo+ " " + matricula.grupo.ciclo.anio + "</td>" +
-            "<td>" + matricula.grupo.curso.nombre + "</td>" +
-            "<td>" + matricula.grupo.curso.creditos + "</td>" +
-            "<td>" + matricula.nota + "</td>"
-
-=======
->>>>>>> 583f02babe16923726625823588272ec30db26a3
-        );
-        tr.click(() => loadPopupEstudiantes(estudiante));
-        tbody.append(tr);
-    });
-    $('#add-modal-estudiantes').modal('show');
-}
-
-async function loadPopupEstudiantes(estudiante){
-    let div = $("#popupEstudiantes");
-    div.html("");
-    div.html("<div class='modal fade' id='add-modal-estudiantes' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
-                "<div class='modal-dialog modal-lg'>" +
-                    "<div class='modal-content' id='infoEstudiante'>" +
-                        "<div class='modal-header'>" +
-                            "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
-                        "</div>" +
-                            "<p><b>Nombre: </b>" + estudiante.nombre + "</p>" +
-                            "<p><b>Cédula: </b>" + estudiante.cedula + "</p>" +
-                            "<p><b>Teléfono: </b>" + estudiante.telefono + "</p>" +
-                            "<p><b>Email: </b>" + estudiante.email + "</p>" +
-                            "<p><b>Fecha de nacimiento: </b>" + estudiante.fechaDeNacimiento + "</p>" +
-                            "<p><b>Carrera: </b>" + estudiante.carrera.nombre + "</p>" +
-                            "<p><b>Historial académico: </b></p>" +
-                            '<table class="table table-borderless" id="tablaHistorialPopup">' +
-                            '<thead>' +
-                                '<tr>' +
-                                    '<th scope="col">Ciclo</th>' +
-                                    '<th scope="col">Curso</th>' +
-                                    '<th scope="col">Créditos</th>' +
-                                    '<th scope="col">Nota</th>' +
-                                '</tr>' +
-                            '</thead>' +
-                            '<tbody/>' +
-                        '</table>'+
-                    "</div>" +
-                "</div>" +
-            "</div>");
-    
-    let request = new Request(url+'api/matriculas/'+estudiante.cedula, {method: 'GET', headers: { }});
-    const response = await fetch(request);
-    if (!response.ok){
-<<<<<<< HEAD
-        let div = $("#.alertas");
-        div.html(
-                '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                    '¡No se encontraron profesores!' +
-                '</div>'
-        );
-=======
-        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                            '¡El estudiante no posee historial académico! Error ' + response.status +
-                       '</div>');
->>>>>>> 583f02babe16923726625823588272ec30db26a3
         return;
     }
     matriculas = await response.json();
@@ -920,5 +675,3 @@ function loader(){
 }
 
 $(loader);
-
-

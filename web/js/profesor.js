@@ -3,10 +3,6 @@ var url = 'http://localhost:8088/GestionAcademica/';
 
 let matriculas = {};
 let profesor = {};
-<<<<<<< HEAD
-=======
-let estudiantes = {};
->>>>>>> 583f02babe16923726625823588272ec30db26a3
 let grupos = [];
 let estuds = [];
 
@@ -47,28 +43,8 @@ async function loadProfesor(){
     );
 }
 
-<<<<<<< HEAD
 async function loadGrupos(){
     //loadEstudiantes();
-=======
-async function loadEstudiantes(){
-    let request = new Request(url+'api/estudiantes', {method: 'GET', headers: { }});
-    const response = await fetch(request);
-    if (!response.ok){
-        let div = $("#body");
-        div.html(
-                '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                    '¡No se encontraron los estudiantes!' +
-                '</div>'
-        );
-        return;
-    }
-    estudiantes = await response.json();
-}
-
-async function loadGrupos(){
-    loadEstudiantes();
->>>>>>> 583f02babe16923726625823588272ec30db26a3
     profesor = JSON.parse(sessionStorage.getItem('user'));
     let request = new Request(url+'api/matriculas/'+profesor.cedula, {method: 'GET', headers: { }});
     const response = await fetch(request);
@@ -82,7 +58,6 @@ async function loadGrupos(){
         return;
     }
     matriculas = await response.json();
-<<<<<<< HEAD
     div = $("#body");
     div.html(
         '<div class="alertas"/>' +
@@ -130,7 +105,7 @@ function loadPopupEstudiantes(mat){
                                     '<th scope="col">Cédula</th>' +
                                     '<th scope="col">Nombre</th>' +
                                     '<th scope="col">Curso</th>' +
-                                    '<th scope="col">Nota</th>' +
+                                    '<th scope="col"></th>' +
                                   "</tr>" +
                                 "</thead>" +
                                 "<tbody />" +
@@ -174,7 +149,7 @@ function loadPopupAddNota(matri){
                                 "</div>" +
                                 "<br>" +
                                 "<div class='form-group'>" +
-                                    "<label for='nombre'>Nueva nota</label>" +
+                                    "<label for='nombre'>Nueva nota: </label>" +
                                     "<input type='number' name='nota' id='"+matri.codigo+"' placeholder='"+matri.nota+"' min='0' max='100'>" +
                                 "</div>" +
                             "</div>" +
@@ -214,50 +189,6 @@ async function setearNota(m){
     $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
                             '¡La nota se ha agregado exitosamente!' +
                        '</div>');
-=======
-    matriculas.forEach((matricula)=>{
-       grupos.push(matricula.grupo);
-    });
-    
-    grupos.forEach((grupoo)=>{
-        llenarGrupos(grupoo.codigo);
-    });
-    div.html(
-    "<div class = 'col-auto p-5 text-center'>"+
-        "<div class = bg-secondary>"+
-            '<h3 class = "text-white"> Grupos de ' + profesor.cedula + '</h3>' +
-            '<table class="table table-dark" id="tablaGrupos">' +
-                '<thead>' +
-                    '<tr>' +
-                        '<th scope="col">Curso</th>' +
-                        '<th scope="col">Número de grupo</th>' +
-                        '<th scope="col"></th>' +
-                    '</tr>' +
-                '</thead>' +
-                '<tbody/>' +
-            '</table>'+
-        '</div>'+
-    '</div>'
-    );
-    let tbody = $("#tablaGrupos tbody");
-    grupos.forEach((g) => {
-        let tr = $("<tr/>");
-        tr.html(
-            "<td>" + g.curso.nombre + "</td>" +
-            "<td>" + g.codigo + "</td>" +
-            "<td id = 'agrNota'> Clic aquí para agregar notas</td>"
-        );
-        tbody.append(tr);
-    });
-}
-
-function llenarGrupos(codigo){
-    estudiantes.forEach((est)=>{
-        if(est.grupo.codigo === codigo){
-            estuds.push(est);
-        }
-    });
->>>>>>> 583f02babe16923726625823588272ec30db26a3
 }
 
 async function signoff(){
@@ -274,10 +205,4 @@ function loader(){
     $("#signoff").click(signoff);
 }
 
-<<<<<<< HEAD
 $(loader);
-=======
-$(loader);
-
-
->>>>>>> 583f02babe16923726625823588272ec30db26a3
