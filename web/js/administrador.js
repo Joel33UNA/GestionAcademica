@@ -89,16 +89,17 @@ async function fetchGruposPorCarreraYCiclo(idCarrera, idCiclo){
     request = new Request(url+'api/grupos/'+idCarrera+'/'+idCiclo, {method:'GET'});
     response = await fetch(request);
     if (!response.ok){
-        let div = $("#body");
+        let div = $(".alertas");
         div.html("");
         div.html(
                 '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
                     '¡No se encontraron grupos! Error ' + response.status +
                 '</div>'
         );
-        return;
+        return false;
     }
     grupos = await response.json();
+    return true;
 }
 
 async function loadCiclos(){
@@ -620,9 +621,10 @@ async function loadOfertaAcademica(){
         select.append(option);
     });
     div.append($('<div class="divBotones">' +
-                    '<input type="text" id="search" placeholder="Buscar curso" onkeyup="buscador_interno()">' +
+                    '<button type="button" id="btnDisplayCursos" class="btn btn-dark">Buscar grupos</button>' +
                 '</div>'));
     $("#btnDisplayCursos").click(async() => {
+        $(".alertas").html("");
         $("#divInfo").remove();
         div.append($('<div style="margin-top:10px;" id="divInfo">' +
                         '<table class="table table-hover table-dark" id="tablaGruposCarreraCiclo" style="cursor:pointer;">' +
@@ -638,15 +640,15 @@ async function loadOfertaAcademica(){
                             '<tbody/>' +
                         '</table>' +
                      '</div>'));
-        await fetchGruposPorCarreraYCiclo($('#selectCarreras').val(), $('#selectCiclos').val());
-        
+        const error = await fetchGruposPorCarreraYCiclo($('#selectCarreras').val(), $('#selectCiclos').val());
+        if(!error) grupos = [];
         let tbody = $("#tablaGruposCarreraCiclo tbody");
         grupos.forEach((grupo) => {
             let tr = $("<tr/>");
             tr.html(
                 "<td>" + grupo.codigo + "</td>" +
                 "<td>" + grupo.horario + "</td>" +
-                "<td>" + grupo.ciclo.anio + "</td>" +
+                "<td>" + grupo.ciclo.anio + "-" + grupo.ciclo.numeroCiclo + "</td>" +
                 "<td>" + grupo.curso.nombre + "</td>" +
                 "<td>" + grupo.profesor.nombre + "</td>"
             );

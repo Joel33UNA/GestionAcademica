@@ -1,8 +1,8 @@
 
-package Presentacion;
+package Controller;
 
-import Modelo.ModelMatricula;
-import Logica.Matricula;
+import Modelo.ModelGrupo;
+import Logica.Grupo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
@@ -18,14 +18,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/matriculas")
-public class Matriculas {
+@Path("/grupos")
+public class Grupos {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Matricula> getMatriculaAll() { 
+    public List<Grupo> getCursosAll() { 
         try {
-            return ModelMatricula.instancia().obtenerMatriculas(-1); // MacGyver para usar el mismo método en el get
+            return ModelGrupo.instancia().obtenerGrupos();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -33,22 +33,34 @@ public class Matriculas {
     
     @PermitAll
     @GET
-    @Path("{cedula}")
+    @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Matricula> get(@PathParam("cedula") int cedula) {
+    public Grupo get(@PathParam("codigo") int codigo) {
         try {
-            return ModelMatricula.instancia().obtenerMatriculas(cedula);
+            return ModelGrupo.instancia().buscarGrupo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
+        }
+    }
+    
+    @PermitAll
+    @GET
+    @Path("{codigoCarrera}/{codigoCiclo}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public ArrayList<Grupo> getGruposCiclos(@PathParam("codigoCarrera") int codCarrera, @PathParam("codigoCiclo") int codCiclo){
+        try{
+            return ModelGrupo.instancia().buscarGrupoCiclo(codCarrera, codCiclo);
+        } catch(Exception ex){
+            throw new NotFoundException();
         }
     }
     
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Matricula m) {  
+    public void add(Grupo g) {  
         try {
-            ModelMatricula.instancia().agregarMatricula(m);
+            ModelGrupo.instancia().agregarGrupo(g);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -57,9 +69,9 @@ public class Matriculas {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Matricula m) {  
+    public void update(Grupo g) {  
         try {
-            ModelMatricula.instancia().modificarMatricula(m);
+            ModelGrupo.instancia().modificarGrupo(g);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -70,7 +82,7 @@ public class Matriculas {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            ModelMatricula.instancia().eliminarMatricula(codigo);
+            ModelGrupo.instancia().eliminarGrupo(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

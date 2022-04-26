@@ -1,4 +1,3 @@
-
 var url = 'http://localhost:8088/GestionAcademica/';
 
 let matriculas = {};
@@ -147,10 +146,13 @@ function loadPopupAddNota(matri){
                                     "<div id='icon-login-msg'></div>" +
                                     "<span id='text-agregar-nota-msg'>Agregar nota a " + matri.estudiante.nombre + "</span>" +
                                 "</div>" +
+                                "<div id='div-login-msg'>" +
+                                    "<span id='text-agregar-nota-msg'>Nota actual: " + matri.nota + "</span>" +
+                                "</div>" +
                                 "<br>" +
                                 "<div class='form-group'>" +
                                     "<label for='nombre'>Nueva nota: </label>" +
-                                    "<input type='number' name='nota' id='"+matri.codigo+"' placeholder='"+matri.nota+"' min='0' max='100'>" +
+                                    "<input type='number' name='nota' id='"+matri.codigo+"' placeholder='' min='0' max='100'>" +
                                 "</div>" +
                             "</div>" +
                         "</form>" +

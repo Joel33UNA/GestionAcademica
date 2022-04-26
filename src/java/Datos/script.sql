@@ -488,7 +488,7 @@ as
     grupo_cursor types.ref_cursor;
 begin
     open grupo_cursor for
-    select g.codigo, g.horario, g.codigo_ciclo, g.codigo_curso, g.cedula_profesor 
+    select distinct g.codigo, g.horario, g.codigo_ciclo, g.codigo_curso, g.cedula_profesor 
     from grupo g, curso cu, carrera ca 
     where g.codigo_ciclo=codCiclo and cu.codigo_carrera=codCarrera and cu.codigo=g.codigo_curso;
     return grupo_cursor;

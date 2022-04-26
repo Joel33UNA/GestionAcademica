@@ -23,7 +23,7 @@ async function loadEstudiantes(){
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
-            '<input type="text" id="search" placeholder="Buscar profesores" onkeyup="buscador_interno()">' +
+            '<input type="text" id="search" placeholder="Buscar estudiantes" onkeyup="buscador_interno()">' +
         '</div>' +
         '<table class="table table-hover table-dark" id="tablaEstudiantes" style="cursor:pointer;">' +
             '<thead>' +

@@ -1,8 +1,8 @@
 
-package Presentacion;
+package Controller;
 
-import Modelo.ModelEstudiante;
-import Logica.Estudiante;
+import Modelo.ModelProfesor;
+import Logica.Profesor;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -17,14 +17,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/estudiantes")
-public class Estudiantes {
+@Path("/profesores")
+public class Profesores {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Estudiante> getEstudiantesAll() { 
+    public List<Profesor> getProfesoresAll() { 
         try {
-            return ModelEstudiante.instancia().obtenerEstudiantes();
+            return ModelProfesor.instancia().obtenerProfesores();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -34,9 +34,9 @@ public class Estudiantes {
     @GET
     @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Estudiante get(@PathParam("cedula") int cedula) {
+    public Profesor get(@PathParam("cedula") int cedula) {
         try {
-            return ModelEstudiante.instancia().buscarEstudiante(cedula);
+            return ModelProfesor.instancia().buscarProfesor(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -45,9 +45,9 @@ public class Estudiantes {
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Estudiante e) {  
+    public void add(Profesor p) {  
         try {
-            ModelEstudiante.instancia().agregarEstudiante(e);
+            ModelProfesor.instancia().agregarProfesor(p);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -56,9 +56,9 @@ public class Estudiantes {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Estudiante e) {  
+    public void update(Profesor p) {  
         try {
-            ModelEstudiante.instancia().modificarEstudiante(e);
+            ModelProfesor.instancia().modificarProfesor(p);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -69,7 +69,7 @@ public class Estudiantes {
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {
         try {
-            ModelEstudiante.instancia().eliminarEstudiante(cedula);
+            ModelProfesor.instancia().eliminarProfesor(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

@@ -1,8 +1,9 @@
 
-package Presentacion;
+package Controller;
 
-import Modelo.ModelCiclo;
-import Logica.Ciclo;
+import Modelo.ModelMatricula;
+import Logica.Matricula;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -17,14 +18,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/ciclos")
-public class Ciclos {
+@Path("/matriculas")
+public class Matriculas {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Ciclo> getCiclosAll() { 
+    public List<Matricula> getMatriculaAll() { 
         try {
-            return ModelCiclo.instancia().obtenerCiclos();
+            return ModelMatricula.instancia().obtenerMatriculas(-1); // MacGyver para usar el mismo método en el get
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -32,11 +33,11 @@ public class Ciclos {
     
     @PermitAll
     @GET
-    @Path("{codigo}")
+    @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Ciclo get(@PathParam("codigo") int codigo) {
+    public List<Matricula> get(@PathParam("cedula") int cedula) {
         try {
-            return ModelCiclo.instancia().buscarCiclo(codigo);
+            return ModelMatricula.instancia().obtenerMatriculas(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -45,9 +46,9 @@ public class Ciclos {
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Ciclo c) {  
+    public void add(Matricula m) {  
         try {
-            ModelCiclo.instancia().agregarCiclo(c);
+            ModelMatricula.instancia().agregarMatricula(m);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -56,9 +57,9 @@ public class Ciclos {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Ciclo c) {  
+    public void update(Matricula m) {  
         try {
-            ModelCiclo.instancia().modificarCiclo(c);
+            ModelMatricula.instancia().modificarMatricula(m);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -69,7 +70,7 @@ public class Ciclos {
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {
         try {
-            ModelCiclo.instancia().eliminarCiclo(codigo);
+            ModelMatricula.instancia().eliminarMatricula(codigo);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }

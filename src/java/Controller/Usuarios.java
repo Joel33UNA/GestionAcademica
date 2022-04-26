@@ -1,9 +1,8 @@
 
-package Presentacion;
+package Controller;
 
-import Modelo.ModelGrupo;
-import Logica.Grupo;
-import java.util.ArrayList;
+import Modelo.ModelUsuario;
+import Logica.Usuario;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.Consumes;
@@ -18,14 +17,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/grupos")
-public class Grupos {
+@Path("/usuarios")
+public class Usuarios {
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Grupo> getCursosAll() { 
+    public List<Usuario> getUsuariosAll() { 
         try {
-            return ModelGrupo.instancia().obtenerGrupos();
+            return ModelUsuario.instancia().obtenerUsuarios();
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -33,34 +32,22 @@ public class Grupos {
     
     @PermitAll
     @GET
-    @Path("{codigo}")
+    @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Grupo get(@PathParam("codigo") int codigo) {
+    public Usuario get(@PathParam("id") int id) {
         try {
-            return ModelGrupo.instancia().buscarGrupo(codigo);
+            return ModelUsuario.instancia().buscarUsuario(id);
         } catch (Exception ex) {
             throw new NotFoundException(); 
-        }
-    }
-    
-    @PermitAll
-    @GET
-    @Path("{codigoCarrera}/{codigoCiclo}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<Grupo> getGruposCiclos(@PathParam("codigoCarrera") int codCarrera, @PathParam("codigoCiclo") int codCiclo){
-        try{
-            return ModelGrupo.instancia().buscarGrupoCiclo(codCarrera, codCiclo);
-        } catch(Exception ex){
-            throw new NotFoundException();
         }
     }
     
     @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void add(Grupo g) {  
+    public void add(Usuario u) {  
         try {
-            ModelGrupo.instancia().agregarGrupo(g);
+            ModelUsuario.instancia().agregarUsuario(u);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -69,9 +56,9 @@ public class Grupos {
     @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Grupo g) {  
+    public void update(Usuario u) {  
         try {
-            ModelGrupo.instancia().modificarGrupo(g);
+            ModelUsuario.instancia().modificarUsuario(u);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
@@ -79,10 +66,10 @@ public class Grupos {
     
     @PermitAll
     @DELETE
-    @Path("{codigo}")
-    public void delete(@PathParam("codigo") int codigo) {
+    @Path("{cedula}")
+    public void delete(@PathParam("cedula") int cedula) {
         try {
-            ModelGrupo.instancia().eliminarGrupo(codigo);
+            ModelUsuario.instancia().eliminarUsuario(cedula);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
