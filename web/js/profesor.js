@@ -146,13 +146,14 @@ function loadPopupAddNota(matri){
                                     "<div id='icon-login-msg'></div>" +
                                     "<span id='text-agregar-nota-msg'>Agregar nota a " + matri.estudiante.nombre + "</span>" +
                                 "</div>" +
+                                "<br>" +
                                 "<div id='div-login-msg'>" +
                                     "<span id='text-agregar-nota-msg'>Nota actual: " + matri.nota + "</span>" +
                                 "</div>" +
                                 "<br>" +
                                 "<div class='form-group'>" +
                                     "<label for='nombre'>Nueva nota: </label>" +
-                                    "<input type='number' name='nota' id='"+matri.codigo+"' placeholder='' min='0' max='100'>" +
+                                    "<input type='number' name='nota' id='G"+matri.codigo+"' placeholder='' min='0' max='100'>" +
                                 "</div>" +
                             "</div>" +
                         "</form>" +
@@ -166,12 +167,13 @@ function loadPopupAddNota(matri){
                 "</div>" +
             "</div>");
     $('#add-modal-agregar-nota').modal('show');
+    $('#add-modal-estudiantes').modal('hide');
     $('#setearNota'+matri.codigo).click(() => setearNota(matri));
 }
 
 async function setearNota(m){
-    if($("#"+m.codigo).val().length != 0){
-        m.nota = $("#"+m.codigo).val();
+    if($("#G"+m.codigo).val().length != 0){
+        m.nota = $("#G"+m.codigo).val();
     }
     let request = new Request(url + "api/matriculas",
                             {method:'PUT',
@@ -188,6 +190,7 @@ async function setearNota(m){
         return;
     }
     $('#add-modal-agregar-nota').modal('hide');
+    $('#add-modal-estudiantes').modal('show');
     $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
                             '¡La nota se ha agregado exitosamente!' +
                        '</div>');

@@ -506,6 +506,7 @@ async function loadPopupEstudiantes(estudiante){
                         "<div class='modal-header'>" +
                             "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
                         "</div>" +
+                        "<div class='modal-body'>" +
                             "<p><b>Nombre: </b>" + estudiante.nombre + "</p>" +
                             "<p><b>Cédula: </b>" + estudiante.cedula + "</p>" +
                             "<p><b>Teléfono: </b>" + estudiante.telefono + "</p>" +
@@ -514,16 +515,17 @@ async function loadPopupEstudiantes(estudiante){
                             "<p><b>Carrera: </b>" + estudiante.carrera.nombre + "</p>" +
                             "<p><b>Historial académico: </b></p>" +
                             '<table class="table table-borderless" id="tablaHistorialPopup">' +
-                            '<thead>' +
-                                '<tr>' +
-                                    '<th scope="col">Ciclo</th>' +
-                                    '<th scope="col">Curso</th>' +
-                                    '<th scope="col">Créditos</th>' +
-                                    '<th scope="col">Nota</th>' +
-                                '</tr>' +
-                            '</thead>' +
-                            '<tbody/>' +
-                        '</table>'+
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th scope="col">Ciclo</th>' +
+                                        '<th scope="col">Curso</th>' +
+                                        '<th scope="col">Créditos</th>' +
+                                        '<th scope="col">Nota</th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody/>' +
+                            '</table>'+
+                        "</div" +
                     "</div>" +
                 "</div>" +
             "</div>");
@@ -647,7 +649,7 @@ async function loadOfertaAcademica(){
                 "<td>" + grupo.ciclo.anio + "-" + grupo.ciclo.numeroCiclo + "</td>" +
                 "<td>" + grupo.curso.nombre + "</td>" +
                 "<td>" + grupo.profesor.nombre + "</td>" +
-                "<td><button type='button' class='btn btn-info' id='editarGrupo"+grupo.codigo+"'>Editar curso</button></td>"
+                "<td><button type='button' class='btn btn-info' id='editarGrupo"+grupo.codigo+"'>Agregar grupo</button></td>"
             );
             tbody.append(tr);
             $("#editarGrupo"+grupo.codigo).click(() => loadPopupEditarGrupo(grupo));

@@ -1,6 +1,7 @@
 
 var url = 'http://localhost:8088/GestionAcademica/';
 let estudiantes = [];
+let grupos = [];
 
 async function fetchEstudiantes(){
     let request = new Request(url+'api/estudiantes/', {method: 'GET', headers: { }});
@@ -17,13 +18,34 @@ async function fetchEstudiantes(){
     estudiantes = await response.json();
 }
 
+async function fetchCiclos(){
+    request = new Request(url+'api/ciclos/', {method: 'GET', headers: { }});
+    response = await fetch(request);
+    if (!response.ok){
+        let div = $("#body");
+        div.html("");
+        div.html(
+                '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                    '¡No se encontraron ciclos! Error ' + response.status +
+                '</div>'
+        );
+        return;
+    }
+    ciclos = await response.json();
+}
+
 async function loadEstudiantes(){
     await fetchEstudiantes();
+    await fetchCiclos();
     let div = $("#body");
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
             '<input type="text" id="search" placeholder="Buscar estudiantes" onkeyup="buscador_interno()">' +
+        '</div>' +
+        '<div class ="divBotones">' +
+            '<label style="color:white;margin:10px;">Ciclo para matricular: </label>' +
+            '<select id="selectCiclo" class="form-select" aria-label="Default select example" />' +
         '</div>' +
         '<table class="table table-hover table-dark" id="tablaEstudiantes" style="cursor:pointer;">' +
             '<thead>' +
@@ -41,6 +63,14 @@ async function loadEstudiantes(){
         '</table>' +
         '<div id="popupEstudiantes" />'
     );
+    
+    let selectCiclo = $("#selectCiclo");
+    ciclos.forEach((ciclo) => {
+        let option = $("<option value='"+ciclo.numeroCiclo+"' selected />");
+        option.html(ciclo.anio + "-" + ciclo.numeroCiclo + " (" + ciclo.codigo + ")");
+        selectCiclo.append(option);
+    });
+    
     let tbody = $("#tablaEstudiantes tbody");
     estudiantes.forEach((estudiante) => {
         let tr = $("<tr/>");
@@ -53,8 +83,8 @@ async function loadEstudiantes(){
             "<td>" + estudiante.carrera.nombre + "</td>" +
             "<td><button type='button' class='btn btn-info' id='matricularEstudiante"+estudiante.cedula+"'>Matricular estudiante</button></td>"
         );
-        $("#matricularEstudiante"+estudiante.cedula).click(() => loadPopupMatricula(estudiante));
         tbody.append(tr);
+        $("#matricularEstudiante"+estudiante.cedula).click(() => loadPopupMatricula(estudiante));
     });
 }
 
@@ -67,24 +97,35 @@ async function loadPopupMatricula(estudiante){
                         "<div class='modal-header'>" +
                             "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
                         "</div>" +
+                        "<div class='modal-body'>" +
                             "<p><b>Nombre: </b>" + estudiante.nombre + "</p>" +
                             "<p><b>Cédula: </b>" + estudiante.cedula + "</p>" +
-                            "<p><b>Teléfono: </b>" + estudiante.telefono + "</p>" +
-                            "<p><b>Email: </b>" + estudiante.email + "</p>" +
-                            "<p><b>Fecha de nacimiento: </b>" + estudiante.fechaDeNacimiento + "</p>" +
                             "<p><b>Carrera: </b>" + estudiante.carrera.nombre + "</p>" +
-                            "<p><b>Historial académico: </b></p>" +
+                            "<p><b>Cursos matriculados: </b></p>" +
                             '<table class="table table-borderless" id="tablaHistorialPopup">' +
-                            '<thead>' +
-                                '<tr>' +
-                                    '<th scope="col">Ciclo</th>' +
-                                    '<th scope="col">Curso</th>' +
-                                    '<th scope="col">Créditos</th>' +
-                                    '<th scope="col">Nota</th>' +
-                                '</tr>' +
-                            '</thead>' +
-                            '<tbody/>' +
-                        '</table>'+
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th scope="col">Ciclo</th>' +
+                                        '<th scope="col">Curso</th>' +
+                                        '<th scope="col">Créditos</th>' +
+                                        '<th scope="col">Nota</th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody/>' +
+                            '</table>'+
+                            "<p><b>Matricular curso: </b></p>" +
+                            '<table class="table table-borderless" id="tablaMatricularPopup">' +
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th scope="col">Curso</th>' +
+                                        '<th scope="col">Horario</th>' +
+                                        '<th scope="col">Ciclo</th>' +
+                                        '<th scope="col">Profesor</th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody/>' +
+                            '</table>'+
+                        "</div>" +
                     "</div>" +
                 "</div>" +
             "</div>");
