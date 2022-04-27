@@ -137,13 +137,17 @@ async function loadCiclos(){
     );
     let tbody = $("#tablaCiclos tbody");
     ciclos.forEach((ciclo) => {
+        const nuevaI = ciclo.fechaInicio.substring(0, ciclo.fechaInicio.length - 1);
+        const nuevaF = ciclo.fechaFin.substring(0, ciclo.fechaFin.length - 1);
+        const feI = nuevaI.split(" ")[0].split("-").reverse().join("-");
+        const feF = nuevaF.split(" ")[0].split("-").reverse().join("-");
         let tr = $("<tr/>");
         tr.html(
             "<td>" + ciclo.codigo + "</td>" +
             "<td>" + ciclo.anio + "</td>" +
             "<td>" + ciclo.numeroCiclo + "</td>" +
-            "<td>" + ciclo.fechaInicio + "</td>" +
-            "<td>" + ciclo.fechaFin + "</td>"
+            "<td>" + feI + "</td>" +
+            "<td>" + feF + "</td>"
         );
         tbody.append(tr);
     });
@@ -352,6 +356,7 @@ async function loadCursos(){
             '</thead>' +
             '<tbody/>' +
         '</table>' +
+        '<div id="popupCursos"></>' +
         '<div id="popupAgregarGrupo" />'
     );
     let tbody = $("#tablaCursos tbody");
@@ -363,11 +368,60 @@ async function loadCursos(){
             "<td>" + curso.horasSemanales + "</td>" +
             "<td>" + curso.creditos + "</td>" +
             "<td>" + curso.carrera.nombre + "</td>" +
-            "<td><button type='button' class='btn btn-info' id='agregarGrupo"+curso.codigo+"'>Agregar Grupo</button></td>"
+            "<td>" +
+                "<button type='button' class='btn btn-secondary' style='margin:2px;' id='verGrupos"+curso.codigo+"'>Ver grupos</button>" +
+                "<button type='button' class='btn btn-info' id='agregarGrupo"+curso.codigo+"'>Agregar Grupo</button>" +
+            "</td>"
         );
         tbody.append(tr);
+        $("#verGrupos"+curso.codigo).click(() => loadPopupGrupos(curso));
         $("#agregarGrupo"+curso.codigo).click(() => loadPopupAgregarGrupo(curso));
     });
+}
+
+function loadPopupGrupos(curso){
+    let div = $('#popupCursos');
+    div.html("");
+    div.html("<div class='modal fade' id='add-modal-cursos' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
+                "<div class='modal-dialog modal-lg'>" +
+                    "<div class='modal-content' id='infoCarrera'>" +
+                        "<div class='modal-header'>" +
+                            "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
+                        "</div>" +
+                        "<div class='modal-body'>" +
+                            "<p><b>Curso: </b>" + curso.nombre + "</p>" +
+                            "<p><b>Carrera: </b>" + curso.carrera.nombre + "</p>" +
+                            "<p><b>Créditos: </b>" + curso.creditos + "</p>" +
+                            "<p><b>Grupos del curso: </b></p>" +
+                            "<table class='table table-borderless' id='tablaGruposCurso'>" +
+                                "<thead>" +
+                                  "<tr>" +
+                                    '<th scope="col">Código</th>' +
+                                    '<th scope="col">Horario</th>' +
+                                    '<th scope="col">Ciclo</th>' +
+                                    '<th scope="col">Profesor</th>' +
+                                  "</tr>" +
+                                "</thead>" +
+                                "<tbody />" +
+                            "</table>" +
+                            "<div id='errorDiv1' style='width:70%; margin: auto;'></div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "</div>");
+    let tbody = $("#tablaGruposCurso tbody");
+    tbody.html("");
+    curso.grupos.forEach((grupo) => {
+        let tr = $("<tr/>");
+        tr.html(
+            "<td>" + grupo.codigo + "</td>" +
+            "<td>" + grupo.horario + "</td>" +
+            "<td>" + grupo.ciclo.anio + "-" + grupo.ciclo.numeroCiclo + "</td>" +
+            "<td>" + curso.profesor.nombre + "</td>"
+        );
+        tbody.append(tr);
+    });
+    $('#add-modal-cursos').modal('show'); 
 }
 
 async function loadPopupAgregarGrupo(curso){
@@ -483,13 +537,15 @@ async function loadEstudiantes(){
     );
     let tbody = $("#tablaEstudiantes tbody");
     estudiantes.forEach((estudiante) => {
+        const nueva = estudiante.fechaNacimiento.substring(0, estudiante.fechaNacimiento.length - 1);
+        const fe = nueva.split(" ")[0].split("-").reverse().join("-");
         let tr = $("<tr/>");
         tr.html(
             "<td>" + estudiante.cedula + "</td>" +
             "<td>" + estudiante.nombre + "</td>" +
             "<td>" + estudiante.telefono + "</td>" +
             "<td>" + estudiante.email + "</td>" +
-            "<td>" + estudiante.fechaNacimiento + "</td>" +
+            "<td>" + fe + "</td>" +
             "<td>" + estudiante.carrera.nombre + "</td>"
         );
         tr.click(() => loadPopupEstudiantes(estudiante));

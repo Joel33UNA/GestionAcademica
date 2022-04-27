@@ -2,6 +2,7 @@
 var url = 'http://localhost:8088/GestionAcademica/';
 let estudiantes = [];
 let grupos = [];
+let matriculas = [];
 
 async function fetchEstudiantes(){
     let request = new Request(url+'api/estudiantes/', {method: 'GET', headers: { }});
@@ -13,14 +14,15 @@ async function fetchEstudiantes(){
                     '¡No se encontraron estudiantes!' +
                 '</div>'
         );
+        estudiantes = [];
         return;
     }
     estudiantes = await response.json();
 }
 
 async function fetchCiclos(){
-    request = new Request(url+'api/ciclos/', {method: 'GET', headers: { }});
-    response = await fetch(request);
+    let request = new Request(url+'api/ciclos/', {method: 'GET', headers: { }});
+    const response = await fetch(request);
     if (!response.ok){
         let div = $("#body");
         div.html("");
@@ -29,9 +31,66 @@ async function fetchCiclos(){
                     '¡No se encontraron ciclos! Error ' + response.status +
                 '</div>'
         );
+        ciclos = [];
         return;
     }
     ciclos = await response.json();
+}
+
+async function fetchGruposPorCarreraYCiclo(idCarrera, idCiclo){
+    request = new Request(url+'api/grupos/'+idCarrera+'/'+idCiclo, {method:'GET'});
+    response = await fetch(request);
+    if (!response.ok){
+        let div = $(".alertasPopup");
+        div.html("");
+        div.html(
+                '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                    '¡No se encontraron grupos! Error ' + response.status +
+                '</div>'
+        );
+        grupos = [];
+        return false;
+    }
+    grupos = await response.json();
+    return true;
+}
+
+async function fetchMatriculasPorEstudiante(estudiante){
+    let request = new Request(url+'api/matriculas/'+estudiante.cedula, {method: 'GET', headers: { }});
+    const response = await fetch(request);
+    if (!response.ok){
+        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                            '¡El estudiante no posee historial académico! Error ' + response.status +
+                       '</div>');
+        matriculas = [];
+        return;
+    }
+    matriculas = await response.json();
+}
+
+async function matricularEstudiante(estudiante, grupo){
+    const matricula = {
+        estudiante : { cedula : estudiante.cedula },
+        grupo : { codigo : grupo.codigo }
+    };
+    const request = new Request(url+"api/matriculas", 
+                            {method : 'POST', headers: { 'Content-Type': 'application/json'},
+                            body: JSON.stringify(matricula)});
+    const response = await fetch(request);  
+    if (!response.ok){
+        let div = $(".alertas");
+        div.html("");
+        div.html(
+            '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                '¡No se pudo matricular al estudiante! Error ' + response.status +
+            '</div>'
+        );
+        return;
+    }
+    $('#add-modal-estudiantes').modal('hide');
+    $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
+                            '¡Se ha matriculado al estudiante correctamente!' +
+                       '</div>');
 }
 
 async function loadEstudiantes(){
@@ -88,7 +147,7 @@ async function loadEstudiantes(){
     });
 }
 
-async function loadPopupMatricula(estudiante){
+async function loadPopupMatricula(estudiante){    
     let div = $("#popupEstudiantes");
     div.html("");
     div.html("<div class='modal fade' id='add-modal-estudiantes' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
@@ -113,7 +172,7 @@ async function loadPopupMatricula(estudiante){
                                 '</thead>' +
                                 '<tbody/>' +
                             '</table>'+
-                            "<p><b>Matricular curso: </b></p>" +
+                            "<p><b>Matricular grupo: </b></p>" +
                             '<table class="table table-borderless" id="tablaMatricularPopup">' +
                                 '<thead>' +
                                     '<tr>' +
@@ -121,37 +180,49 @@ async function loadPopupMatricula(estudiante){
                                         '<th scope="col">Horario</th>' +
                                         '<th scope="col">Ciclo</th>' +
                                         '<th scope="col">Profesor</th>' +
+                                        '<th scope="col">Funciones</th>' +
                                     '</tr>' +
                                 '</thead>' +
                                 '<tbody/>' +
                             '</table>'+
+                            '<div class="alertasPopup"/>' +
                         "</div>" +
                     "</div>" +
                 "</div>" +
             "</div>");
     
-    let request = new Request(url+'api/matriculas/'+estudiante.cedula, {method: 'GET', headers: { }});
-    const response = await fetch(request);
-    if (!response.ok){
-        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                            '¡El estudiante no posee historial académico! Error ' + response.status +
-                       '</div>');
-        return;
-    }
-    matriculas = await response.json();
+    
     
     let tbody = $("#tablaHistorialPopup tbody");
     tbody.html("");
+    await fetchMatriculasPorEstudiante(estudiante);
     matriculas.forEach((matricula) => {
         let tr = $("<tr/>");
         tr.html(
-            "<td>" + matricula.grupo.ciclo.numeroCiclo+ " " + matricula.grupo.ciclo.anio + "</td>" +
+            "<td>" + matricula.grupo.ciclo.anio + "-" + matricula.grupo.ciclo.numeroCiclo + "</td>" +
             "<td>" + matricula.grupo.curso.nombre + "</td>" +
             "<td>" + matricula.grupo.curso.creditos + "</td>" +
             "<td>" + matricula.nota + "</td>"
         );
         tbody.append(tr);
     });
+    
+    tbody = $("#tablaMatricularPopup tbody");
+    tbody.html("");
+    await fetchGruposPorCarreraYCiclo(estudiante.carrera.codigo, $("#selectCiclo").val());
+    grupos.forEach((grupo) => {
+        let tr = $("<tr/>");
+        tr.html(
+            "<td>" + grupo.curso.nombre + "</td>" +
+            "<td>" + grupo.horario + "</td>" +
+            "<td>" + grupo.ciclo.anio + "-" + grupo.ciclo.numeroCiclo + "</td>" +
+            "<td>" + grupo.profesor.nombre + "</td>" +
+            "<td><button type='button' id='matricular"+grupo.codigo+"' class='btn btn-success'>Matricular</button></td>"
+        );
+        tbody.append(tr);
+        $("#matricular"+grupo.codigo).click(() => matricularEstudiante(estudiante, grupo));
+    });
+    
     $('#add-modal-estudiantes').modal('show');
 }
 

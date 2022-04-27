@@ -159,7 +159,7 @@ function loadPopupAddNota(matri){
                         "</form>" +
                         "<div class='modal-footer d-flex justify-content-center'>" +
                             "<div>" +
-                                "<input type='button' id='setearNota"+matri.codigo+"' class='btn btn-primary btn-lg btn-block' value='Agregar nota'>" +
+                                "<input type='button' id='setearNota"+matri.codigo+"' class='btn btn-primary btn-lg btn-block' value='Guardar nueva nota'>" +
                             "</div>" +
                         "</div>" +
                         "<div id='errorDiv1' style='width:70%; margin: auto;'></div>" +

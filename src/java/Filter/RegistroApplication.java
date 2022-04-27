@@ -1,15 +1,15 @@
 
 package Filter;
 
-import Controller.Usuarios;
-import Controller.Profesores;
-import Controller.Matriculas;
-import Controller.Grupos;
-import Controller.Cursos;
-import Controller.Ciclos;
-import Controller.Carreras;
-import Controller.Estudiantes;
-import Controller.Sesiones;
+import Controlador.Usuarios;
+import Controlador.Profesores;
+import Controlador.Matriculas;
+import Controlador.Grupos;
+import Controlador.Cursos;
+import Controlador.Ciclos;
+import Controlador.Carreras;
+import Controlador.Estudiantes;
+import Controlador.Sesiones;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
