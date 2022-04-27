@@ -1,5 +1,5 @@
 
-package Controller;
+package Controlador;
 
 import Modelo.ModelCurso;
 import Logica.Curso;

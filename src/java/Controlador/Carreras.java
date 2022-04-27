@@ -1,5 +1,5 @@
 
-package Controller;
+package Controlador;
 
 import Logica.Carrera;
 import Modelo.ModelCarrera;

@@ -1,5 +1,5 @@
 
-package Controller;
+package Controlador;
 
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
