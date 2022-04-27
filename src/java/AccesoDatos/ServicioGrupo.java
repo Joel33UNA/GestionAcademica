@@ -19,7 +19,7 @@ public class ServicioGrupo {
      private ServicioProfesor servicioProfesor;
      private static final String insertarGrupo = "{call insertarGrupo(?,?,?,?)}";
      private static final String listarGrupo = "{?=call listarGrupo()}";
-     private static final String modificarGrupo ="{call modificaGrupo(?,?,?,?,?)}";
+     private static final String modificarGrupo ="{call modificarGrupo(?,?,?,?,?)}";
      private static final String eliminarGrupo  = "{call eliminarGrupo(?)}";
      private static final String buscarGrupo  = "{?=call buscarGrupo(?)}";
      private static final String listarGrupoCiclo = "{?=call listarGrupoCiclo(?, ?)}";

@@ -402,10 +402,6 @@ async function loadPopupAgregarGrupo(curso){
                                     '<select class="form-select" aria-label="Default select example" name="cedulaProfesor" id="cedulaProfesor" style="margin-left:10px;">' +
                                     '</select>' +
                                 "</div>" +
-                                "<div class='form-group'>" +
-                                    "<label for='horas'>Año</label>" +
-                                    "<input type='number' class='form-control' name='anio' id='anioGrupo' placeholder='Año'>" +
-                                "</div>" +
                             "</div>" +
                         "</form>" +
                         "<div class='modal-footer d-flex justify-content-center'>" +
@@ -436,13 +432,12 @@ async function loadPopupAgregarGrupo(curso){
 }
 
 async function crearGrupo(curso){
-    grupo = Object.fromEntries( (new FormData($("#formAgregarGrupo").get(0))).entries());
+    form = Object.fromEntries( (new FormData($("#formAgregarGrupo").get(0))).entries());
     const grupo_nuevo = {
-        anio : grupo.anio,
-        profesor : {cedula:grupo.cedulaProfesor},
-        ciclo : {codigo:grupo.codigoCiclo},
+        profesor : {cedula:form.cedulaProfesor},
+        ciclo : {codigo:form.codigoCiclo},
         curso: curso,
-        horario : grupo.horario
+        horario : form.horario
     };
     if(!validarLogin()) return;
     let request = new Request(url + "api/grupos",
@@ -451,15 +446,15 @@ async function crearGrupo(curso){
                             body: JSON.stringify(grupo_nuevo)});
     const response = await fetch(request);
     if(!response.ok){
-        $('#add-modal-carreras').modal('hide');
+        $('#add-modal-agregar-curso').modal('hide');
         $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
-                            '¡No se ha podido crear el curso! Error ' + response.status +
+                            '¡No se ha podido crear el grupo! Error ' + response.status +
                        '</div>');
         return;
     }
     $('#add-modal-agregar-curso').modal('hide');
     $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
-                            '¡Se ha creado el curso correctamente!' +
+                            '¡Se ha creado el grupo correctamente!' +
                        '</div>');
 }
 
@@ -596,13 +591,13 @@ async function loadOfertaAcademica(){
     let div = $("#body");
     div.html(
         '<div class="alertas"/>' +
+        '<div id="popupGrupos"/>' + 
         '<div class="divBotones">' +
         '</div>' +
         '<div id="comboCarrera" style="display:flex; justify-content:center;">' +
             '<span style="margin:5px;color:white;">Carrera: </span>' +
             '<select id="selectCarreras" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"/>' +
-        '</div>' +
-        '<div id="popupGrupos"/>'
+        '</div>'
     );
     var select = $("#selectCarreras");
     carreras.forEach((carrera) => {
@@ -611,7 +606,7 @@ async function loadOfertaAcademica(){
     });
     
     await fetchCiclos();
-    div.append($('<div id="comboCarrera" style="display:flex; justify-content:center;">' +
+    div.append($('<div id="comboCiclo" style="display:flex; justify-content:center;">' +
                     '<span style="margin:5px;color:white;">Ciclo: </span>' +
                     '<select id="selectCiclos" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"/>' +
                  '</div>'));
@@ -627,7 +622,7 @@ async function loadOfertaAcademica(){
         $(".alertas").html("");
         $("#divInfo").remove();
         div.append($('<div style="margin-top:10px;" id="divInfo">' +
-                        '<table class="table table-hover table-dark" id="tablaGruposCarreraCiclo" style="cursor:pointer;">' +
+                        '<table class="table table-dark" id="tablaGruposCarreraCiclo">' +
                             '<thead>' +
                               '<tr>' +
                                 '<th scope="col">Código</th>' +
@@ -635,6 +630,7 @@ async function loadOfertaAcademica(){
                                 '<th scope="col">Ciclo</th>' +
                                 '<th scope="col">Curso</th>' +
                                 '<th scope="col">Profesor</th>' +
+                                '<th scope="col">Funciones</th>' +
                               '</tr>' +
                             '</thead>' +
                             '<tbody/>' +
@@ -650,11 +646,105 @@ async function loadOfertaAcademica(){
                 "<td>" + grupo.horario + "</td>" +
                 "<td>" + grupo.ciclo.anio + "-" + grupo.ciclo.numeroCiclo + "</td>" +
                 "<td>" + grupo.curso.nombre + "</td>" +
-                "<td>" + grupo.profesor.nombre + "</td>"
+                "<td>" + grupo.profesor.nombre + "</td>" +
+                "<td><button type='button' class='btn btn-info' id='editarGrupo"+grupo.codigo+"'>Editar curso</button></td>"
             );
             tbody.append(tr);
+            $("#editarGrupo"+grupo.codigo).click(() => loadPopupEditarGrupo(grupo));
         });
     });
+}
+
+async function loadPopupEditarGrupo(grupo){
+    await fetchCiclos();
+    await fetchProfesores();
+    let div = $("#popupGrupos");
+    div.html("");
+    div.html("<div class='modal fade' id='add-modal-editar-grupos' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
+                "<div class='modal-dialog'>" +
+                    "<div class='modal-content' id='infoEstudiante'>" +
+                        "<div class='modal-header'>" +
+                            "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
+                        "</div>" +
+                        "<form id='formEditarGrupo'>" +
+                            "<div class='modal-body'>" +
+                                "<p><b>Código: </b>" + grupo.codigo + "</p>" +
+                                "<p><b>Curso: </b>" + grupo.curso.nombre + "</p>" +
+                                "<p><input type='text' class='form-control' name='horario' id='anioGrupo' value='"+grupo.horario+"'</p>" +
+                                "<div class='form-group'>" +
+                                    "<label for='ciclo'>Ciclo</label>" +
+                                    '<select class="form-select" aria-label="Default select example" name="codigoCiclo" id="codigoCiclo" style="margin-left:10px;" />' +
+                                "</div>" +
+                                "<div class='form-group'>" +
+                                    "<label for='profesor'>Profesor</label>" +
+                                    '<select class="form-select" aria-label="Default select example" name="cedulaProfesor" id="cedulaProfesor" style="margin-left:10px;" />' +
+                                "</div>" +
+                            "</div>" +
+                        "</form>" +
+                        "<div class='modal-footer d-flex justify-content-center'>" +
+                            "<div>" +
+                                "<input type='button' id='editarGrupo' class='btn btn-primary btn-lg btn-block' value='Editar grupo'>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "</div>");
+    let selectCiclo = $('#formEditarGrupo #codigoCiclo');
+    ciclos.forEach((ciclo) => {
+        if(ciclo.codigo === grupo.ciclo.codigo){
+            let option = $("<option value='"+ciclo.numeroCiclo+"' selected />");
+            option.html(ciclo.anio + "-" + ciclo.numeroCiclo + " (" + ciclo.codigo + ")");
+            selectCiclo.append(option);
+        }else{
+            let option = $("<option value='"+grupo.ciclo.codigo+"'/>");
+            option.html(ciclo.anio + "-" + ciclo.numeroCiclo + " (" + ciclo.codigo + ")");
+            selectCiclo.append(option);
+        }
+    });
+    
+    let selectProfe = $('#formEditarGrupo #cedulaProfesor');
+    profesores.forEach((profesor) => {
+        if(profesor.nombre === grupo.profesor.nombre){
+            let option = $("<option value='"+profesor.cedula+"' selected />");
+            option.html(profesor.nombre + " " + profesor.cedula);
+            selectProfe.append(option);
+        }else{
+            let option = $("<option value='"+profesor.cedula+"'/>");
+            option.html(profesor.nombre + " " + profesor.cedula);
+            selectProfe.append(option);
+        }
+    });
+    
+    $('#add-modal-editar-grupos').modal('show');
+    $('#editarGrupo').click(() => editarGrupo(grupo));
+}
+
+async function editarGrupo(grupo){
+    const form = Object.fromEntries( (new FormData($("#formEditarGrupo").get(0))).entries());
+    const grupo_nuevo = {
+        codigo : grupo.codigo,
+        profesor : {cedula:form.cedulaProfesor},
+        ciclo : {codigo:form.codigoCiclo},
+        curso: grupo.curso, 
+        horario : form.horario
+    };
+    if(!validarLogin()) return;
+    let request = new Request(url + "api/grupos",
+                            {method:'PUT',
+                            headers: { 'Content-Type': 'application/json'},
+                            body: JSON.stringify(grupo_nuevo)});
+    const response = await fetch(request);
+    if(!response.ok){
+        $('#add-modal-editar-grupos').modal('hide');
+        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                            '¡No se ha podido editar el grupo! Error ' + response.status +
+                       '</div>');
+        return;
+    }
+    $('#add-modal-editar-grupos').modal('hide');
+    $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
+                            '¡Se ha creado el curso correctamente!' +
+                       '</div>');
 }
 
 function buscador_interno() {
