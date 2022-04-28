@@ -8,6 +8,7 @@ let curso = {};
 let estudiantes = {};
 let profesores = {};
 let matriculas = [];
+let carr = {};
 
 async function fetchEstudiantes(){
     let request = new Request(url+'api/estudiantes/', {method: 'GET', headers: { }});
@@ -193,7 +194,24 @@ async function loadCarreras(){
     });
 }
 
-function loadPopupCursos(carrera){
+async function fetchCarreraEsp(codigo){
+    const request = new Request(url+'api/carreras/'+codigo, {method: 'GET', headers: { }});
+    const response = await fetch(request);
+    if (!response.ok){
+        let div = $("#body");
+        div.html(
+                '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                    '¡No se encontraron carreras! Error ' + response.status +
+                '</div>'
+        );
+        return;
+    }
+    carr = await response.json();
+}
+
+async function loadPopupCursos(carrera){
+    await fetchCarreraEsp(carrera.codigo);
+    carrera = carr;
     let div = $('#popupCarreras');
     div.html("");
     div.html("<div class='modal fade' id='add-modal-carreras' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
@@ -832,6 +850,14 @@ function buscador_interno() {
     }
 }
 
+async function signoff(){
+    let request = new Request(url+'api/sesiones/', {method: 'DELETE', headers: { }});
+    const response = await fetch(request);
+    if (!response.ok){ return; }
+    sessionStorage.removeItem("user");
+    location.href = "http://localhost:8088/GestionAcademica/";
+}
+
 function loader(){
     $("#infoCiclos").click(loadCiclos);
     $("#infoCarreras").click(loadCarreras);
@@ -839,6 +865,7 @@ function loader(){
     $("#infoEstudiantes").click(loadEstudiantes);
     $("#infoProfesores").click(loadProfesores);
     $("#ofertaAcademica").click(loadOfertaAcademica);
+    $("#signoff").click(signoff);
 }
 
 $(loader);

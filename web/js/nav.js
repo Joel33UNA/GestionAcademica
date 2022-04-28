@@ -15,7 +15,7 @@ function navEstudiante(){
                             "<a class='nav-link' href='#' id='infoHistorial' style='color:white;'>Historial académico</a>" +
                         "</li>" +
                         "<li class='nav-item'>" +
-                            "<a class='nav-link' href='#' id='checkout' style='color:white;'>Cerrar sesión</a>" +
+                            "<a class='nav-link' href='#' id='signoff' style='color:white;'>Cerrar sesión</a>" +
                         "</li>" +
                     "</ul>" +
                 "</div>" +
@@ -38,7 +38,7 @@ function navProfesor(){
                             "<a class='nav-link' href='#' id='infoGrupos' style='color:white;'>Grupos a cargo</a>" +
                         "</li>" +
                         "<li class='nav-item'>" +
-                            "<a class='nav-link' href='#' id='checkout' style='color:white;'>Cerrar sesión</a>" +
+                            "<a class='nav-link' href='#' id='signoff' style='color:white;'>Cerrar sesión</a>" +
                         "</li>" +
                     "</ul>" +
                 "</div>" +
@@ -73,7 +73,7 @@ function navAdmin(){
                             "<a class='nav-link' href='#' id='ofertaAcademica' style='color:white;'>Oferta Académica</a>" +
                         "</li>" +
                         "<li class='nav-item'>" +
-                            "<a class='nav-link' href='#' id='checkout' style='color:white;'>Cerrar sesión</a>" +
+                            "<a class='nav-link' href='#' id='signoff' style='color:white;'>Cerrar sesión</a>" +
                         "</li>" +
                     "</ul>" +
                 "</div>" +
@@ -93,7 +93,7 @@ function navMatriculador(){
                             "<a class='nav-link' href='#' id='infoEstudiantes' style='color:white;'>Estudiantes</a>" +
                         "</li>" +
                         "<li class='nav-item'>" +
-                            "<a class='nav-link' href='#' id='checkout' style='color:white;'>Cerrar sesión</a>" +
+                            "<a class='nav-link' href='#' id='signoff' style='color:white;'>Cerrar sesión</a>" +
                         "</li>" +
                     "</ul>" +
                 "</div>" +
@@ -135,10 +135,6 @@ function loaded(){
     else{
         nav();
     }
-    $("#checkout").click(() => {
-        sessionStorage.removeItem("user");
-        location.href = "/GestionAcademica";
-    });
 }
 
 $(loaded);  

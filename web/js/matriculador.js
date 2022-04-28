@@ -1,4 +1,3 @@
-
 var url = 'http://localhost:8088/GestionAcademica/';
 let estudiantes = [];
 let grupos = [];
@@ -246,8 +245,17 @@ function buscador_interno() {
             li[i].style.display = "table-cell";
 }
 
+async function signoff(){
+    let request = new Request(url+'api/sesiones/', {method: 'DELETE', headers: { }});
+    const response = await fetch(request);
+    if (!response.ok){ return; }
+    sessionStorage.removeItem("user");
+    location.href = "http://localhost:8088/GestionAcademica/";
+}
+
 function loader(){
     $("#infoEstudiantes").click(loadEstudiantes);
+    $("#signoff").click(signoff);
 }
 
 $(loader);

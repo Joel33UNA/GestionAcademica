@@ -104,7 +104,7 @@ async function signoff(){
     const response = await fetch(request);
     if (!response.ok){ return; }
     sessionStorage.removeItem("user");
-    location.href = "/http://localhost:8088/GestionAcademica";
+    location.href = "http://localhost:8088/GestionAcademica/";
 }
 
 function loader(){
