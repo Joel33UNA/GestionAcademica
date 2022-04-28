@@ -208,7 +208,7 @@ async function signoff(){
 function loader(){
     $("#infoProfesor").click(loadProfesor);
     $("#infoGrupos").click(loadGrupos);
-    $("#checkout").click(signoff);
+    $("#signoff").click(signoff);
 }
 
 $(loader);
