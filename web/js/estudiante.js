@@ -18,6 +18,8 @@ async function loadEstudiante(){
         return;
     }
     estudiante = await response.json();
+    var nueva = estudiante.fechaNacimiento.substring(0, estudiante.fechaNacimiento.length - 1);
+    var fe = nueva.split(" ")[0].split("-").reverse().join("-");
     let div = $("#body");
     div.html(
         "<div class = 'col-auto p-5 text-center'>"+
@@ -36,7 +38,7 @@ async function loadEstudiante(){
                         '<dd>' + estudiante.email + '</dd>'+
                     '</dt>'+
                     '<dt>Fecha de nacimiento'+
-                        '<dd>' + estudiante.fechaNacimiento + '</dd>'+
+                        '<dd>' + fe + '</dd>'+
                     '</dt>'+
                     '<dt>Carrera'+ 
                         '<dd>' + estudiante.carrera.nombre + '</dd>'+
@@ -88,7 +90,7 @@ async function loadHistorial(){
     matriculas.forEach((matricula) => {
         let tr = $("<tr/>");
         tr.html(
-            "<td>" + matricula.grupo.ciclo.numeroCiclo+ " " + matricula.grupo.ciclo.anio + "</td>" +
+            "<td>" + matricula.grupo.ciclo.anio+ "-" + matricula.grupo.ciclo.numeroCiclo + "</td>" +
             "<td>" + matricula.grupo.curso.nombre + "</td>" +
             "<td>" + matricula.grupo.curso.creditos + "</td>" +
             "<td>" + matricula.nota + "</td>"

@@ -5,6 +5,7 @@ import Modelo.ModelProfesor;
 import Logica.Profesor;
 import java.util.List;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/profesores")
 public class Profesores {
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Profesor> getProfesoresAll() { 
@@ -30,7 +31,7 @@ public class Profesores {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "profesor"})
     @GET
     @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -42,7 +43,7 @@ public class Profesores {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Profesor p) {  
@@ -53,7 +54,7 @@ public class Profesores {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Profesor p) {  
@@ -64,7 +65,7 @@ public class Profesores {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @DELETE
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {

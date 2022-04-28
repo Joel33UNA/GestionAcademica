@@ -6,6 +6,7 @@ import Logica.Grupo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/grupos")
 public class Grupos {
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Grupo> getCursosAll() { 
@@ -31,7 +32,7 @@ public class Grupos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @GET
     @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -43,7 +44,7 @@ public class Grupos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @GET
     @Path("{codigoCarrera}/{codigoCiclo}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -55,7 +56,7 @@ public class Grupos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Grupo g) {  
@@ -66,7 +67,7 @@ public class Grupos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Grupo g) {  
@@ -77,7 +78,7 @@ public class Grupos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @DELETE
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {

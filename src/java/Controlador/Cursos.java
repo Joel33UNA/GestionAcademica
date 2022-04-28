@@ -5,6 +5,7 @@ import Modelo.ModelCurso;
 import Logica.Curso;
 import java.util.List;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/cursos")
 public class Cursos {
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Curso> getCursosAll() { 
@@ -30,7 +31,7 @@ public class Cursos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @GET
     @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -42,7 +43,7 @@ public class Cursos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Curso c) {  
@@ -53,7 +54,7 @@ public class Cursos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Curso c) {  
@@ -64,7 +65,7 @@ public class Cursos {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @DELETE
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {

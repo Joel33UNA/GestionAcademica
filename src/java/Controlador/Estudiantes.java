@@ -5,6 +5,7 @@ import Modelo.ModelEstudiante;
 import Logica.Estudiante;
 import java.util.List;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/estudiantes")
 public class Estudiantes {
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Estudiante> getEstudiantesAll() { 
@@ -30,7 +31,7 @@ public class Estudiantes {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador", "estudiante"})
     @GET
     @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -42,7 +43,7 @@ public class Estudiantes {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Estudiante e) {  
@@ -53,7 +54,7 @@ public class Estudiantes {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Estudiante e) {  
@@ -64,7 +65,7 @@ public class Estudiantes {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @DELETE
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {

@@ -7,16 +7,16 @@ drop sequence sec_pk_ciclo;
 drop sequence sec_pk_grupo;
 drop sequence sec_pk_matricula;
 
-drop table administrador;
-drop table matriculador;
-drop table matricula;
-drop table estudiante;
-drop table grupo;
-drop table curso;
-drop table profesor;
-drop table carrera;
-drop table usuario;
-drop table ciclo;
+drop table administrador cascade constraint;
+drop table matriculador cascade constraint;
+drop table matricula cascade constraint;
+drop table estudiante cascade constraint;
+drop table grupo cascade constraint;
+drop table curso cascade constraint;
+drop table profesor cascade constraint;
+drop table carrera cascade constraint;
+drop table usuario cascade constraint;
+drop table ciclo cascade constraint;
 
 -- Secuencias
 create sequence sec_pk_carrera start with 1;

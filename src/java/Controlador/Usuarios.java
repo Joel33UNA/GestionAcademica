@@ -5,6 +5,7 @@ import Modelo.ModelUsuario;
 import Logica.Usuario;
 import java.util.List;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -42,7 +43,7 @@ public class Usuarios {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Usuario u) {  
@@ -53,7 +54,7 @@ public class Usuarios {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Usuario u) {  
@@ -64,7 +65,7 @@ public class Usuarios {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador"})
     @DELETE
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {

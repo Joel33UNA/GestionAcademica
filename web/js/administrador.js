@@ -554,6 +554,8 @@ async function loadEstudiantes(){
 }
 
 async function loadPopupEstudiantes(estudiante){
+    var nueva = estudiante.fechaNacimiento.substring(0, estudiante.fechaNacimiento.length - 1);
+    var fe = nueva.split(" ")[0].split("-").reverse().join("-");
     let div = $("#popupEstudiantes");
     div.html("");
     div.html("<div class='modal fade' id='add-modal-estudiantes' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
@@ -567,7 +569,7 @@ async function loadPopupEstudiantes(estudiante){
                             "<p><b>Cédula: </b>" + estudiante.cedula + "</p>" +
                             "<p><b>Teléfono: </b>" + estudiante.telefono + "</p>" +
                             "<p><b>Email: </b>" + estudiante.email + "</p>" +
-                            "<p><b>Fecha de nacimiento: </b>" + estudiante.fechaDeNacimiento + "</p>" +
+                            "<p><b>Fecha de nacimiento: </b>" + fe + "</p>" +
                             "<p><b>Carrera: </b>" + estudiante.carrera.nombre + "</p>" +
                             "<p><b>Historial académico: </b></p>" +
                             '<table class="table table-borderless" id="tablaHistorialPopup">' +

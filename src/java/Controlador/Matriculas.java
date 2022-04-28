@@ -6,6 +6,7 @@ import Logica.Matricula;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -43,7 +44,7 @@ public class Matriculas {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Matricula m) {  
@@ -54,7 +55,7 @@ public class Matriculas {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador", "profesor"})
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Matricula m) {  
@@ -65,7 +66,7 @@ public class Matriculas {
         }
     }
     
-    @PermitAll
+    @RolesAllowed({"administrador", "matriculador"})
     @DELETE
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {

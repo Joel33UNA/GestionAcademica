@@ -1,3 +1,4 @@
+
 var url = 'http://localhost:8088/GestionAcademica/';
 
 let matriculas = {};
@@ -43,7 +44,6 @@ async function loadProfesor(){
 }
 
 async function loadGrupos(){
-    //loadEstudiantes();
     profesor = JSON.parse(sessionStorage.getItem('user'));
     let request = new Request(url+'api/matriculas/'+profesor.cedula, {method: 'GET', headers: { }});
     const response = await fetch(request);
@@ -65,7 +65,7 @@ async function loadGrupos(){
                 '<tr>' +
                     '<th scope="col">Curso</th>' +
                     '<th scope="col">Número de grupo</th>' +
-                    '<th scope="col"></th>' +
+                    '<th scope="col">Función</th>' +
                 '</tr>' +
             '</thead>' +
             '<tbody/>' +
@@ -80,7 +80,7 @@ async function loadGrupos(){
             "<th>" + matricula.grupo.curso.nombre + "</th>" +
             "<td>" + matricula.grupo.codigo + "</td>" +
             "<td id='botonEstudiantes'>" +
-                "<button type='button' class='btn btn-success' style='margin:2px;' id='"+matricula.grupo.codigo+"'>Ver estudiantes</button>" +
+                "<button type='button' class='btn btn-secondary' style='margin:2px;' id='"+matricula.grupo.codigo+"'>Ver estudiantes</button>" +
             "</td>"
         );
         tbody.append(tr);
@@ -97,7 +97,7 @@ function loadPopupEstudiantes(mat){
                         "<div class='modal-header'>" +
                             "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
                         "</div>" +
-                            "<p><b>Estudiantes del grupo: </b></p>" +
+                            "<p><b>Estudiantes del grupo "+ mat.grupo.codigo + "</b></p>" +
                             "<table class='table table-borderless' id='tablaEstudiantesGrupo'>" +
                                 "<thead>" +
                                   "<tr>" +
@@ -110,6 +110,7 @@ function loadPopupEstudiantes(mat){
                                 "<tbody />" +
                             "</table>" +
                         "<div id='errorDiv1' style='width:70%; margin: auto;'></div>" +
+                        '<div class="alertasPopUpEstudiantes"/>' +
                     "</div>" +
                 "</div>" +
             "</div>");
@@ -159,7 +160,7 @@ function loadPopupAddNota(matri){
                         "</form>" +
                         "<div class='modal-footer d-flex justify-content-center'>" +
                             "<div>" +
-                                "<input type='button' id='setearNota"+matri.codigo+"' class='btn btn-primary btn-lg btn-block' value='Guardar nueva nota'>" +
+                                "<input type='button' id='setearNota"+matri.codigo+"' class='btn btn-success btn-lg btn-block' value='Guardar nueva nota'>" +
                             "</div>" +
                         "</div>" +
                         "<div id='errorDiv1' style='width:70%; margin: auto;'></div>" +
@@ -182,7 +183,7 @@ async function setearNota(m){
     const response = await fetch(request);
     if(!response.ok){
         
-        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+        $('.alertasPopUpEstudiantes').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
                             '¡Error, no se ha podido agregar la nota!' + response.status +
                        '</div>');
         $('#add-modal-agregar-nota').modal('hide');
@@ -191,7 +192,7 @@ async function setearNota(m){
     }
     $('#add-modal-agregar-nota').modal('hide');
     $('#add-modal-estudiantes').modal('show');
-    $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
+    $('.alertasPopUpEstudiantes').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
                             '¡La nota se ha agregado exitosamente!' +
                        '</div>');
 }
@@ -207,7 +208,7 @@ async function signoff(){
 function loader(){
     $("#infoProfesor").click(loadProfesor);
     $("#infoGrupos").click(loadGrupos);
-    $("#signoff").click(signoff);
+    $("#checkout").click(signoff);
 }
 
 $(loader);
