@@ -725,7 +725,7 @@ async function loadOfertaAcademica(){
                 "<td>" + grupo.ciclo.anio + "-" + grupo.ciclo.numeroCiclo + "</td>" +
                 "<td>" + grupo.curso.nombre + "</td>" +
                 "<td>" + grupo.profesor.nombre + "</td>" +
-                "<td><button type='button' class='btn btn-info' id='editarGrupo"+grupo.codigo+"'>Agregar grupo</button></td>"
+                "<td><button type='button' class='btn btn-info' id='editarGrupo"+grupo.codigo+"'>Detalle del grupo</button></td>"
             );
             tbody.append(tr);
             $("#editarGrupo"+grupo.codigo).click(() => loadPopupEditarGrupo(grupo));
