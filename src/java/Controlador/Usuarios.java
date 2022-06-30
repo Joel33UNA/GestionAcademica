@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/usuarios")
 public class Usuarios {
+    //@RolesAllowed({"administrador", "matriculador"})
     @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -43,7 +44,8 @@ public class Usuarios {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    //@RolesAllowed({"administrador"})
+    @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Usuario u) {  
@@ -54,7 +56,8 @@ public class Usuarios {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    //@RolesAllowed({"administrador"})
+    @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Usuario u) {  
@@ -65,7 +68,8 @@ public class Usuarios {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    //@RolesAllowed({"administrador"})
+    @PermitAll
     @DELETE
     @Path("{cedula}")
     public void delete(@PathParam("cedula") int cedula) {

@@ -103,6 +103,19 @@ async function fetchGruposPorCarreraYCiclo(idCarrera, idCiclo){
     return true;
 }
 
+async function fetchMatriculasPorEstudiante(estudiante){
+    let request = new Request(url+'api/matriculas/'+estudiante.cedula, {method: 'GET', headers: { }});
+    const response = await fetch(request);
+    if (!response.ok){
+        $('.alertas').html('<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                            '¡El estudiante no posee historial académico! Error ' + response.status +
+                       '</div>');
+        matriculas = [];
+        return;
+    }
+    matriculas = await response.json();
+}
+
 async function loadCiclos(){
     let request = new Request(url+'api/ciclos/', {method: 'GET', headers: { }});
     const response = await fetch(request);
@@ -176,6 +189,7 @@ async function loadCarreras(){
         '<div id="popupCarreras" />' +
         '<div id="popupAgregarCurso" />'
     );
+    
     let tbody = $("#tablaCarreras tbody");
     carreras.forEach((carrera) => {
         let tr = $("<tr/>");
@@ -387,12 +401,10 @@ async function loadCursos(){
             "<td>" + curso.creditos + "</td>" +
             "<td>" + curso.carrera.nombre + "</td>" +
             "<td>" +
-                "<button type='button' class='btn btn-secondary' style='margin:2px;' id='verGrupos"+curso.codigo+"'>Ver grupos</button>" +
                 "<button type='button' class='btn btn-info' id='agregarGrupo"+curso.codigo+"'>Agregar Grupo</button>" +
             "</td>"
         );
         tbody.append(tr);
-        $("#verGrupos"+curso.codigo).click(() => loadPopupGrupos(curso));
         $("#agregarGrupo"+curso.codigo).click(() => loadPopupAgregarGrupo(curso));
     });
 }
@@ -532,13 +544,18 @@ async function crearGrupo(curso){
 
 async function loadEstudiantes(){
     await fetchEstudiantes();
+    await fetchCiclos();
     let div = $("#body");
     div.html(
         '<div class="alertas"/>' +
         '<div class="divBotones">' +
             '<input type="text" id="search" placeholder="Buscar estudiantes" onkeyup="buscador_interno()">' +
         '</div>' +
-        '<table class="table table-hover table-dark" id="tablaEstudiantes" style="cursor:pointer;">' +
+        '<div class ="divBotones">' +
+            '<label style="color:white;margin:10px;">Ciclo para matricular: </label>' +
+            '<select id="selectCiclo" class="form-select" aria-label="Default select example" />' +
+        '</div>' +
+        '<table class="table table-dark" id="tablaEstudiantes">' +
             '<thead>' +
                 '<tr>' +
                     '<th scope="col">Cédula</th>' +
@@ -547,12 +564,22 @@ async function loadEstudiantes(){
                     '<th scope="col">Email</th>' +
                     '<th scope="col">Fecha de nacimiento</th>' +
                     '<th scope="col">Carrera</th>' +
+                    '<th scope="col">Funciones</th>' +
                 '</tr>' +
             '</thead>' +
             '<tbody/>' +
         '</table>' +
-        '<div id="popupEstudiantes" />'
+        '<div id="popupEstudiantes" />' +
+        '<div id="popupMatricula" />'
     );
+    
+    let selectCiclo = $("#selectCiclo");
+    ciclos.forEach((ciclo) => {
+        let option = $("<option value='"+ciclo.numeroCiclo+"' selected />");
+        option.html(ciclo.anio + "-" + ciclo.numeroCiclo + " (" + ciclo.codigo + ")");
+        selectCiclo.append(option);
+    });
+    
     let tbody = $("#tablaEstudiantes tbody");
     estudiantes.forEach((estudiante) => {
         const nueva = estudiante.fechaNacimiento.substring(0, estudiante.fechaNacimiento.length - 1);
@@ -564,10 +591,15 @@ async function loadEstudiantes(){
             "<td>" + estudiante.telefono + "</td>" +
             "<td>" + estudiante.email + "</td>" +
             "<td>" + fe + "</td>" +
-            "<td>" + estudiante.carrera.nombre + "</td>"
+            "<td>" + estudiante.carrera.nombre + "</td>" +
+            "<td id='botonesCarreras'>" +
+                "<button type='button' class='btn btn-info' style='margin:2px;' id='visualizarEstudiante"+estudiante.cedula+"'>Visualizar estudiante</button>" +
+                "<button type='button' class='btn btn-dark' style='margin:2px;' id='matricularEstudiante"+estudiante.cedula+"'>Matricular estudiante</button>" +
+            "</td>"    
         );
-        tr.click(() => loadPopupEstudiantes(estudiante));
         tbody.append(tr);
+        $("#visualizarEstudiante"+estudiante.cedula).click(() => loadPopupEstudiantes(estudiante));
+        $("#matricularEstudiante"+estudiante.cedula).click(() => loadPopupMatricula(estudiante));
     });
 }
 
@@ -629,6 +661,82 @@ async function loadPopupEstudiantes(estudiante){
         tbody.append(tr);
     });
     $('#add-modal-estudiantes').modal('show');
+}
+
+async function loadPopupMatricula(estudiante){
+    let div = $("#popupMatricula");
+    div.html("");
+    div.html("<div class='modal fade' id='add-modal-matricula' aria-labelledby='myLargeModalLabel' tabindex='-1' role='dialog'>" +
+                "<div class='modal-dialog modal-lg'>" +
+                    "<div class='modal-content' id='infoEstudiante'>" +
+                        "<div class='modal-header'>" +
+                            "<div ><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div>" +
+                        "</div>" +
+                        "<div class='modal-body'>" +
+                            "<p><b>Nombre: </b>" + estudiante.nombre + "</p>" +
+                            "<p><b>Cédula: </b>" + estudiante.cedula + "</p>" +
+                            "<p><b>Carrera: </b>" + estudiante.carrera.nombre + "</p>" +
+                            "<p><b>Matricular grupo: </b></p>" +
+                            '<table class="table table-borderless" id="tablaMatricularPopup">' +
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th scope="col">Curso</th>' +
+                                        '<th scope="col">Horario</th>' +
+                                        '<th scope="col">Ciclo</th>' +
+                                        '<th scope="col">Profesor</th>' +
+                                        '<th scope="col">Funciones</th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody/>' +
+                            '</table>'+
+                            '<div class="alertasPopup"/>' +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "</div>");
+    
+    let tbody = $("#tablaMatricularPopup tbody");
+    tbody.html("");
+    await fetchGruposPorCarreraYCiclo(estudiante.carrera.codigo, $("#selectCiclo").val());
+    grupos.forEach((grupo) => {
+        let tr = $("<tr/>");
+        tr.html(
+            "<td>" + grupo.curso.nombre + "</td>" +
+            "<td>" + grupo.horario + "</td>" +
+            "<td>" + grupo.ciclo.anio + "-" + grupo.ciclo.numeroCiclo + "</td>" +
+            "<td>" + grupo.profesor.nombre + "</td>" +
+            "<td><button type='button' id='matricular"+grupo.codigo+"' class='btn btn-success'>Matricular</button></td>"
+        );
+        tbody.append(tr);
+        $("#matricular"+grupo.codigo).click(() => matricularEstudiante(estudiante, grupo));
+    });
+    
+    $('#add-modal-matricula').modal('show');
+}
+
+async function matricularEstudiante(estudiante, grupo){
+    const matricula = {
+        estudiante : { cedula : estudiante.cedula },
+        grupo : { codigo : grupo.codigo }
+    };
+    const request = new Request(url+"api/matriculas", 
+                            {method : 'POST', headers: { 'Content-Type': 'application/json'},
+                            body: JSON.stringify(matricula)});
+    const response = await fetch(request);  
+    if (!response.ok){
+        let div = $(".alertasPopup");
+        div.html("");
+        div.html(
+            '<div class="alert alert-danger" role="alert" style="padding:20px;">' +
+                '¡No se pudo matricular al estudiante! Error ' + response.status +
+            '</div>'
+        );
+        return;
+    }
+    $('#add-modal-estudiantes').modal('hide');
+    $('.alertas').html('<div class="alert alert-success" role="alert" style="padding:20px;">' +
+                            '¡Se ha matriculado al estudiante correctamente!' +
+                       '</div>');
 }
 
 async function loadProfesores(){

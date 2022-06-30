@@ -79,9 +79,6 @@ public class ServicioMatricula {
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();
-        if(coleccionMatriculas == null || coleccionMatriculas.size()==0) {
-            throw new NoDataException("No hay datos relacionados con el Comprobante de pago");
-        }
         return coleccionMatriculas;
     }
 

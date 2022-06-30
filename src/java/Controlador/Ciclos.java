@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/ciclos")
 public class Ciclos {
-    @RolesAllowed({"administrador", "matriculador"})
+    @PermitAll
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Ciclo> getCiclosAll() { 
@@ -31,7 +31,7 @@ public class Ciclos {
         }
     }
     
-    @RolesAllowed({"administrador", "matriculador"})
+    @PermitAll
     @GET
     @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -43,7 +43,7 @@ public class Ciclos {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Ciclo c) {  
@@ -54,7 +54,7 @@ public class Ciclos {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Ciclo c) {  
@@ -65,7 +65,7 @@ public class Ciclos {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    @PermitAll
     @DELETE
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {

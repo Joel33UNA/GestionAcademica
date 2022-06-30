@@ -115,9 +115,6 @@ public class ServicioGrupo {
         }
         if(rs != null) rs.close();
         if(pst != null) pst.close();
-        if(coleccionGrupos == null || coleccionGrupos.size()==0) {
-            throw new NoDataException("No hay datos relacionados los grupos");
-        }
         return coleccionGrupos;
     }
 }

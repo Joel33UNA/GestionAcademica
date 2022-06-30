@@ -131,13 +131,15 @@ async function loadEstudiantes(){
     
     let tbody = $("#tablaEstudiantes tbody");
     estudiantes.forEach((estudiante) => {
+        var nueva = estudiante.fechaNacimiento.substring(0, estudiante.fechaNacimiento.length - 1);
+        var fe = nueva.split(" ")[0].split("-").reverse().join("-");
         let tr = $("<tr/>");
         tr.html(
             "<th>" + estudiante.cedula + "</th>" +
             "<td>" + estudiante.nombre + "</td>" +
             "<td>" + estudiante.telefono + "</td>" +
             "<td>" + estudiante.email + "</td>" +
-            "<td>" + estudiante.fechaNacimiento + "</td>" +
+            "<td>" + fe + "</td>" +
             "<td>" + estudiante.carrera.nombre + "</td>" +
             "<td><button type='button' class='btn btn-info' id='matricularEstudiante"+estudiante.cedula+"'>Matricular estudiante</button></td>"
         );

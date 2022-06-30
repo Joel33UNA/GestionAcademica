@@ -20,7 +20,8 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/carreras")
 public class Carreras {
-    @RolesAllowed({"administrador"})
+    @PermitAll
+    //@RolesAllowed({"administrador"})
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Carrera> getCarrerasAll() { 
@@ -31,7 +32,7 @@ public class Carreras {
         }
     }
     
-    @RolesAllowed({"administrador","estudiante"})
+    @PermitAll
     @GET
     @Path("{codigo}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -43,7 +44,7 @@ public class Carreras {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Carrera c) {  
@@ -54,7 +55,7 @@ public class Carreras {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Carrera c) {  
@@ -65,7 +66,7 @@ public class Carreras {
         }
     }
     
-    @RolesAllowed({"administrador"})
+    @PermitAll
     @DELETE
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {

@@ -44,7 +44,8 @@ public class Matriculas {
         }
     }
     
-    @RolesAllowed({"administrador", "matriculador"})
+    //@RolesAllowed({"administrador", "matriculador"})
+    @PermitAll
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
     public void add(Matricula m) {  
@@ -55,7 +56,7 @@ public class Matriculas {
         }
     }
     
-    @RolesAllowed({"administrador", "matriculador", "profesor"})
+    @PermitAll
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(Matricula m) {  
@@ -66,7 +67,7 @@ public class Matriculas {
         }
     }
     
-    @RolesAllowed({"administrador", "matriculador"})
+    @PermitAll
     @DELETE
     @Path("{codigo}")
     public void delete(@PathParam("codigo") int codigo) {

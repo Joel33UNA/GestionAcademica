@@ -649,6 +649,7 @@ show error
 
 insert into carrera values (sec_pk_carrera.nextval, 'Ingenieria en Sistemas', 'Bachillerato');
 insert into carrera values (sec_pk_carrera.nextval, 'Economia', 'Bachillerato');
+insert into carrera values (sec_pk_carrera.nextval, 'Arte', 'Bachillerato');
 
 insert into usuario values (111, '111', 'administrador');
 insert into administrador values (111);
@@ -659,31 +660,17 @@ insert into matriculador values (444);
 insert into usuario values (333, '333', 'estudiante');
 insert into estudiante values (333,'Pablito',8888888,'pablito@gmail.com',to_date('12/12/1999', 'dd/mm/yyyy'),2);
 insert into usuario values (555, '555', 'estudiante');
-insert into estudiante values (555,'ElLorrcito',99988877,'elLordcito@gmail.com',to_date('01/08/2002', 'dd/mm/yyyy'),1);
+insert into estudiante values (555,'Lord',99988877,'elLordcito@gmail.com',to_date('01/08/2002', 'dd/mm/yyyy'),1);
 insert into usuario values(666,'666','profesor');
 insert into profesor values(666, 'Pedro', 88349304, 'pedro@una.cr');
-
-insert into curso values (sec_pk_curso.nextval, 'Programacion I', 4, 5, 1);
-insert into curso values (sec_pk_curso.nextval, 'Programacion II', 4, 5, 1);
-insert into curso values (sec_pk_curso.nextval, 'Programacion III', 4, 6, 1);
-insert into curso values (sec_pk_curso.nextval, 'Programacion IV', 4, 7, 1);
-insert into curso values (sec_pk_curso.nextval, 'Microeconomia', 4, 7, 2);
-insert into curso values (sec_pk_curso.nextval, 'Macroeconomia', 4, 7, 2);
+insert into usuario values (777, '777', 'estudiante');
+insert into estudiante values (777, 'daniel', 777, 'dan@mail.com', to_date('01-01-2020', 'dd-mm-yyyy'), 3);
+insert into usuario values(888, '888', 'profesor');
+insert into profesor values(888,'Jose', 9239934, 'jose#una.cr'
 
 insert into ciclo values (sec_pk_ciclo.nextval, 2022, 1, to_date('12/02/2022', 'dd/mm/yyyy'), to_date('25/06/2022', 'dd/mm/yyyy'));
 insert into ciclo values (sec_pk_ciclo.nextval, 2020, 2, to_date('07/08/2020', 'dd/mm/yyyy'), to_date('25/11/2020', 'dd/mm/yyyy'));
 insert into ciclo values (sec_pk_ciclo.nextval, 2019, 1, to_date('07/03/2019', 'dd/mm/yyyy'), to_date('25/06/2019', 'dd/mm/yyyy'));
-
-insert into grupo values (sec_pk_grupo.nextval,'L-J 8am', 1,1,222);
-insert into grupo values (sec_pk_grupo.nextval,'L-J 3pm', 2,2,222);
-insert into grupo values (sec_pk_grupo.nextval,'M-V 10am', 3,3,222);
-insert into grupo values (sec_pk_grupo.nextval,'M-V 1pm', 1,4,222);
-insert into grupo values (sec_pk_grupo.nextval, 'Lunes y jueves 3-4:40pm', 2, 5, 666);
-
-insert into matricula values (sec_pk_matricula.nextval,555,1,90);
-insert into matricula values (sec_pk_matricula.nextval,555,2,95);
-insert into matricula values (sec_pk_matricula.nextval,555,3,87);
-insert into matricula values(sec_pk_matricula.nextval,333,5,75);
 
 
 commit;
